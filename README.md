@@ -278,8 +278,52 @@ Once you finish playing around with the react app. Ask Bob:
 
 > 💡 Again in the **Object Browser**, same library,  click on the program `FRS000.pgm`that is the flight reservation logon. You'll see in the `Detail` that this program was compiled in 1997, 30 years ago! 
 
-### 2b — *(Optional)* Generate Business Rules Extraction (5 minutes)
-Generate a functional business document using the Business Rules Extraction workflow.
+### 2b — Generate an Architecture Explanation with Bob
+
+1. Click the **Open Bob** icon in the top right Activity Bar to open the chat panel.
+2. If not already in **IBM i Developer** mode, switch to it using the mode selector at the top of the chat.
+3. Click the **`+` (Scope) button** and select **(QSYS) Library List** as the context scope. This gives Bob visibility into the full application structure. Again, make sure that `FLGHTnn` is in the library list. Bob will first search in this list before searching in all QSYS. 
+4. Type the following prompt after replacing the nn with your library number:
+
+   > *"Generate a comprehensive architecture overview of the FLIGHT4nn application in QSYS in Markdown format. Include a high-level description, the main program flows, key programs and their roles, a Mermaid architecture diagram, and a summary of the database tables used."*
+
+5. Bob will analyze the programs, source members, and database files and return a structured Markdown document. Review the output — notice how it identifies the menu-driven architecture, the core transaction programs, and the underlying database schema.
+6. Copy the output to a new file `FLIGHT4nn-Architecture.md` in your workspace for reference.
+
+### 2c — Generate an Entity Relationship Diagram (Database Mode)
+
+1. In the Bob chat panel, switch to **IBM i Database** mode using the mode selector.
+2. Type the following slash command so that `/erd` is highlighted in the Bob chat:
+
+   > `/erd FLGHT4nn`
+
+3. Bob will introspect the physical files (`FLIGHTS`, `ORDERS`, `CUSTOMERS`, `AGENTS`, etc.) and their logical files, then generate a **Mermaid ERD** showing the relationships between entities.
+4. Observe the key relationships:
+   - `ORDERS` links to `FLIGHTS`, `CUSTOMERS`, and `AGENTS`
+   - `FLIGHTS` references `FRCITY` and `TOCITY` for departure/arrival cities
+5. Copy the ERD Markdown to your `FLIGHT4nn-Architecture.md` file.
+
+> ✅ You now have a living architecture document generated entirely from the legacy codebase — no manual reverse-engineering required!
+
+### 2d — *(Optional)* Generate a Draw.io Architecture Diagram
+
+> **Prerequisite:** Install the **Draw.io Integration** extension in Bob IDE (`Cmd+Shift+X` → search *"Draw.io Integration"* → Install).
+
+1. In the Bob chat panel (**IBM i Developer** mode), make sure the scope is set to **Library List (QSYS)**.
+2. Type:
+
+   > *"Analyze the FLIGHT4nn application from the library list and generate a draw.io architecture diagram showing the main programs, menus, and database files. Save the file as `FLGHTnn-architecture.drawio` in `$HOME/docs/` on IBM i."*
+
+3. Bob introspects the library list, maps the program call graph and database relationships, and writes the `.drawio` XML file to `/home/<your-user>/docs/FLGHT4nn-architecture.drawio`.
+
+4. In the **IFS Browser**, navigate to `$HOME/docs/` and click `FLGHT4nn-architecture.drawio` to open it — the Draw.io Integration extension renders the diagram directly in the editor.
+
+> ✅ You now have a visual, editable architecture diagram of the legacy application — generated in seconds.
+
+![draw io](pics/drawIo.png)
+
+### 2e — *(Optional)* Generate Business Rules Extraction (5 minutes)
+Drill down on a specific member by generating a functional business document using the Business Rules Extraction workflow.
 
 1. Click the workflow icon at the top of the Bob panel, choose to run workflow in library list, and select **Business Rules Extraction**
 
@@ -299,50 +343,6 @@ When prompted, use the following selections:
 
 3. At the end, specify an output location on the IFS **unique to your library number**. For example: /home/ITZUSER/flght400/docs/business-rules/FRS401-2026-07-16T19-34-14.md
 ![IFS location](pics/IFS-location.png)
-
-### 2c — Generate an Architecture Explanation with Bob
-
-1. Click the **Open Bob** icon in the top right Activity Bar to open the chat panel.
-2. If not already in **IBM i Developer** mode, switch to it using the mode selector at the top of the chat.
-3. Click the **`+` (Scope) button** and select **(QSYS) Library List** as the context scope. This gives Bob visibility into the full application structure. Again, make sure that `FLGHTnn` is in the library list. Bob will first search in this list before searching in all QSYS. 
-4. Type the following prompt after replacing the nn with your library number:
-
-   > *"Generate a comprehensive architecture overview of the FLIGHT4nn application in QSYS in Markdown format. Include a high-level description, the main program flows, key programs and their roles, a Mermaid architecture diagram, and a summary of the database tables used."*
-
-5. Bob will analyze the programs, source members, and database files and return a structured Markdown document. Review the output — notice how it identifies the menu-driven architecture, the core transaction programs, and the underlying database schema.
-6. Copy the output to a new file `FLIGHT4nn-Architecture.md` in your workspace for reference.
-
-### 2d — Generate an Entity Relationship Diagram (Database Mode)
-
-1. In the Bob chat panel, switch to **IBM i Database** mode using the mode selector.
-2. Type the following slash command so that `/erd` is highlighted in the Bob chat:
-
-   > `/erd FLGHT4nn`
-
-3. Bob will introspect the physical files (`FLIGHTS`, `ORDERS`, `CUSTOMERS`, `AGENTS`, etc.) and their logical files, then generate a **Mermaid ERD** showing the relationships between entities.
-4. Observe the key relationships:
-   - `ORDERS` links to `FLIGHTS`, `CUSTOMERS`, and `AGENTS`
-   - `FLIGHTS` references `FRCITY` and `TOCITY` for departure/arrival cities
-5. Copy the ERD Markdown to your `FLIGHT4nn-Architecture.md` file.
-
-> ✅ You now have a living architecture document generated entirely from the legacy codebase — no manual reverse-engineering required!
-
-### 2e — *(Optional)* Generate a Draw.io Architecture Diagram
-
-> **Prerequisite:** Install the **Draw.io Integration** extension in Bob IDE (`Cmd+Shift+X` → search *"Draw.io Integration"* → Install).
-
-1. In the Bob chat panel (**IBM i Developer** mode), make sure the scope is set to **Library List (QSYS)**.
-2. Type:
-
-   > *"Analyze the FLIGHT4nn application from the library list and generate a draw.io architecture diagram showing the main programs, menus, and database files. Save the file as `FLGHTnn-architecture.drawio` in `$HOME/docs/` on IBM i."*
-
-3. Bob introspects the library list, maps the program call graph and database relationships, and writes the `.drawio` XML file to `/home/<your-user>/docs/FLGHT4nn-architecture.drawio`.
-
-4. In the **IFS Browser**, navigate to `$HOME/docs/` and click `FLGHT4nn-architecture.drawio` to open it — the Draw.io Integration extension renders the diagram directly in the editor.
-
-> ✅ You now have a visual, editable architecture diagram of the legacy application — generated in seconds.
-
-![draw io](pics/drawIo.png)
 
 ---
 
