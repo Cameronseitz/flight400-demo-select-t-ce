@@ -85,7 +85,7 @@ Both files should now be visible in the IBM Bob IDE **Explorer** panel:
    - **IP/Host:** `<your-lpar-public-ip-address>`
    - **Username:** `<your-user-profile>`
    - **Password:** `<your-password>`
-   - **Private Key:** If using PowerVS, let the **Password** field empty, download the private key, and set its path in this field.
+   - **Private Key:** If using PowerVS, leave the **Password** field empty, download the private key, and set its path in this field.
 3. Click **Connect**. A green status bar message confirms a successful connection.
 
 #### 1.4 — Deploy the files to the IFS
@@ -113,7 +113,7 @@ The Save File `FLGHT400.FILE` contains the code, programs, database files etc. E
 
 1. Open `Install-Flight400.sql` in the Bob IDE editor.
 2. Locate and update these variables at the top of the script:
-   - **`v_ifs_path`** — set to the IFS path you just copied (e.g. `/home/YOURUSER/builds/ibmi-lab/FLIGHT74.FILE`)
+   - **`v_ifs_path`** — set to the IFS path you just copied (e.g. `/home/YOURUSER/builds/ibmi-lab/FLIGHT400.FILE`)
    - **`v_rst_lib`** — target library name after restore (default: `FLGHT400`; change only if needed)
    - **`v_owner`** — *(optional)* owner profile for the restored library. Leave as `NULL` to use `CURRENT_USER` automatically, or set explicitly (e.g. `DEFAULT 'MYPROFILE'`) to override.
 
@@ -205,7 +205,7 @@ Bob creates a new Skill that improves its awareness of PASE-specific details for
 
 ### Prompt in Bob Chat UI
 
-- Switch to IBM i Developer mode, then Click on the `+` button (top right) and select  the `FLGHT4nn` (library list) as a context of for the task. **Update the FLGHTnn's with your library number**, paste this [screenshot](./pics/flight400.png) in the prompt, and ask:
+- Switch to IBM i Developer mode, then Click on the `+` button (top right) and select  the `FLGHT4nn` (library list) as a context of for the task. **Update the FLGHT4nn's with your library number**, paste this [screenshot](./pics/flight400.png) in the prompt, and ask:
 
 > *"Given this screenshot of the 5250 flight order screen from the Application Flight4nn in @FLGHT4nn, Build a single-page React 18 + Vite 4 app on IBM i (PASE) using @carbon/react ^1.x with the g100 dark theme that modernises the IBM i 5250 screen shown in the attached screenshot. Create the app in the IFS at $HOME/flight4nn-frontend-apps/screen-name/. Use the g100 dark theme. All fields should have a list of values to select from. The dev server must run in the background using nohup … & and write output to /tmp/vite-dev.log. Pin the Vite dev server to port 30nn if available."*
 
@@ -282,7 +282,7 @@ Once you finish playing around with the react app. Ask Bob:
 
 1. Click the **Open Bob** icon in the top right Activity Bar to open the chat panel.
 2. If not already in **IBM i Developer** mode, switch to it using the mode selector at the top of the chat.
-3. Click the **`+` (Scope) button** and select **(QSYS) Library List** as the context scope. This gives Bob visibility into the full application structure. Again, make sure that `FLGHTnn` is in the library list. Bob will first search in this list before searching in all QSYS. 
+3. Click the **`+` (Scope) button** and select **(QSYS) Library List** as the context scope. This gives Bob visibility into the full application structure. Again, make sure that `FLGHT4nn` is in the library list. Bob will first search in this list before searching in all QSYS. 
 4. Type the following prompt after replacing the nn with your library number:
 
    > *"Generate a comprehensive architecture overview of the FLIGHT4nn application in QSYS in Markdown format. Include a high-level description, the main program flows, key programs and their roles, a Mermaid architecture diagram, and a summary of the database tables used."*
@@ -312,7 +312,7 @@ Once you finish playing around with the react app. Ask Bob:
 1. In the Bob chat panel (**IBM i Developer** mode), make sure the scope is set to **Library List (QSYS)**.
 2. Type:
 
-   > *"Analyze the FLIGHT4nn application from the library list and generate a draw.io architecture diagram showing the main programs, menus, and database files. Save the file as `FLGHTnn-architecture.drawio` in `$HOME/docs/` on IBM i."*
+   > *"Analyze the FLIGHT4nn application from the library list and generate a draw.io architecture diagram showing the main programs, menus, and database files. Save the file as `FLGHT4nn-architecture.drawio` in `$HOME/docs/` on IBM i."*
 
 3. Bob introspects the library list, maps the program call graph and database relationships, and writes the `.drawio` XML file to `/home/<your-user>/docs/FLGHT4nn-architecture.drawio`.
 
@@ -376,10 +376,6 @@ When prompted, use the following selections:
 
 Bob spins up a subagent to convert the fixed-format RPG to modern free-format ILE RPG.
 Then Bob runs the **Code for IBM i** compile action for ILE RPG, triggering a `CRTBNDRPG` command on your LPAR. Watch the output in the terminal panel. 
-  ```
-   > CRTBNDRPG PGM(FLGHT4nn/FRS409) SRCFILE(FLGHT4nn/QRPGSRC) SRCMBR(FRS409)
-   Program FRS409 created in library FLGHT4nn.
-   ```
 
 4. Bob will also prompt: **"Confirm Output Member Location"** — ensure the suggested location has the path with your library number and continue. Bob will use all its RPG skills to modernize this source code. Approve the requested tasks.
 
@@ -684,7 +680,7 @@ Bob should verify the exact commands against the environment before executing th
 
 ---
 
-### 4e — Validate the Result
+### 4h — Validate the Result
 
 Ask Bob:
 
@@ -712,7 +708,7 @@ Screen:    FRS021DF.SFLHRS
 
 ---
 
-### 4h — Look at the resulting changes
+### 4i — Look at the resulting changes
 
 Repeat steps 4a and optionally 4b. You should now see the new Flight Hours field on the flight schedule screen!
 
@@ -992,7 +988,7 @@ This module is a clean target for the RPGUnit workflows: it's `NOMAIN`, has one 
 10. Choose to **validate the environment** as recommended and proceed.
 11. Install RPGUnit and add to library list if prompted; do the same for `QDEVTOOLS`.
 
-Bob will write the test plan documents and store them in the IFS directory you specified. At the bottom of the chat panel, review the files it created — these Markdown documents will be used in Part 2.
+Bob will write the test plan documents and store them in the IFS directory you specified. At the bottom of the chat panel, review the files it created — these Markdown documents will be used in Part c.
 
 > 💡 If Bob asks to run the RPGUnit Test Plan Creation workflow again at any point, select **No thanks**.
 
