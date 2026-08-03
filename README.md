@@ -918,6 +918,103 @@ Bob will query `QSYS2.OBJECT_STATISTICS` filtering on object type `*PGM` in `FLG
 
 ---
 
+## Exercise 7 — RPGUnit Test Planning & Implementation
+
+**Goal:** Use Bob's guided RPGUnit workflows to build a structured test plan for an IBM i program, then implement and run the test suites. This exercise takes about 20 minutes to complete.
+
+These two workflows work together in sequence:
+- **RPGUnit Test Plan Creation** — analyzes your code's exported procedures and generates four types of structured Markdown documents: *Templates* (reusable blueprints), *Modules* (one doc per exported procedure, including flowcharts), *Test Suites* (planned test cases per module with inputs, assertions, and status), and *Test Utilities* (shared helper procedures). It runs any existing test suites first to determine the current test state.
+- **RPGUnit Test Suite Implementation** — reads those test plan documents, writes or updates the RPGUnit source members, creates or updates `testing.json`, runs the suites, and iterates until all newly generated tests pass. It surfaces any pre-existing failures and asks whether to fix them.
+
+### Prerequisites — Install RPGUnit
+
+1. **Install IBM i Testing Extension**
+   - Open VS Code Extensions, search for **"IBM i Testing"**, and click **Install**.
+
+2. **Install RPGUnit to IBM i**
+   - Connect to your IBM i.
+   - Open Code for IBM i connection settings (gear icon, bottom of screen).
+   - Navigate to the **Components** tab → **Add Component** → select **RPGUnit** → **Install**.
+
+3. **Update your library list** to include: `FLGHT4nn`, `RPGUNIT`, `QDEVTOOLS`.
+
+---
+
+### 7a — Create a New Source Member `CUSTCHK`
+
+Rather than modifying an existing program, you'll create a clean, standalone SQLRPGLE module with a single exported procedure — an ideal target for RPGUnit.
+
+1. In the **Object Browser**, find the `QRPGLESRC` folder inside your assigned `FLGHT4nn` library. Right-click it and select **New Member**.
+
+   ![New member dialog](pics/add-member.png)
+
+2. Enter the name **`CUSTCHK.SQLRPGLE`** and confirm.
+
+3. Paste the following source (starting from `**free` and ending with `end-proc;`) into the new member and save with **Ctrl/Cmd + S**:
+
+```rpgle
+**free
+ctl-opt nomain;
+
+dcl-proc checkCustomerExists export;
+  dcl-pi *n ind;
+    custId packed(9:0) const;
+  end-pi;
+
+  dcl-s rowCount int(10);
+
+  exec sql
+    select count(*)
+      into :rowCount
+      from CUSTOMRZ
+      where CUSTNO = :custId;
+
+  return (SQLCODE = 0 and rowCount > 0);
+end-proc;
+```
+
+This module is a clean target for the RPGUnit workflows: it's `NOMAIN`, has one exported procedure with a typed parameter and return value, contains no display file or interactive logic, and compiles naturally as a `*MODULE` or `*SRVPGM`.
+
+### 7b — Run the RPGUnit Test Plan Creation Workflow
+
+1. Click the workflow icon at the top of the Bob panel and choose **RPGUnit Test Plan Creation** in your library list.
+
+   ![workflows icon](pics/workflows-icon.png)
+
+2. Click **Get Started**.
+3. Select your library `FLGHT4nn`.
+4. When prompted for the IFS project directory, enter a path unique to your library (e.g., `/home/<user>/flght4nn`).
+5. If this is your first time, tell Bob to **create a new test plan** when asked.
+6. Keep the proposed test plan structure or adjust it to your preference. If you do change it, remember the values you picked.
+7. For the goal, select the **default recommended path**.
+8. Let Bob locate testable files automatically — it should find `CUSTCHK.SQLRPGLE` as the only suitable candidate.
+9. Select the exported procedure and click **Proceed**.
+10. Choose to **validate the environment** as recommended and proceed.
+11. Install RPGUnit and add to library list if prompted; do the same for `QDEVTOOLS`.
+
+Bob will write the test plan documents and store them in the IFS directory you specified. At the bottom of the chat panel, review the files it created — these Markdown documents will be used in Part 2.
+
+> 💡 If Bob asks to run the RPGUnit Test Plan Creation workflow again at any point, select **No thanks**.
+
+### 7c — Run the RPGUnit Test Suite Implementation Workflow
+
+1. Click the workflow icon and choose **RPGUnit Test Suite Implementation** in your library list. Click **Proceed** since the required test plan was already created in step 7b.
+2. Select your library `FLGHT4nn`.
+3. When prompted for the IFS project directory, enter the same path used in step 7b.
+4. When locating test plan documents, confirm the path to the test suites is correct — Bob should pre-fill the correct default.
+5. Choose to **validate the environment**.
+6. If Bob prompts to download RPGUnit again, click **Install**, then **Cancel** on the follow-up popup that asks to delete the existing version.
+
+Bob will generate the test source members, run the suites, and iterate until the new tests pass or Bob discovers an error in the source code. Results appear in the **Test Results** tab at the bottom of your screen.
+
+![Tests pass](pics/tests-pass.png)
+
+> 💡 If any tests fail, ask Bob to explain the failure and help fix it.
+
+> ✅ You've used Bob's guided workflows to go from untested legacy RPG to a structured, executed RPGUnit test suite — without writing test boilerplate by hand.
+
+---
+
 ## Summary
 
 Congratulations! In this lab you:
@@ -931,5 +1028,6 @@ Congratulations! In this lab you:
 | **Exercise 4** | Added a new field to a 5250 display file with Bob's help |
 | **Exercise 5** | Reviewed and optimized a SQL query using Bob's database tools |
 | **Exercise 6** | Queried your IBM i system using natural language |
+| **Exercise 7** | Created and implemented an RPGUnit test suite with Bob's guided workflows |
 
 > **Next steps:** Explore connecting the React app to live IBM i data via a Node.js or Java REST API, or dive deeper into the RPG modernization workflow for the other FLIGHT4nn programs.
