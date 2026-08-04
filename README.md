@@ -9,21 +9,12 @@
 
 ## Part 0 — Environment Setup 
 
-### How to Get an IBM i Virtual Machine (aka LPAR)
-#### Note: Only Instructors need to complete steps 1-4
+#### Note: Instructors need to complete steps laid out in the [Instructor Setup README](instructor-setup/README.md)
 
-To complete this lab, you need access to an IBM i environment. You can provision a free IBM i LPAR through **IBM TechZone**.
+To complete this lab, you need access to an IBM i environment. You will be given the access details from your instructor.
 
-1. Go to [https://techzone.ibm.com](https://techzone.ibm.com) and log in with your IBM ID.
-2. Search for **"IBM i"** in the catalog, and select an **IBM i 7.6** environment (e.g. *IBM i 7.6 - Sandbox*).  Go to this Collection: https://techzone.ibm.com/collection/techzone-certified-power-vs-base-vms and book your IBM i 7.6 Virtual Machine.
-
-3. Click **Reserve** and fill in the reservation form:
-   - **Purpose:** Demo / Self-Education / Test / Pilot
-   - **Opportunity information:** misc. information related to your activity.
-   - **Geography:** pick the region closest to you (AP, EU, Americas)
-4. Submit the reservation. Within a few minutes you'll receive an email with your LPAR's **hostname/IP Address**, **port**, **user profile**, **private key** and **password**.
-5. Keep these credentials handy — you'll need them in the next step to connect Bob IDE to your IBM i. By default this TechZone provisioned IBM i VM will be reachable through Https (443) and SSH (22). Bob and Code for i extension uses ssh. If you want to access your VM with other protocols and services (5250, MCP, database etc.) , you'll have to establish a reverse ssh tunnel as mentioned [here on the IBM Cloud PVS docs web site](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-connect-ibmi#ssh-tunneling). Basically, each user must execute this ssh command on their laptop, and use the appropriate host and port to reach the corresponding service (In the example below, localhost on port 50000 with ACS for 5250, etc.).
-6. Download the private key from TechZone 
+1. Keep these credentials handy — you'll need them in the next step to connect Bob IDE to your IBM i. By default this TechZone provisioned IBM i VM will be reachable through Https (443) and SSH (22). Bob and Code for i extension uses ssh. If you want to access your VM with other protocols and services (5250, MCP, database etc.) , you'll have to establish a reverse ssh tunnel as mentioned [here on the IBM Cloud PVS docs web site](https://cloud.ibm.com/docs/power-iaas?topic=power-iaas-connect-ibmi#ssh-tunneling). Basically, each user must execute this ssh command on their laptop, and use the appropriate host and port to reach the corresponding service (In the example below, localhost on port 50000 with ACS for 5250, etc.).
+2. Download the private key from TechZone 
 ```bash
 #SSH TUNNEL (ACCESS TO 5250 and other services)
 chmod 600 ssh_private_key.pem
@@ -55,84 +46,9 @@ where `<myuser>@<myIPaddress>` is extracted from the information sent by TechZon
 
 ---
 
-### Restore the FLIGHT400 Application - Only Required for Instructors
+### Keep track of your assigned library number
 
-In this section you will deploy the FLIGHT400 save file to your IBM i LPAR and restore the application library. Please skip if Flight400 is already installed and go to the first Exercise.
-
-#### 1.1 — Create a new local workspace
-
-1. On your laptop, create an empty folder — for example `~/ibmi-lab`.
-2. In Bob IDE go to **File → Open Folder** and open this new folder.
-   Bob IDE will use this folder as your local workspace.
-3. Download [`Install-Flight400.sql`](https://github.com/bmarolleau/flight400-demo/blob/main/Install-Flight400.sql) from this repository into that folder.
-
-#### 1.2 — Download the save file into your workspace
-
-From the [Box Folder](https://ibm.box.com/v/flight400-box), download **`FLGHT400.FILE`** into the folder you just opened.
-This is an IBM i save file — a binary archive that contains the entire FLIGHT400 application (programs, source members, and database files), ready to be restored directly onto your LPAR.
-
-Both files should now be visible in the IBM Bob IDE **Explorer** panel:
-
-| File | Description |
-|---|---|
-| `FLGHT400.FILE` | IBM i save file containing the FLIGHT400 application |
-| `Install-Flight400.sql` | SQL script that restores the application on IBM i |
-
-#### 1.3 — Connect Bob IDE to your IBM i
-
-1. In the Bob IDE Activity Bar, click the **IBM i** icon (plug icon).
-2. Click **➕ New Connection** and enter the details from your TechZone reservation:
-   - **IP/Host:** `<your-lpar-public-ip-address>`
-   - **Username:** `<your-user-profile>`
-   - **Password:** `<your-password>`
-   - **Private Key:** If using PowerVS, leave the **Password** field empty, download the private key, and set its path in this field.
-3. Click **Connect**. A green status bar message confirms a successful connection.
-
-#### 1.4 — Deploy the files to the IFS
-
-1. In the Bob IDE **Explorer**, right-click on **`Install-Flight400.sql`**.
-2. Choose **Deploy Selected Files**.  
-   This uploads the entire workspace to an IFS directory on IBM i. The target IFS path is shown in the output panel — note it (e.g. `/home/YOURUSER/builds/ibmi-lab`). Note: you may get an error in the bottom right of the Bob panel where you have to set the deploy location. Keep the default or change it, then click deploy. 
-3. In the Bob IDE **Explorer**, right-click on **`FLGHT400.FILE`**.
-4. Choose **Deploy Selected Files**. 
-   This uploads the entire workspace to an IFS directory on IBM i. The target IFS path is shown in the output panel — note it (e.g. `/home/YOURUSER/builds/ibmi-lab`).
-
-> ☕ This may take a minute or two, Perfect time for a coffee break! 
-
-The Save File `FLGHT400.FILE` contains the code, programs, database files etc. Everything you need to run the application. 
-
-#### 1.5 — Verify the upload in the IFS Browser
-
-1. In the IBM i sidebar, expand **IFS Browser**.
-2. Navigate to the upload directory noted above (e.g. `/home/YOURUSER/builds/ibmi-lab`).
-3. You should see `FLGHT400.FILE` and `Install-Flight400.sql` listed.
-4. Right-click on `FLGHT400.FILE` and choose **Copy Path**. It will look something like:  
-   `/home/YOURUSER/builds/ibmi-lab/FLGHT400.FILE`
-
-#### 1.6 — Update the SQL install script
-
-1. Open `Install-Flight400.sql` in the Bob IDE editor.
-2. Locate and update these variables at the top of the script:
-   - **`v_ifs_path`** — set to the IFS path you just copied (e.g. `/home/YOURUSER/builds/ibmi-lab/FLIGHT400.FILE`)
-   - **`v_rst_lib`** — target library name after restore (default: `FLGHT400`; change only if needed)
-   - **`v_owner`** — *(optional)* owner profile for the restored library. Leave as `NULL` to use `CURRENT_USER` automatically, or set explicitly (e.g. `DEFAULT 'MYPROFILE'`) to override.
-
-3. Save the file (`Ctrl+S` / `Cmd+S`).
-
-#### 1.7 — Run the SQL script
-
-1. In the **IFS Browser**, refresh the folder. You should see `Install-Flight400.sql` updated. **Note: If it is not automatically updated, manually edit them in the IFS as you did in 1.6 and save the file.**
-2. Right-click `Install-Flight400.sql` → **Run Action** → **Run SQL Statements**.
-3. Wait for the script to execute (create save file, restore library, update library ownership).  
-   The output console will confirm each step. The final `RSTLIB` command restores the full **FLIGHT400** library including programs, source members, and database files.
-
-#### 1.8 - Copy the Library if you need a multi-user setup
-1. Run CPYLIB FROMLIB(FLGHT400) TOLIB(FLGHT401) (and so on) so each participant gets their own isolated copy.
-2. To do this, I asked Bob to run the command: 
-   > Run CPYLIB FROMLIB(FLGHT400) TOLIB(FLGHT401) (and so on) so each participant gets their own isolated copy. I have X participants.
-3. Bob will create libraries FLGHT401 through FLGHT4nn, each containing a full copy of all objects from FLGHT400. Each participant should then have their assigned library (e.g. FLGHT401) added to their library list.
-
-> **Instructor:** Share this table with students before the lab starts. Each student uses their assigned library and dev port throughout all exercises.
+**Important** The instructor will create libraries FLGHT401 through FLGHT4nn, each containing a full copy of all objects from FLGHT400. Each participant will have their assigned library (e.g. FLGHT401) added to their library list. Throughout the labs, participants must only use **their assigned number** so everyone can enjoy the labs. 
 
 | Student # | Library | Dev Port | React App URL |
 |:---------:|---------|:--------:|---------------|
@@ -145,9 +61,7 @@ The Save File `FLGHT400.FILE` contains the code, programs, database files etc. E
 
 > 💡 The **Dev Port** is only needed if you complete **Exercise 1 (Optional Warm-Up)**. When Bob asks you to pin your Vite dev server to a port, use the value from the **Dev Port** column above. Your React app will then be reachable at the **React App URL** shown — provided your SSH tunnel from step 6 is active.
 
-> ✅ **End of Quick Setup.** The FLIGHT400 application is now restored on your IBM i in the `FLGHT4nn` library. 
-
-> ✅ Make sure `FLGHT4nn` library is in your library list (in the Code for i settings). 
+> ✅ Make sure your `FLGHT4nn` library is in your library list (in the Code for i settings). 
 
 > ✅  If you have a 5250 terminal to your IBM i available, you can add the library to your lib list with `ADDLIBLE FLGHT4nn` if not already done, and launch the application from the CL (Green Screen) command prompt :  `GO FLGHT4nn/FRSMAIN` .
 
@@ -169,23 +83,6 @@ That's all for now! You will explore the codebase more in Exercise 2.
 ## Exercise 1 — Optional Warm-Up: Generate a React Carbon App from a Green Screen
 
 **Goal:** Use Bob in **IBM i Developer** mode to analyze the FLIGHT400 *Create Order* 5250 screen and generate a modern React web application styled with the IBM Carbon Design System, running directly on IBM i PASE. This will take about 30 minutes to complete.
-
-#### Instructor Prerequisites
-
-Before the lab, use Bob to install Node.js 22 once on the IBM i partition used for the workshop:
-
-> /QOpenSys/pkgs/bin/yum install -y nodejs22
-
-Verify installation:
-
-> /QOpenSys/pkgs/lib/nodejs22/bin/node --version
-> /QOpenSys/pkgs/lib/nodejs22/bin/node \
-   /QOpenSys/pkgs/lib/nodejs22/lib/node_modules/npm/bin/npm-cli.js --version
-
-Expected results:
-
-Node.js: v22.x.x
-npm: 10.x.x
 
 ![Flight400 React agentic demo](pics/Flight-react-agentic.png)
 
