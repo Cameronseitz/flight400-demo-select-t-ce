@@ -59,7 +59,7 @@ where `<myuser>@<myIPaddress>` is extracted from the information sent by TechZon
 | … | … | … | … |
 | 50 | FLGHT450 | 3050 | http://localhost:3050 |
 
-> 💡 The **Dev Port** is only needed if you complete **Exercise 1 (Optional Warm-Up)**. When Bob asks you to pin your Vite dev server to a port, use the value from the **Dev Port** column above. Your React app will then be reachable at the **React App URL** shown — provided your SSH tunnel from step 6 is active.
+> 💡 The **Dev Port** is only needed if you complete **Exercise 1 (Optional Warm-Up)**. When Bob asks you to pin your Vite dev server to a port, use the value from the **Dev Port** column above. Your React app will then be reachable at the **React App URL** shown — provided your SSH tunnel from step 2 is active.
 
 > ✅ Make sure your `FLGHT4nn` library is in your library list (in the Code for i settings). 
 
@@ -135,7 +135,7 @@ cat /tmp/vite-dev.log
 Or ask Bob to start the dev server for you!
 
 Then open `http://localhost:30nn` in your browser. 
-**Note that port number, and application look & feel can differ. If your browser isn't showing anything, make sure you've completed step 6 of environment setup and it includes your port.**
+**Note that port number, and application look & feel can differ. If your browser isn't showing anything, make sure you've completed step 2 of environment setup and it includes your port.**
 
 
 ### Skills & Tools Used Behind the Scenes
@@ -350,7 +350,7 @@ Bob should also identify the screen-field naming pattern, including `SFLGHT`, `S
 ### 4b - (Optional) Explore the 5250 screen using Access Client Solutions
 1. Install IBM i Access Client Solutions if you have not already
 2. Configure the environment according to TechZone.
-3. Make sure that the ssh command from step 6 of environment setup is still running
+3. Make sure that the ssh command from step 2 of environment setup is still running
 4. Set the IP Address to be 127.0.0.1 and the port to be 50000
 5. Open the 5250 Emulator. If it fails trying to use port 23, override it by opening the Communication tab > Configure and put 50000 as the Destination Port. 
 6. Type out the username and password
