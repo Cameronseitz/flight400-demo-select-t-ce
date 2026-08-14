@@ -206,6 +206,166 @@
       if (!text) return;
       fallbackCopy(text, btn);
     });
+
+    // Attendee table row selection
+    var attendeeTable = document.getElementById('attendee-table');
+    if (attendeeTable) {
+      attendeeTable.addEventListener('click', function (e) {
+        var row = e.target.closest('tbody tr');
+        if (!row) return;
+        var num = parseInt(row.cells[0].textContent.trim(), 10);
+        // Check if config provides explicit library/port for this student
+        var cfg = window.FLIGHT400_CONFIG || {};
+        var cfgRow = cfg.attendeeTable && cfg.attendeeTable.find(function (r) { return r.student === num; });
+        if (cfgRow) {
+          // Parse nn from library name e.g. FLGHT407 → 407
+          var libNum = parseInt(cfgRow.library.replace(/[^0-9]/g, ''), 10);
+          var port   = cfgRow.devPort;
+          var name   = cfgRow.attendeeName || null;
+          selectStudentExplicit(num, libNum, port, name);
+        } else {
+          selectStudent(num);
+        }
+      });
+    }
+
+    // Restore previously selected student on load
+    restoreStudentSelection();
+  }
+
+  // ── STUDENT SELECTION ────────────────────────────────────────────────────
+  var STUDENT_KEY    = 'flight400-student-v1';
+  var gfBadgeEl      = document.getElementById('gf-student-badge');
+  var gfBadgeNameEl  = document.getElementById('student-badge-name');
+  var gfBadgeClearEl = document.getElementById('student-badge-clear');
+
+  function padNum(n) {
+    return n < 10 ? '0' + n : '' + n;
+  }
+
+  function selectStudent(num) {
+    var nn     = padNum(num);
+    var libNum = 400 + num;
+    var port   = 3000 + num;
+    try { localStorage.setItem(STUDENT_KEY, JSON.stringify({ num: num, libNum: libNum, port: port })); } catch (e) {}
+    applyStudentReplacements(num, nn, libNum, port);
+    highlightSelectedRow(num);
+    updateStudentBadge(num, libNum, port, null);
+  }
+
+  function selectStudentExplicit(num, libNum, port, name) {
+    var nn = padNum(num);
+    try { localStorage.setItem(STUDENT_KEY, JSON.stringify({ num: num, libNum: libNum, port: port, name: name })); } catch (e) {}
+    applyStudentReplacements(num, nn, libNum, port);
+    highlightSelectedRow(num);
+    updateStudentBadge(num, libNum, port, name);
+  }
+
+  function restoreStudentSelection() {
+    var saved;
+    try { saved = JSON.parse(localStorage.getItem(STUDENT_KEY) || 'null'); } catch (e) {}
+    if (!saved || !saved.num) return;
+    var num    = saved.num;
+    var libNum = saved.libNum || (400 + num);
+    var port   = saved.port   || (3000 + num);
+    var name   = saved.name   || null;
+    var nn     = padNum(num);
+    applyStudentReplacements(num, nn, libNum, port);
+    highlightSelectedRow(num);
+    updateStudentBadge(num, libNum, port, name);
+  }
+
+  function clearStudent() {
+    try { localStorage.removeItem(STUDENT_KEY); } catch (e) {}
+    // Reload to restore original placeholder text
+    window.location.reload();
+  }
+
+  function applyStudentReplacements(num, nn, libNum, port) {
+    // Replace in all <pre> blocks and descriptive text nodes under .tracks-stream
+    var root = document.getElementById('tracks-stream') || document.body;
+
+    // Replace text in <pre> elements (prompts / code blocks)
+    root.querySelectorAll('pre').forEach(function (pre) {
+      pre.textContent = replaceTokens(pre.textContent, num, nn, libNum, port);
+    });
+
+    // Replace in step descriptions and info boxes (text nodes only — skip code/pre)
+    root.querySelectorAll('.step-desc, .uc-desc, .info-box, .warn-box, .detail-intro').forEach(function (el) {
+      replaceTextNodes(el, num, nn, libNum, port);
+    });
+  }
+
+  function replaceTokens(text, num, nn, libNum, port) {
+    // Order matters: most-specific patterns first
+    return text
+      .replace(/FLGHTSZ4nn/gi, 'FLGHTSZ' + libNum)
+      .replace(/FLIGHT4nn/gi,  'FLIGHT' + libNum)
+      .replace(/FLGHT4nn/gi,   'FLGHT' + libNum)
+      .replace(/flght4nn/gi,   'flght' + libNum)
+      .replace(/flight4nn/gi,  'flight' + libNum)
+      .replace(/\b4nn\b/g,     String(libNum))
+      .replace(/\b30nn\b/g,    String(port))
+      .replace(/(?<![0-9])nn\b/g, nn);
+  }
+
+  function replaceTextNodes(el, num, nn, libNum, port) {
+    var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (node) {
+        var tag = node.parentElement && node.parentElement.tagName;
+        // Skip content inside <pre> and <code> — already handled
+        if (tag === 'PRE' || tag === 'CODE') return NodeFilter.FILTER_REJECT;
+        return NodeFilter.FILTER_ACCEPT;
+      }
+    }, false);
+    var node;
+    while ((node = walker.nextNode())) {
+      var replaced = replaceTokens(node.textContent, num, nn, libNum, port);
+      if (replaced !== node.textContent) node.textContent = replaced;
+    }
+    // Also replace inside <code> elements (inline code, not pre>code)
+    el.querySelectorAll('code').forEach(function (c) {
+      if (c.closest('pre')) return;
+      c.textContent = replaceTokens(c.textContent, num, nn, libNum, port);
+    });
+  }
+
+  function highlightSelectedRow(num) {
+    var table = document.getElementById('attendee-table');
+    if (!table) return;
+    table.querySelectorAll('tbody tr').forEach(function (row) {
+      row.classList.remove('attendee-selected');
+    });
+    var rows = table.querySelectorAll('tbody tr');
+    var target = rows[num - 1];
+    if (target) {
+      target.classList.add('attendee-selected');
+      target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+  }
+
+  function updateStudentBadge(num, libNum, port, name) {
+    if (!gfBadgeEl) return;
+    if (gfBadgeNameEl) {
+      var dot = '<span style="opacity:0.4;margin:0 5px">·</span>';
+      var label = name
+        ? '<strong>' + name + '</strong>' + dot + 'FLGHT' + libNum
+        : '<span style="opacity:0.6;font-weight:500;font-size:0.68rem">Student&nbsp;</span><strong>' + num + '</strong>' + dot + 'FLGHT' + libNum;
+      gfBadgeNameEl.innerHTML = label + dot + '<span style="font-family:var(--font-mono)">:' + port + '</span>';
+    }
+    gfBadgeEl.classList.remove('hidden');
+    syncBadgeOffset();
+  }
+
+  if (gfBadgeClearEl) {
+    gfBadgeClearEl.addEventListener('click', clearStudent);
+  }
+
+  // Shift student badge above progress footer when footer is visible
+  function syncBadgeOffset() {
+    if (!gfBadgeEl) return;
+    var footerVisible = gfEl && gfEl.classList.contains('gf-visible');
+    gfBadgeEl.style.bottom = footerVisible ? '74px' : '24px';
   }
 
   // ── TRACK OPEN: update global progress footer ─────────────────────────────
@@ -262,7 +422,9 @@
     gfCountEl.textContent    = '';
     if (!gfEl.classList.contains('gf-visible')) {
       gfEl.classList.remove('gf-dismissing');
-      requestAnimationFrame(function () { gfEl.classList.add('gf-visible'); });
+      requestAnimationFrame(function () { gfEl.classList.add('gf-visible'); syncBadgeOffset(); });
+    } else {
+      syncBadgeOffset();
     }
   }
 
