@@ -1,0 +1,186 @@
+<div class="bubble-card track-4" id="card-4">
+  <div class="card-summary">
+    <div class="card-icon" aria-label="Field expansion">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--c4)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 5v14M5 12h14"/>
+      </svg>
+    </div>
+    <div class="card-text">
+      <div class="card-label">Exercise 4</div>
+      <div class="card-title">Field Expansion: Add Total Flight Hours</div>
+      <div class="card-desc">Use Bob to explore the Flight Maintenance application and add a new business field — <em>Total Flight Hours</em> — across DDS and RPG components, from the physical file to the 5250 screen.</div>
+      <div class="card-meta">
+        <span class="card-tag">~30 min</span>
+        <span class="card-tag">IBM i Developer mode</span>
+        <span class="card-tag">DDS + RPG</span>
+      </div>
+    </div>
+    <div class="card-chevron" aria-hidden="true">
+      <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 5l5 5 5-5"/></svg>
+    </div>
+  </div>
+
+  <div class="card-detail">
+    <div class="card-detail-inner">
+      <div class="detail-intro">Add the field <strong>Total Flight Hours</strong> end-to-end through the Flight Maintenance application. The field names are fixed:
+        <table class="data-table" style="margin-top:12px;margin-bottom:0">
+          <thead><tr><th>Layer</th><th>Field Name</th></tr></thead>
+          <tbody>
+            <tr><td>Database (PF)</td><td><code>FLHRS</code></td></tr>
+            <tr><td>Logical / RPG</td><td><code>FHRS</code></td></tr>
+            <tr><td>Screen (DDS)</td><td><code>SFLHRS</code></td></tr>
+          </tbody>
+        </table>
+        <div class="info-box" style="margin-top:10px"><strong>Before you begin:</strong> In the Bob chat panel, select <strong>IBM i Developer</strong> mode, set scope to <strong>Library List (QSYS)</strong>, and confirm <code>FLGHT4nn</code> is on the library list.</div>
+      </div>
+
+      <div class="use-cases">
+
+        <div class="use-case">
+          <div class="use-case-header">
+            <div class="uc-num">1</div>
+            <div class="uc-title">4a — Explore the Flight Maintenance Screen</div>
+            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
+          </div>
+          <div class="uc-body"><div class="uc-body-inner">
+            <div class="step-prompt"><pre>Open the display file FRS021DF from FLGHT4nn/QDDSSRCD, show its current screen layout using the DDS Previewer, and list all the fields currently defined on the Flight Maintenance screen.
+Also identify: the record format used by the screen; whether each field is input, output, or input/output; the naming convention used for screen fields, including examples such as SFLGHT, SMILES, SSEATS, and SPRICE; and how visible field labels are represented in the display-file DDS.
+Do not modify, save, or compile anything.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+          </div></div>
+        </div>
+
+        <div class="use-case">
+          <div class="use-case-header">
+            <div class="uc-num">2</div>
+            <div class="uc-title">4b — (Optional) Explore the 5250 Screen with Access Client Solutions</div>
+            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
+          </div>
+          <div class="uc-body"><div class="uc-body-inner">
+            <p class="uc-desc">View the Flight Maintenance screen live in a 5250 emulator before making any changes.</p>
+            <div class="mode-steps">
+              <div class="mode-step">
+                <div class="step-num">1</div>
+                <div class="step-body"><div class="step-desc">Install IBM i Access Client Solutions and configure the environment per TechZone. Make sure the SSH tunnel from Setup is running.</div></div>
+              </div>
+              <div class="mode-step">
+                <div class="step-num">2</div>
+                <div class="step-body"><div class="step-desc">Open the 5250 Emulator. Set IP Address to <code>127.0.0.1</code> and port to <code>50000</code>. If it tries port 23, override it in Communication → Configure → Destination Port: <code>50000</code>. Log in with your username and password.</div></div>
+              </div>
+              <div class="mode-step">
+                <div class="step-num">3</div>
+                <div class="step-body">
+                  <div class="step-desc">Add your library and open the Flight Maintenance screen:</div>
+                  <div class="step-prompt"><pre>ADDLIBLE FLGHT4nn</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+                  <div class="step-prompt" style="margin-top:8px"><pre>CALL FLGHT4nn/FRS021</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+                  <div class="step-screenshot">
+                    <img src="img/ACS-green-screen.png" alt="Flight Maintenance screen in 5250 emulator"/>
+                    <div class="step-screenshot-caption">Flight Maintenance screen before adding the new field</div>
+                  </div>
+                  <div class="warn-box">⚠️ <strong>Before moving to 4c:</strong> Exit the 5250 screen by pressing <strong>F3</strong>.</div>
+                </div>
+              </div>
+            </div>
+          </div></div>
+        </div>
+
+        <div class="use-case">
+          <div class="use-case-header">
+            <div class="uc-num">3</div>
+            <div class="uc-title">4c — Trace the Existing Pattern &amp; Impact Analysis</div>
+            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
+          </div>
+          <div class="uc-body"><div class="uc-body-inner">
+            <div class="step-prompt"><pre>Perform a focused impact analysis for adding Total Flight Hours to the Flight Maintenance application in FLGHT4nn.
+Use these requirements: add database field FLHRS; expose it to RPG as FHRS; display it on the screen as SFLHRS; use four numeric digits with zero decimal positions; place it immediately after Mileage on the Flight Maintenance screen.
+First, trace the existing Mileage field through the application. Show how the database field in FLIGHTS is exposed through FLIGHTSZ, handled by FRS021, and displayed as SMILES in FRS021DF.
+Then identify the minimum source members that must change to implement Total Flight Hours in the direct Flight Maintenance path. Confirm: whether FLIGHTS is defined by DDS; whether FLIGHTSZ explicitly lists and renames fields; how FRS021 defines the FLIGHTSZ record layout; how FRS021 maps database values to screen values; which objects must be rebuilt or recompiled.
+Mention any additional affected programs as follow-up work, but do not analyze or modify those programs during this demonstration. Do not modify, save, or compile anything.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+          </div></div>
+        </div>
+
+        <div class="use-case">
+          <div class="use-case-header">
+            <div class="uc-num">4</div>
+            <div class="uc-title">4d — Add the Database and Logical-File Fields</div>
+            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
+          </div>
+          <div class="uc-body"><div class="uc-body-inner">
+            <div class="step-prompt"><pre>Update the DDS source for the direct database path:
+In FLGHT4nn/QDDSSRCF(FLIGHTS), add FLHRS as a packed-decimal field with four digits and zero decimal positions. Add an appropriate COLHDG consistent with the existing physical-file DDS.
+In FLGHT4nn/QDDSSRCF(FLIGHTSZ), add FHRS RENAME(FLHRS) so the new physical-file field is available to the RPG program.
+Preserve the exact column positions of all existing DDS lines; make insert-only changes. Do not add ALWNULL, do not change the field to 5P 1, and do not use SQL ALTER TABLE.
+Show the proposed diffs. Do not save or compile anything until I review them.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <div class="info-box">Review the diffs. Confirm: FLHRS is 4P 0 in the PF · FHRS RENAME(FLHRS) in the LF · no ALWNULL · COLHDG only in PF · existing keys unchanged. Then approve: <em>"I approve these two DDS source changes. Save both source members, but do not compile them yet."</em></div>
+          </div></div>
+        </div>
+
+        <div class="use-case">
+          <div class="use-case-header">
+            <div class="uc-num">5</div>
+            <div class="uc-title">4e — Add the Screen Field</div>
+            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
+          </div>
+          <div class="uc-body"><div class="uc-body-inner">
+            <div class="step-prompt"><pre>Update FLGHT4nn/QDDSSRCD(FRS021DF) to add an input/output screen field named SFLHRS for Total Flight Hours.
+Requirements: four numeric digits; zero decimal positions; positioned immediately after Mileage; visible label: Flight Hours; use CHECK(RZ) to match the comparable numeric fields on this screen; preserve the existing display-file DDS style.
+Do not add COLHDG — it is not valid in a display file.
+Ensure that the label and field fit within the screen and do not overlap existing fields, message areas, or function-key text.
+Show the proposed diff and updated DDS preview. Do not save or compile anything until I review it.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <div class="info-box">Review the diff. Confirm: SFLHRS is I/O, 4 digits, 0 decimals · CHECK(RZ) present · no COLHDG · placed after Mileage · no overlap. Then: <em>"I approve the display-file change. Save FRS021DF, but do not compile it yet."</em></div>
+          </div></div>
+        </div>
+
+        <div class="use-case">
+          <div class="use-case-header">
+            <div class="uc-num">6</div>
+            <div class="uc-title">4f — Update the RPG Program</div>
+            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
+          </div>
+          <div class="uc-body"><div class="uc-body-inner">
+            <div class="step-prompt"><pre>Update FLGHT4nn/QRPGSRC(FRS021) to handle Total Flight Hours using the existing Mileage implementation as the pattern.
+Make the minimum changes needed to: increase the program-described FLIGHTSZ record length for the new packed field; add FHRS to the input specification at the correct record positions; load SFLHRS from FHRS when an existing record is retrieved; move SFLHRS to FHRS during add and update processing; include FHRS in the add and update output specifications; validate the screen value consistently with the existing numeric screen fields.
+Preserve the existing OPM RPG style and fixed-column positioning.
+After every successful CHAIN used to load an existing flight for display, explicitly move FHRS to SFLHRS, following the same database-to-screen pattern used for Mileage. Do not assume that the display file maps FHRS to SFLHRS automatically.
+Do not modify any other programs during this demonstration. Show the proposed diff and explain each change briefly. Do not save or compile anything until I review it.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <div class="info-box">Review the diff. Confirm: only FRS021 is changing · record length increased from 233 to 236 · FHRS at positions 234–236 · both retrieve and save directions covered · add and update output specs include FHRS. Then: <em>"I approve the FRS021 changes. Save the source member, but do not compile it yet."</em></div>
+          </div></div>
+        </div>
+
+        <div class="use-case">
+          <div class="use-case-header">
+            <div class="uc-num">7</div>
+            <div class="uc-title">4g — Build the Direct Demo Path</div>
+            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
+          </div>
+          <div class="uc-body"><div class="uc-body-inner">
+            <div class="step-prompt"><pre>Build only the direct Flight Maintenance path in this order:
+1. Apply the updated DDS for FLGHT4nn/FLIGHTS
+2. Rebuild FLGHT4nn/FLIGHTSZ
+3. Compile FLGHT4nn/FRS021DF
+4. Compile FLGHT4nn/FRS021
+Use the correct IBM i command for each source type. Stop if one of these four objects fails — report the compile error briefly and wait for my direction. Do not modify or compile unrelated programs. List additional impacted programs as follow-up work only.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <div class="warn-box">⚠️ If another program such as FRS003, FRS413, or BFLGHT is also affected, record it as follow-up work. Do not update or compile it during this exercise.</div>
+          </div></div>
+        </div>
+
+        <div class="use-case">
+          <div class="use-case-header">
+            <div class="uc-num">8</div>
+            <div class="uc-title">4h — Validate the Result</div>
+            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
+          </div>
+          <div class="uc-body"><div class="uc-body-inner">
+            <div class="step-prompt"><pre>Validate the completed Total Flight Hours change for the direct Flight Maintenance path.
+Confirm: FLHRS exists in FLGHT4nn/FLIGHTS; FHRS is available through FLGHT4nn/FLIGHTSZ; SFLHRS appears immediately after Mileage in the FRS021DF DDS Previewer; FRS021 compiled successfully; the display file does not contain the invalid COLHDG keyword.
+Finish with a short summary of the end-to-end field mapping and list any additional impacted programs as follow-up work. Do not modify anything.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <div class="step-screenshot">
+              <img src="img/newfield.png" alt="New Flight Hours field visible on the Flight Maintenance screen"/>
+              <div class="step-screenshot-caption">The new Total Flight Hours field visible on the Flight Maintenance screen</div>
+            </div>
+          </div></div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
