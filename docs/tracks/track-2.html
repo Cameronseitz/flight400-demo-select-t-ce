@@ -62,6 +62,7 @@
           <div class="uc-body"><div class="uc-body-inner">
             <p class="uc-desc">Switch to <strong>IBM i Developer</strong> mode. Click the <strong>+ (Scope) button</strong> and select <strong>(QSYS) Library List</strong> as the context scope. Make sure <code>FLGHT4nn</code> is in the library list. Replace <code>nn</code> with your library number in the prompt below.</p>
             <div class="step-prompt"><pre>Generate a comprehensive architecture overview of the FLIGHT4nn application in QSYS in Markdown format. Include a high-level description, the main program flows, key programs and their roles, a Mermaid architecture diagram, and a summary of the database tables used.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <p class="uc-desc" style="margin-top:1rem">Bob will analyze the programs, source members, and database files and return a structured Markdown document. Review the output — notice how it identifies the menu-driven architecture, the core transaction programs, and the underlying database schema.</p>
             <div class="info-box">Copy the output to a new file <code>FLIGHT4nn-Architecture.md</code> in your workspace for reference.</div>
           </div></div>
         </div>
@@ -108,6 +109,7 @@
               <div class="step-screenshot-caption">Click the workflows icon to launch a workflow</div>
             </div>
             <div class="info-box">When prompted, use: <strong>Library:</strong> FLGHT4nn · <strong>Source File:</strong> QRPGLESRC · <strong>Member:</strong> FRS401.RPGLE. At the end, specify an output path unique to your library number, e.g. <code>/home/ITZUSER/flght4nn/docs/business-rules/FRS401-report.md</code></div>
+            <p class="uc-desc" style="margin-top:0.75rem">Watch Bob create a guided workflow to get the necessary data and generate a complete report describing a business function. Bob will use subagents to create a document outlining business rules, decision logic, Mermaid diagrams, process flows, and more. Documentation is written in business-friendly language, not technical jargon.</p>
             <div class="step-screenshot">
               <img src="img/IFS-location.png" alt="IFS output path dialog after Business Rules Extraction workflow"/>
               <div class="step-screenshot-caption">Enter a path unique to your library number when prompted for the output location</div>

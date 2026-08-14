@@ -81,21 +81,42 @@
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
           <div class="uc-body"><div class="uc-body-inner">
-            <p class="uc-desc">After Bob generates the files, start the dev server from your IBM i PASE shell. Replace <code>&lt;your-user&gt;</code> and <code>30nn</code> with your values. You can also just ask Bob to start the dev server for you!</p>
-            <div class="step-prompt"><pre>cd /home/&lt;your-user&gt;/flight4nn-frontend-apps
-# Build
-/QOpenSys/pkgs/bin/bash build.sh
-
-# Dev server (background — does not block your terminal)
-nohup /QOpenSys/pkgs/bin/bash dev.sh &gt; /tmp/vite-dev.log 2&gt;&amp;1 &amp;
-
-# Check which port Vite actually bound to:
-cat /tmp/vite-dev.log</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
-            <div class="info-box">Open <code>http://localhost:30nn</code> in your browser (use your Dev Port from the Setup table). Make sure your SSH tunnel is active. When you're done, ask Bob to stop the web service on your port.</div>
+            <p class="uc-desc">After Bob generates the files, ask Bob to start the dev server for you:</p>
+            <div class="step-prompt"><pre>Please start the dev server for the app you just created.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <p class="uc-desc" style="margin-top:1rem">Then open <code>http://localhost:30nn</code> in your browser — replacing <code>30nn</code> with your Dev Port from the Setup table.</p>
+            <div class="info-box">💡 <strong>Nothing showing in your browser?</strong> Make sure you have completed Step 2 of Environment Setup (the SSH tunnel) and that it includes your port number. Note that the port number and the look &amp; feel of the generated app may differ from any examples shown.</div>
           </div></div>
         </div>
 
-      </div>
+        <!-- Wrap-Up accordion -->
+        <div class="use-case">
+          <div class="use-case-header">
+            <div class="uc-num">🎉</div>
+            <div class="uc-title">Wrap-Up &amp; Lessons Learned</div>
+            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
+          </div>
+          <div class="uc-body"><div class="uc-body-inner">
+            <p class="uc-desc">In addition to the sample Skill created in step 1, a set of unique Skills shipped with the <strong>IBM Bob Premium Package for i</strong> powered this exercise:</p>
+            <table class="data-table" style="font-size:0.83rem">
+              <thead>
+                <tr><th>Tool / Skill</th><th>Role</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>dds-primer-basics</code> skill</td><td>Parses <code>FRS001DF.DSPF</code> — screen layout, field names, subfile windows</td></tr>
+                <tr><td><code>rpg-primer-basics</code> skill</td><td>Reads <code>FRS001.RPG</code> — extracts pricing logic and field definitions</td></tr>
+                <tr><td>IFS write tools</td><td>Creates project files directly in <code>$HOME/flight4nn-react/</code> on IBM i</td></tr>
+                <tr><td>IBM i PASE</td><td>Runs <code>npm install</code>, <code>npm run build</code>, <code>npm start</code> natively on IBM i</td></tr>
+              </tbody>
+            </table>
+            <div style="margin-top:1rem">
+              <p class="uc-desc">Once you finish playing around with the React app, ask Bob to stop it:</p>
+              <div class="step-prompt" style="margin-bottom:0.75rem"><pre>Stop the web service for FLGHT4nn on port 30nn</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+              <div class="info-box">⚠️ <strong>This app runs with sample data only.</strong> The natural next step is to add a REST / Web Services layer connecting the React front end to the real IBM i business logic and Db2 for i database.</div>
+            </div>
+          </div></div>
+        </div>
+
+      </div><!-- end use-cases -->
     </div>
   </div>
 </div>
