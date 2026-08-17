@@ -33,7 +33,7 @@
           </div>
           <div class="uc-body"><div class="uc-body-inner">
             <div class="step-prompt"><pre>Which active jobs have accumulated the most CPU time? For the top jobs, distinguish cumulative CPU time from their current elapsed CPU percentage.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
-            <div class="info-box">Bob will query <code>QSYS2.ACTIVE_JOB_INFO</code> and return a ranked summary of active jobs with CPU utilization — an instant health check on your LPAR. You may see a Node.js job if you completed Exercise 1 and haven't stopped the web server yet.</div>
+            <div class="info-box">Bob will query the system services such as the <code>QSYS2.ACTIVE_JOB_INFO</code> table function and return a summary of active jobs with CPU utilization — giving you an instant health check on your LPAR, then use other tools to read the logs and other information, and create a first report. You might see the Node.js job running if you completed Exercise 1 and never stopped the web server.</div>
           </div></div>
         </div>
 
@@ -45,6 +45,7 @@
           </div>
           <div class="uc-body"><div class="uc-body-inner">
             <div class="step-prompt"><pre>Inspect the job ranked first and determine whether it is currently CPU-bound. Check its job log and take one fresh elapsed CPU measurement. If the log is empty and the job is a PASE process, inspect its IFS job information for its executable, working directory, and open application or log files. Stop after that investigation. Distinguish facts from inferences and provide no more than two recommendations.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <div class="info-box">Bob will drill into the top job using tools like <code>QSYS2.JOBLOG_INFO</code> and <code>QSYS2.ACTIVE_JOB_INFO</code>, take a live CPU snapshot, and — if the job is a PASE process with no log entries — switch to IFS inspection to identify the executable and any open files. The response will clearly separate what Bob observed from what it inferred, and surface at most two actionable recommendations.</div>
           </div></div>
         </div>
 
@@ -57,7 +58,7 @@
           <div class="uc-body"><div class="uc-body-inner">
             <p class="uc-desc">Replace <code>FLGHT4nn</code> with your library number:</p>
             <div class="step-prompt"><pre>Which programs in the FLGHT4nn library have not been recompiled in the last 5 years?</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
-            <div class="info-box">Bob will query <code>QSYS2.OBJECT_STATISTICS</code> filtering on object type <code>*PGM</code> in your library and compare the <code>OBJCREATED</code> attribute — perfect input for a modernization backlog.</div>
+            <div class="info-box">Bob will query <code>QSYS2.OBJECT_STATISTICS</code> filtering on object type <code>*PGM</code> in <code>FLGHT4nn</code>, compare the <code>LAST_USED_TIMESTAMP</code> or <code>OBJCREATED</code> attributes, and list the stale programs — perfect input for a modernization backlog.</div>
           </div></div>
         </div>
 

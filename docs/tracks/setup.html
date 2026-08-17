@@ -22,7 +22,7 @@
   <div class="card-detail">
     <div class="card-detail-inner">
 
-      <div class="detail-intro">Complete all steps below before starting any exercise. Start by installing and logging in to Bob, then connect to IBM i, install extensions, and confirm your assigned library number.</div>
+      <div class="detail-intro">Complete all steps below before starting any exercise. Start by installing and logging in to Bob, then verify your extensions, find your library number, and finally connect to IBM i.</div>
 
       <div class="use-cases">
 
@@ -61,45 +61,10 @@
           </div></div>
         </div>
 
-        <!-- Step 2: IBM i Credentials & SSH Tunnel -->
+        <!-- Step 2: Verify/Install IBM Bob Premium Package for i -->
         <div class="use-case">
           <div class="use-case-header">
             <div class="uc-num">2</div>
-            <div class="uc-title">Connect to IBM i — Credentials &amp; SSH Tunnel</div>
-            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
-          </div>
-          <div class="uc-body"><div class="uc-body-inner">
-            <p class="uc-desc">Your instructor will give you the host IP address, user profile, and password for your IBM i environment. You will also need to download a private key from TechZone and run an SSH tunnel command on your laptop.</p>
-            <div class="mode-steps">
-              <div class="mode-step">
-                <div class="step-num">1</div>
-                <div class="step-body">
-                  <div class="step-title">Download the private key from TechZone</div>
-                  <div class="step-desc">In your TechZone reservation, download <code>ssh_private_key.pem</code> and set its permissions:</div>
-                  <div class="step-prompt"><pre>chmod 600 ssh_private_key.pem</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
-                </div>
-              </div>
-              <div class="mode-step">
-                <div class="step-num">2</div>
-                <div class="step-body">
-                  <div class="step-title">Open the SSH tunnel (required for 5250, Database access &amp; React app ports)</div>
-                  <div class="step-desc">Run the command below on your laptop. Replace <code>&lt;myuser&gt;@&lt;myIPaddress&gt;</code> with the values from your TechZone reservation. On macOS/Linux you may need <code>sudo ssh</code>. On Windows, remove <code>sudo</code> and run as Administrator.</div>
- <div class="step-screenshot">
- <img src="img/bob-lab-network.png" alt="Lab network diagram — Bob IDE and ACS connecting via SSH tunnel to IBM i on TechZone"/>
- <div class="step-screenshot-caption">Lab connectivity overview — Bob IDE and ACS connect through an SSH tunnel to your IBM i TechZone LPAR</div>
- </div>
-                  <div class="step-prompt"><pre>sudo ssh -L 50000:localhost:23 -L 2001:localhost:2001 -L 449:localhost:449 -L 8470:localhost:8470 -L 8471:localhost:8471 -L 8472:localhost:8472 -L 2007:localhost:2007 -L 8473:localhost:8473 -L 8474:localhost:8474 -L 8475:localhost:8475 -L 8476:localhost:8476 -L 2003:localhost:2003 -L 2002:localhost:2002 -L 2006:localhost:2006 -L 2300:localhost:2300 -L 2323:localhost:2323 -L 2005:localhost:2005 -L 8076:localhost:8076 -L 3001:localhost:3001 -L 3002:localhost:3002 -L 3003:localhost:3003 -L 3004:localhost:3004 -L 3005:localhost:3005 -L 3006:localhost:3006 -L 3007:localhost:3007 -L 3008:localhost:3008 -L 3009:localhost:3009 -L 3010:localhost:3010 -L 3011:localhost:3011 -L 3012:localhost:3012 -L 3013:localhost:3013 -L 3014:localhost:3014 -L 3015:localhost:3015 -L 3016:localhost:3016 -L 3017:localhost:3017 -L 3018:localhost:3018 -L 3019:localhost:3019 -L 3020:localhost:3020 -L 3021:localhost:3021 -L 3022:localhost:3022 -L 3023:localhost:3023 -L 3024:localhost:3024 -L 3025:localhost:3025 -L 3026:localhost:3026 -L 3027:localhost:3027 -L 3028:localhost:3028 -L 3029:localhost:3029 -L 3030:localhost:3030 -L 3031:localhost:3031 -L 3032:localhost:3032 -L 3033:localhost:3033 -L 3034:localhost:3034 -L 3035:localhost:3035 -L 3036:localhost:3036 -L 3037:localhost:3037 -L 3038:localhost:3038 -L 3039:localhost:3039 -L 3040:localhost:3040 -L 3041:localhost:3041 -L 3042:localhost:3042 -L 3043:localhost:3043 -L 3044:localhost:3044 -L 3045:localhost:3045 -L 3046:localhost:3046 -L 3047:localhost:3047 -L 3048:localhost:3048 -L 3049:localhost:3049 -L 3050:localhost:3050 -o ExitOnForwardFailure=yes -o ServerAliveInterval=15 -o ServerAliveCountMax=3 &lt;myuser&gt;@&lt;myIPaddress&gt; -i ssh_private_key.pem</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
-                  <div class="info-box">💡 <strong>No IBM ID yet?</strong> Create one for free at <a href="https://www.ibm.com/account" target="_blank" rel="noopener" style="color:var(--ibm-blue)">ibm.com/account</a>. For 5250 or database access, install <a href="https://www.ibm.com/support/pages/ibm-i-access-client-solutions" target="_blank" rel="noopener" style="color:var(--ibm-blue)">IBM i Access Client Solutions</a>.</div>
-                </div>
-              </div>
-            </div>
-          </div></div>
-        </div>
-
-        <!-- Step 3: Verify/Install IBM Bob Premium Package for i -->
-        <div class="use-case">
-          <div class="use-case-header">
-            <div class="uc-num">3</div>
             <div class="uc-title">Verify the IBM Bob Premium Package for i is Installed</div>
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
@@ -131,10 +96,10 @@
           </div></div>
         </div>
 
-        <!-- Step 4: Library number -->
+        <!-- Step 3: Library number -->
         <div class="use-case">
           <div class="use-case-header">
-            <div class="uc-num">4</div>
+            <div class="uc-num">3</div>
             <div class="uc-title">Find Your Assigned Library Number</div>
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
@@ -202,14 +167,14 @@
                 <tr><td style="text-align:center">50</td><td><code>FLGHT450</code></td><td style="text-align:center">3050</td><td><code>http://localhost:3050</code></td></tr>
               </tbody>
             </table>
-            <div class="info-box">💡 The <strong>Dev Port</strong> is only needed for <strong>Exercise 1 (Optional Warm-Up)</strong>. When Bob asks you to pin your Vite dev server to a port, use your Dev Port. Your React app will be reachable at the React App URL shown — provided your SSH tunnel from Step 1 is active.</div>
+            <div class="info-box">💡 The <strong>Dev Port</strong> is only needed for <strong>Exercise 1 (Optional Warm-Up)</strong>. When Bob asks you to pin your Vite dev server to a port, use your Dev Port. Your React app will be reachable at the React App URL shown — provided your SSH tunnel from Step 5 is active.</div>
           </div></div>
         </div>
 
-        <!-- Step 5: Connect Bob to IBM i -->
+        <!-- Step 4: Connect Bob IDE to IBM i -->
         <div class="use-case">
           <div class="use-case-header">
-            <div class="uc-num">5</div>
+            <div class="uc-num">4</div>
             <div class="uc-title">Connect Bob IDE to IBM i</div>
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
@@ -243,6 +208,41 @@
                     <div class="step-screenshot-caption">Add FLGHT4nn to your library list</div>
                   </div>
                   <div class="info-box">✅ If you have a 5250 terminal, you can also add the library with: <code>ADDLIBLE FLGHT4nn</code> and launch the app with: <code>GO FLGHT4nn/FRSMAIN</code></div>
+                </div>
+              </div>
+            </div>
+          </div></div>
+        </div>
+
+        <!-- Step 5: IBM i Credentials & SSH Tunnel -->
+        <div class="use-case">
+          <div class="use-case-header">
+            <div class="uc-num">5</div>
+            <div class="uc-title">Connect to IBM i — Credentials &amp; SSH Tunnel</div>
+            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
+          </div>
+          <div class="uc-body"><div class="uc-body-inner">
+            <p class="uc-desc">Your instructor will give you the host IP address, user profile, and password for your IBM i environment. You will also need to download a private key from TechZone and run an SSH tunnel command on your laptop.</p>
+            <div class="mode-steps">
+              <div class="mode-step">
+                <div class="step-num">1</div>
+                <div class="step-body">
+                  <div class="step-title">Download the private key from TechZone</div>
+                  <div class="step-desc">In your TechZone reservation, download <code>ssh_private_key.pem</code> and set its permissions:</div>
+                  <div class="step-prompt"><pre>chmod 600 ssh_private_key.pem</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+                </div>
+              </div>
+              <div class="mode-step">
+                <div class="step-num">2</div>
+                <div class="step-body">
+                  <div class="step-title">Open the SSH tunnel (required for 5250, Database access &amp; React app ports)</div>
+                  <div class="step-desc">Run the command below on your laptop. Replace <code>&lt;myuser&gt;@&lt;myIPaddress&gt;</code> with the values from your TechZone reservation. On macOS/Linux you may need <code>sudo ssh</code>. On Windows, remove <code>sudo</code> and run as Administrator.</div>
+ <div class="step-screenshot">
+ <img src="img/bob-lab-network.png" alt="Lab network diagram — Bob IDE and ACS connecting via SSH tunnel to IBM i on TechZone"/>
+ <div class="step-screenshot-caption">Lab connectivity overview — Bob IDE and ACS connect through an SSH tunnel to your IBM i TechZone LPAR</div>
+ </div>
+                  <div class="step-prompt"><pre>sudo ssh -L 50000:localhost:23 -L 2001:localhost:2001 -L 449:localhost:449 -L 8470:localhost:8470 -L 8471:localhost:8471 -L 8472:localhost:8472 -L 2007:localhost:2007 -L 8473:localhost:8473 -L 8474:localhost:8474 -L 8475:localhost:8475 -L 8476:localhost:8476 -L 2003:localhost:2003 -L 2002:localhost:2002 -L 2006:localhost:2006 -L 2300:localhost:2300 -L 2323:localhost:2323 -L 2005:localhost:2005 -L 8076:localhost:8076 -L 3001:localhost:3001 -L 3002:localhost:3002 -L 3003:localhost:3003 -L 3004:localhost:3004 -L 3005:localhost:3005 -L 3006:localhost:3006 -L 3007:localhost:3007 -L 3008:localhost:3008 -L 3009:localhost:3009 -L 3010:localhost:3010 -L 3011:localhost:3011 -L 3012:localhost:3012 -L 3013:localhost:3013 -L 3014:localhost:3014 -L 3015:localhost:3015 -L 3016:localhost:3016 -L 3017:localhost:3017 -L 3018:localhost:3018 -L 3019:localhost:3019 -L 3020:localhost:3020 -L 3021:localhost:3021 -L 3022:localhost:3022 -L 3023:localhost:3023 -L 3024:localhost:3024 -L 3025:localhost:3025 -L 3026:localhost:3026 -L 3027:localhost:3027 -L 3028:localhost:3028 -L 3029:localhost:3029 -L 3030:localhost:3030 -L 3031:localhost:3031 -L 3032:localhost:3032 -L 3033:localhost:3033 -L 3034:localhost:3034 -L 3035:localhost:3035 -L 3036:localhost:3036 -L 3037:localhost:3037 -L 3038:localhost:3038 -L 3039:localhost:3039 -L 3040:localhost:3040 -L 3041:localhost:3041 -L 3042:localhost:3042 -L 3043:localhost:3043 -L 3044:localhost:3044 -L 3045:localhost:3045 -L 3046:localhost:3046 -L 3047:localhost:3047 -L 3048:localhost:3048 -L 3049:localhost:3049 -L 3050:localhost:3050 -o ExitOnForwardFailure=yes -o ServerAliveInterval=15 -o ServerAliveCountMax=3 &lt;myuser&gt;@&lt;myIPaddress&gt; -i ssh_private_key.pem</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+                  <div class="info-box">💡 <strong>No IBM ID yet?</strong> Create one for free at <a href="https://www.ibm.com/account" target="_blank" rel="noopener" style="color:var(--ibm-blue)">ibm.com/account</a>. For 5250 or database access, install <a href="https://www.ibm.com/support/pages/ibm-i-access-client-solutions" target="_blank" rel="noopener" style="color:var(--ibm-blue)">IBM i Access Client Solutions</a>.</div>
                 </div>
               </div>
             </div>

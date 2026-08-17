@@ -304,7 +304,7 @@
     });
 
     // Replace in step descriptions and info boxes (text nodes only — skip code/pre)
-    root.querySelectorAll('.step-desc, .uc-desc, .info-box, .warn-box, .detail-intro').forEach(function (el) {
+    root.querySelectorAll('.step-desc, .uc-desc, .info-box, .warn-box, .detail-intro, .data-table td').forEach(function (el) {
       replaceTextNodes(el, num, nn, libNum, port);
     });
   }

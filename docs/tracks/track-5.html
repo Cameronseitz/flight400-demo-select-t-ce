@@ -84,6 +84,16 @@ ORDER BY
     f.FLIGH00001
 FETCH FIRST 100 ROWS ONLY;</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
             <div class="info-box">💡 <strong>Intentional issue to spot:</strong> <code>o.DEPAR00001</code> appears in the <code>ORDER BY</code> but not in the <code>GROUP BY</code> clause — logically incorrect on strict SQL engines. Bob's <code>/review</code> should flag this along with any other issues.</div>
+            <p class="uc-desc">Bob may inspect the connected IBM i catalog to verify names and data types. Exact results may vary, but expect findings such as:</p>
+            <ul class="findings-list">
+              <li class="finding-error">❌ <code>ORDER BY o.DEPAR00001</code> uses a non-grouped, non-aggregated column and may cause SQL0122. Bob may replace it with <code>MIN(o.DEPAR00001)</code>.</li>
+              <li class="finding-warn">⚠️ The <code>LEFT JOIN</code> to <code>CUSTOMERS</code> is unused and can be removed.</li>
+              <li class="finding-warn">⚠️ <code>o.DEPAR00001</code> is <code>DEPARTURE_DATE</code>, so the booking-date aliases are misleading.</li>
+              <li class="finding-warn">⚠️ <code>TICKET_PRICE</code> is stored as <code>VARCHAR(22)</code>, which requires validation before numeric calculations.</li>
+              <li class="finding-ok">✅ The <code>CASE</code>-based class breakdown is a clear, set-based approach.</li>
+              <li class="finding-ok">✅ <code>FETCH FIRST 100 ROWS ONLY</code> is a useful testing safeguard.</li>
+              <li class="finding-tip">💡 Bob may recommend using descriptive SQL column names instead of generated IBM i system names.</li>
+            </ul>
           </div></div>
         </div>
 
@@ -95,6 +105,13 @@ FETCH FIRST 100 ROWS ONLY;</pre><button class="copy-btn" aria-label="Copy">Copy<
           </div>
           <div class="uc-body"><div class="uc-body-inner">
             <div class="step-prompt"><pre>Is any table a performance bottleneck and why?</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <p class="uc-desc">Bob should identify that:</p>
+            <ul class="findings-list">
+              <li class="finding-ok">✅ <code>ORDERS</code> is the largest table involved in the query.</li>
+              <li class="finding-ok">✅ The query filters on <code>DEPARTURE_DATE</code>.</li>
+              <li class="finding-ok">✅ Only a small fraction of rows qualify for the selected date range.</li>
+              <li class="finding-tip">💡 The date-range predicate is highly selective and a strong candidate for index optimization.</li>
+            </ul>
           </div></div>
         </div>
 
@@ -122,6 +139,30 @@ FETCH FIRST 100 ROWS ONLY;</pre><button class="copy-btn" aria-label="Copy">Copy<
               </tbody>
             </table>
             <div class="warn-box">⚠️ <strong>Only create indexes in your assigned schema.</strong> Bob may discover similar recommendations across multiple FLGHT4nn schemas — only apply the index for your own. When Bob gives the suggested indexes, ask:<br><br><em>"Apply the highest-priority index only for FLGHT4nn"</em> (replace nn with your number).</div>
+            <p class="uc-desc" style="margin-top:14px">The workflow may:</p>
+            <ul class="findings-list">
+              <li class="finding-ok">✅ Capture and analyze SQL performance data.</li>
+              <li class="finding-ok">✅ Examine plan cache information.</li>
+              <li class="finding-ok">✅ Review Index Advisor recommendations.</li>
+              <li class="finding-ok">✅ Examine any temporary index activity (MTIs).</li>
+              <li class="finding-ok">✅ Identify candidate permanent indexes.</li>
+              <li class="finding-ok">✅ Generate <code>CREATE INDEX</code> statements.</li>
+              <li class="finding-ok">✅ Explain the expected performance benefit of each index.</li>
+            </ul>
+            <p class="uc-desc" style="margin-top:14px"><strong>Expected outcome</strong> — recommendations may vary slightly depending on optimizer behavior, existing plan cache contents, and system state. Most attendees should receive recommendations similar to:</p>
+            <div class="step-prompt"><pre>CREATE INDEX FLGHT4nn.ORDERS_IDX_DEPDT_FLT
+    ON FLGHT4nn.ORDERS (
+        DEPARTURE_DATE,
+        FLIGHT_NUMBER
+    );</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <p class="uc-desc" style="margin-top:10px">or:</p>
+            <div class="step-prompt"><pre>CREATE INDEX FLGHT4nn.ORDERS_IDX_AGT_DEP
+    ON FLGHT4nn.ORDERS (
+        AGENT_NO,
+        DEPARTURE_DATE
+    );</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <p class="uc-desc" style="margin-top:10px">For this lab, review and create the highest-priority recommendation for your assigned schema — typically the index starting with <code>(DEPARTURE_DATE, FLIGHT_NUMBER)</code>. This index directly supports the query's selective date-range predicate and is generally the most impactful recommendation.</p>
+            <div class="info-box">✅ <strong>You've reviewed, corrected, analyzed, and optimized a Db2 for i SQL statement</strong> using Bob's guided Index Advisor workflow — without needing deep expertise in query optimization, Visual Explain, or Index Advisor internals.</div>
           </div></div>
         </div>
 

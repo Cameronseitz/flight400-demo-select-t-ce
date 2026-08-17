@@ -42,8 +42,8 @@
               <div class="mode-step">
                 <div class="step-num">1</div>
                 <div class="step-body">
-                  <div class="step-title">Install the IBM i Testing Extension</div>
-                  <div class="step-desc">Open VS Code Extensions, search for <strong>"IBM i Testing"</strong>, and click <strong>Install</strong>.</div>
+                  <div class="step-title">Verify the IBM i Testing Extension</div>
+                  <div class="step-desc">The <strong>IBM i Testing</strong> extension is included in the <strong>IBM Bob Premium Package for i</strong> installed during Setup. Open the Extensions panel (<code>Cmd+Shift+X</code> / <code>Ctrl+Shift+X</code>), search for <strong>"IBM i Testing"</strong>, and confirm it shows as <em>Installed</em>. If it is not installed, click <strong>Install</strong> now.</div>
                 </div>
               </div>
               <div class="mode-step">
@@ -123,8 +123,13 @@ end-proc;</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
                 <div class="step-num">3</div>
                 <div class="step-body"><div class="step-desc">If this is your first time, tell Bob to <strong>create a new test plan</strong> when asked. Select the <strong>default recommended path</strong> for the goal. Let Bob locate testable files automatically — it should find <code>CUSTCHK.SQLRPGLE</code> as the only suitable candidate. Select the exported procedure and proceed. Choose to <strong>validate the environment</strong>.</div></div>
               </div>
+              <div class="mode-step">
+                <div class="step-num">4</div>
+                <div class="step-body"><div class="step-desc">If prompted to install <strong>RPGUnit</strong>, click <strong>Install</strong> and add it to your library list when asked. Do the same for <strong>QDEVTOOLS</strong> if prompted.</div></div>
+              </div>
             </div>
             <div class="info-box">💡 If Bob asks to run the RPGUnit Test Plan Creation workflow again at any point, select <strong>No thanks</strong>.</div>
+            <div class="info-box" style="margin-top:8px">Bob will write the test plan documents and store them in the IFS directory you specified. At the bottom of the chat panel, review the files it created — these Markdown documents will be used in 7c.</div>
           </div></div>
         </div>
 
@@ -135,18 +140,21 @@ end-proc;</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
           <div class="uc-body"><div class="uc-body-inner">
-            <p class="uc-desc">Click the workflow icon and choose <strong>RPGUnit Test Suite Implementation</strong> in your library list. Click <strong>Proceed</strong> (the test plan from 7b is already ready).</p>
             <div class="mode-steps">
               <div class="mode-step">
                 <div class="step-num">1</div>
-                <div class="step-body"><div class="step-desc">Select your library <code>FLGHT4nn</code>.</div></div>
+                <div class="step-body"><div class="step-desc">Click the <strong>workflow icon</strong> at the top of the Bob panel and choose <strong>RPGUnit Test Suite Implementation</strong> in your library list. Click <strong>Proceed</strong> (the test plan from 7b is already ready).</div></div>
               </div>
               <div class="mode-step">
                 <div class="step-num">2</div>
-                <div class="step-body"><div class="step-desc">Enter the same IFS project directory used in 7b. Confirm the path to the test suites — Bob should pre-fill the correct default.</div></div>
+                <div class="step-body"><div class="step-desc">Select your library <code>FLGHT4nn</code>.</div></div>
               </div>
               <div class="mode-step">
                 <div class="step-num">3</div>
+                <div class="step-body"><div class="step-desc">Enter the same IFS project directory used in 7b. Confirm the path to the test suites — Bob should pre-fill the correct default.</div></div>
+              </div>
+              <div class="mode-step">
+                <div class="step-num">4</div>
                 <div class="step-body">
                   <div class="step-desc">Choose to <strong>validate the environment</strong>. If Bob prompts to download RPGUnit again, click <strong>Install</strong>, then <strong>Cancel</strong> on the follow-up popup. Bob will generate the test source members, run the suites, and iterate until the new tests pass.</div>
                   <div class="step-screenshot">
@@ -157,6 +165,7 @@ end-proc;</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
               </div>
             </div>
             <div class="info-box">💡 If any tests fail, ask Bob to explain the failure and help fix it.</div>
+            <div class="info-box" style="margin-top:8px">✅ <strong>You've used Bob's guided workflows to go from untested legacy RPG to a structured, executed RPGUnit test suite</strong> — without writing test boilerplate by hand.</div>
           </div></div>
         </div>
 
