@@ -176,7 +176,6 @@
         cards.forEach(function (c) { c.classList.remove('open'); });
         if (!isOpen) {
           card.classList.add('open');
-          onTrackOpen(card.id);
           setTimeout(function () {
             card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
           }, 100);
@@ -281,13 +280,27 @@
     window.location.reload();
   }
 
+  // ── ORIGINAL-TEXT CACHE ───────────────────────────────────────────────────
+  // We snapshot original text on first replacement so re-selection always
+  // starts from the placeholder text, not the already-substituted value.
+  var ORIG_ATTR = 'data-orig-text';
+
+  function getOriginal(node) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      if (!node[ORIG_ATTR]) node[ORIG_ATTR] = node.textContent;
+      return node[ORIG_ATTR];
+    }
+    // Element (pre, code)
+    if (!node.dataset.origText) node.dataset.origText = node.textContent;
+    return node.dataset.origText;
+  }
+
   function applyStudentReplacements(num, nn, libNum, port) {
-    // Replace in all <pre> blocks and descriptive text nodes under .tracks-stream
     var root = document.getElementById('tracks-stream') || document.body;
 
-    // Replace text in <pre> elements (prompts / code blocks)
+    // Replace text in <pre> elements — always from original
     root.querySelectorAll('pre').forEach(function (pre) {
-      pre.textContent = replaceTokens(pre.textContent, num, nn, libNum, port);
+      pre.textContent = replaceTokens(getOriginal(pre), num, nn, libNum, port);
     });
 
     // Replace in step descriptions and info boxes (text nodes only — skip code/pre)
@@ -313,20 +326,20 @@
     var walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {
       acceptNode: function (node) {
         var tag = node.parentElement && node.parentElement.tagName;
-        // Skip content inside <pre> and <code> — already handled
         if (tag === 'PRE' || tag === 'CODE') return NodeFilter.FILTER_REJECT;
         return NodeFilter.FILTER_ACCEPT;
       }
     }, false);
     var node;
     while ((node = walker.nextNode())) {
-      var replaced = replaceTokens(node.textContent, num, nn, libNum, port);
+      var orig = getOriginal(node);
+      var replaced = replaceTokens(orig, num, nn, libNum, port);
       if (replaced !== node.textContent) node.textContent = replaced;
     }
     // Also replace inside <code> elements (inline code, not pre>code)
     el.querySelectorAll('code').forEach(function (c) {
       if (c.closest('pre')) return;
-      c.textContent = replaceTokens(c.textContent, num, nn, libNum, port);
+      c.textContent = replaceTokens(getOriginal(c), num, nn, libNum, port);
     });
   }
 
@@ -361,71 +374,9 @@
     gfBadgeClearEl.addEventListener('click', clearStudent);
   }
 
-  // Shift student badge above progress footer when footer is visible
   function syncBadgeOffset() {
     if (!gfBadgeEl) return;
-    var footerVisible = gfEl && gfEl.classList.contains('gf-visible');
-    gfBadgeEl.style.bottom = footerVisible ? '74px' : '24px';
-  }
-
-  // ── TRACK OPEN: update global progress footer ─────────────────────────────
-  var trackLabels = {
-    'card-setup': 'Setup — Environment',
-    'card-1':     'Exercise 1 — React Warm-Up',
-    'card-2':     'Exercise 2 — Architecture Docs',
-    'card-3':     'Exercise 3 — RPG Modernization',
-    'card-4':     'Exercise 4 — Field Expansion',
-    'card-5':     'Exercise 5 — Database Optimization',
-    'card-6':     'Exercise 6 — Ask Bob About Your System',
-    'card-7':     'Exercise 7 — RPGUnit Testing'
-  };
-  var trackColors = {
-    'card-setup': '#0057B8',
-    'card-1':     '#7c3aed',
-    'card-2':     '#0057B8',
-    'card-3':     '#1a7a4a',
-    'card-4':     '#c2790a',
-    'card-5':     '#c2120a',
-    'card-6':     '#0078a0',
-    'card-7':     '#8b5cf6'
-  };
-
-  var gfEl      = document.getElementById('global-footer');
-  var gfBarEl   = document.getElementById('gf-bar');
-  var gfCountEl = document.getElementById('gf-count');
-  var gfNameEl  = document.getElementById('gf-track-name');
-  var gfHintEl  = document.getElementById('gf-step-hint');
-  var GF_KEY    = 'flight400-progress-v1';
-
-  function loadProgress() {
-    try { return JSON.parse(localStorage.getItem(GF_KEY) || '{}'); } catch (e) { return {}; }
-  }
-  function saveProgress(prog) {
-    try { localStorage.setItem(GF_KEY, JSON.stringify(prog)); } catch (e) {}
-  }
-
-  function onTrackOpen(cardId) {
-    var prog = loadProgress();
-    var count = prog[cardId] || 0;
-    updateGlobalFooter(cardId, count);
-  }
-
-  function updateGlobalFooter(trackId, count) {
-    if (!gfEl) return;
-    var label = trackLabels[trackId] || trackId;
-    gfNameEl.textContent = label;
-    gfHintEl.textContent = count === 0
-      ? 'Copy a prompt to get started'
-      : 'Paste into Bob, then continue to the next step';
-    gfBarEl.style.width      = '0%';
-    gfBarEl.style.background = trackColors[trackId] || 'var(--ibm-blue)';
-    gfCountEl.textContent    = '';
-    if (!gfEl.classList.contains('gf-visible')) {
-      gfEl.classList.remove('gf-dismissing');
-      requestAnimationFrame(function () { gfEl.classList.add('gf-visible'); syncBadgeOffset(); });
-    } else {
-      syncBadgeOffset();
-    }
+    gfBadgeEl.style.bottom = '24px';
   }
 
   // ── COPY HELPER ───────────────────────────────────────────────────────────
