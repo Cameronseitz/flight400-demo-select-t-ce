@@ -1,7 +1,7 @@
 /**
  * FLIGHT400 Lab — Event Configuration
  * =====================================
- * Copy the entire _template/ folder and rename it for your event (e.g. acme/).
+ * Copy the entire _template/ folder and rename it for your event (e.g. contoso/).
  * Edit only this file. Everything else (CSS, JS, tracks) is shared from ../
  *
  * FIELDS
@@ -29,6 +29,20 @@
  *               Pattern: library = 'FLGHT4' + zero-padded(student),
  *                        devPort = 3000 + student,
  *                        reactUrl = 'http://localhost:' + devPort
+ *
+ * tracks        Optional. Array of track slugs to display, in order.
+ *               Omit this field entirely to show all 8 tracks (the default).
+ *               When provided, this list completely replaces the default —
+ *               only the specified tracks will load, in the order given.
+ *               Valid slugs: 'setup', 'track-1', 'track-2', 'track-3',
+ *                            'track-4', 'track-5', 'track-6', 'track-7'
+ *               Example (show only setup + tracks 1, 3, 4):
+ *                 tracks: ['setup', 'track-1', 'track-3', 'track-4']
+ *
+ *               Local track overrides: if you place a file at
+ *               <eventslug>/tracks/<slug>.html it will be used instead of the
+ *               shared docs/tracks/<slug>.html for that slug only.
+ *               All other slugs still load from the shared folder.
  */
 
 window.FLIGHT400_CONFIG = {
@@ -77,6 +91,9 @@ window.FLIGHT400_CONFIG = {
     { student: 4, attendeeName: 'Attendee Four',  library: 'FLGHT404', devPort: 3004, reactUrl: 'http://localhost:3004' },
     { student: 5, attendeeName: 'Attendee Five',  library: 'FLGHT405', devPort: 3005, reactUrl: 'http://localhost:3005' }
     // Add more rows here... Remove attendeeName fields to hide the name column entirely.
-  ]
+  ],
+
+  // tracks: ['setup', 'track-1', 'track-3', 'track-4']
+  // ↑ Uncomment and edit to show only specific tracks. Omit to show all 8.
 
 };

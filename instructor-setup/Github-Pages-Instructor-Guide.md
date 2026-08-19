@@ -182,29 +182,63 @@ attendeeTable: [
 
 ---
 
-## 6. Updating Lab Content
+## 6. Track Content — Defaults, Overrides, and Filtering
 
-All exercise content lives in `docs/tracks/` and is loaded at **runtime** by every event page via `fetch()`. This means:
+Track content is loaded at runtime by `app.js` using a **local-first, shared-fallback** strategy. Each event folder is fully isolated from every other.
 
-- ✅ A fix or improvement to a track automatically benefits all events.
-- ❌ An accidental edit or deletion of a track file **immediately breaks that track for every company event simultaneously.**
+### How track loading works
 
-### Rules for editing shared tracks
+For each track slug, `app.js`:
+1. Tries to fetch `<eventslug>/tracks/<slug>.html` (local to that event folder).
+2. If that returns a 404, falls back to the shared `docs/tracks/<slug>.html`.
+3. If both fail, skips that track with a console warning.
 
-> ⚠️ **`docs/tracks/` is shared infrastructure.** Treat it like production code — every change affects all live event pages the moment it deploys.
+This means a fresh template copy with no local track files works out of the box — all tracks come from the shared folder. Local files are opt-in overrides.
 
-Before editing any file in `docs/tracks/`:
-1. **Coordinate** — confirm no Bobathon is actively running.
-2. **Test locally** — open any event page (`docs/first-acceptance/`) in a browser before pushing.
-3. **Never delete** a track file — if a track is being retired, leave the file in place and hide it via config instead.
+---
 
-To update an exercise, edit `docs/tracks/track-N.html`, commit, and push. GitHub Pages redeploys in 1–2 minutes and all event pages pick up the change.
+### Scenario A — Default (no action required)
 
-> ⚠️ Do **not** copy track files into event subfolders. They are intentionally loaded from the shared `docs/tracks/` path via `fetch()` in `app.js`. Copying them would cause that event to diverge from future updates.
+Copy the template, edit `config.js`, deploy. All 8 tracks load from the shared `docs/tracks/` folder automatically.
 
-### What if two Bobathons need different track content at the same time?
+---
 
-That is not currently supported by this architecture. If two events need to diverge from each other, the simplest mitigation is to **run them off separate branches**, each deployed to GitHub Pages from their own branch. Coordinate with the team before attempting this.
+### Scenario B — Company-specific track content
+
+To customise a single track for one event without affecting any other:
+
+```bash
+# Create the local tracks folder
+mkdir -p docs/contoso/tracks
+
+# Copy the track you want to customise
+cp docs/tracks/track-1.html docs/contoso/tracks/track-1.html
+
+# Edit the copy — the shared original is untouched
+```
+
+`docs/contoso/` now serves its own `track-1.html`; all other tracks still come from `docs/tracks/`. Every other event folder is completely unaffected.
+
+---
+
+### Scenario C — Show only a subset of tracks
+
+Add the `tracks` field to `config.js`. This is a **complete replacement** of the default list — only the slugs you specify will load, in the order you specify them.
+
+```js
+// In docs/contoso/js/config.js
+tracks: ['setup', 'track-1', 'track-3', 'track-4']
+```
+
+Valid slugs: `'setup'`, `'track-1'`, `'track-2'`, `'track-3'`, `'track-4'`, `'track-5'`, `'track-6'`, `'track-7'`
+
+Omit the `tracks` field entirely to show all 8 in the default order.
+
+---
+
+### Updating shared tracks
+
+Editing a file in `docs/tracks/` still affects all events that have **not** placed a local override for that slug. This is usually desirable (a bug fix propagates everywhere), but coordinate before pushing changes during an active Bobathon.
 
 ---
 
@@ -232,6 +266,8 @@ That is not currently supported by this architecture. If two events need to dive
   - [ ] `boxFolderUrl` — Box folder with IBM i credentials & key *(set to `null` to hide)*
   - [ ] `agendaItems[]` *(remove array or set to `[]` to hide Agenda button)*
   - [ ] `attendeeTable[]` — one row per attendee; confirm library names & ports from IBM i admin
+  - [ ] `tracks: [...]` — *(optional)* list only the slugs needed; omit to show all 8
+- [ ] *(optional)* For company-specific track content: `mkdir -p docs/<eventslug>/tracks` and copy + edit the relevant `docs/tracks/<slug>.html` files into it
 - [ ] Commit and push
 - [ ] Verify site at `https://<org>.github.io/<repo>/<eventslug>/`
 - [ ] Share URL with attendees — do NOT share this guide

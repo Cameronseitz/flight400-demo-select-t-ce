@@ -94,46 +94,69 @@
   }
 
   // ── TRACK PARTIALS LOADER ─────────────────────────────────────────────────
-  // Fetches each track partial HTML file and injects it into #tracks-stream.
-  // window.FLIGHT400_TRACK_PREFIX can be set before this script loads to
-  // redirect partial paths (used by docs-company/ to point at ../docs/tracks/).
-  var prefix = (window.FLIGHT400_TRACK_PREFIX || '') + 'tracks/';
-  var TRACKS = [
-    prefix + 'setup.html',
-    prefix + 'track-1.html',
-    prefix + 'track-2.html',
-    prefix + 'track-3.html',
-    prefix + 'track-4.html',
-    prefix + 'track-5.html',
-    prefix + 'track-6.html',
-    prefix + 'track-7.html'
-  ];
+  // Loads track partial HTML files into #tracks-stream.
+  //
+  // Resolution order for each track slug:
+  //   1. Local override: <event-folder>/tracks/<slug>.html
+  //      (absolute path derived from window.location so it is not affected
+  //       by the <base href="../"> in index.html)
+  //   2. Shared fallback: tracks/<slug>.html
+  //      (relative — resolves to docs/tracks/ via <base href="../">)
+  //   3. Skip with a console warning if both fail.
+  //
+  // Track list: use config.tracks if provided (exact replacement of the
+  // default list — no merging). Otherwise load all 8 default tracks.
+  //
+  // window.FLIGHT400_TRACK_PREFIX is retained for backwards compatibility
+  // but is superseded by the local-override mechanism above.
+
+  var DEFAULT_TRACK_SLUGS = ['setup', 'track-1', 'track-2', 'track-3', 'track-4', 'track-5', 'track-6', 'track-7'];
+  var cfgTracks = (window.FLIGHT400_CONFIG || {}).tracks;
+  var TRACK_SLUGS = (cfgTracks && cfgTracks.length) ? cfgTracks : DEFAULT_TRACK_SLUGS;
+
+  // Build the absolute base URL for the current event folder so local overrides
+  // are not affected by <base href="../">.
+  // e.g. https://org.github.io/repo/contoso/ → localBase = '/repo/contoso/'
+  var localBase = window.location.pathname.replace(/\/?$/, '/');
+
   var stream = document.getElementById('tracks-stream');
 
-  function loadTracksSequential(index) {
-    if (index >= TRACKS.length) {
+  function loadTrackSlug(index) {
+    if (index >= TRACK_SLUGS.length) {
       initCards();
       return;
     }
-    fetch(TRACKS[index])
+    var slug      = TRACK_SLUGS[index];
+    var file      = slug + '.html';
+    var localUrl  = localBase + 'tracks/' + file;
+    var sharedUrl = 'tracks/' + file;   // resolves via <base href="../"> to docs/tracks/
+
+    fetch(localUrl)
       .then(function (r) {
-        if (!r.ok) throw new Error('HTTP ' + r.status + ' loading ' + TRACKS[index]);
+        if (!r.ok) throw new Error('no local override');
         return r.text();
+      })
+      .catch(function () {
+        // No local override — fall back to shared docs/tracks/
+        return fetch(sharedUrl).then(function (r) {
+          if (!r.ok) throw new Error('HTTP ' + r.status + ' loading shared ' + sharedUrl);
+          return r.text();
+        });
       })
       .then(function (html) {
         var wrapper = document.createElement('div');
         wrapper.innerHTML = html;
         while (wrapper.firstChild) stream.appendChild(wrapper.firstChild);
-        loadTracksSequential(index + 1);
+        loadTrackSlug(index + 1);
       })
       .catch(function (err) {
-        console.warn('[FLIGHT400] Could not load track partial:', TRACKS[index], err);
-        loadTracksSequential(index + 1);
+        console.warn('[FLIGHT400] Could not load track:', slug, err);
+        loadTrackSlug(index + 1);
       });
   }
 
   if (stream) {
-    loadTracksSequential(0);
+    loadTrackSlug(0);
   }
 
   // ── CARD INIT (called after all partials are loaded) ──────────────────────
