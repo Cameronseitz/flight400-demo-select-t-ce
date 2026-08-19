@@ -12,24 +12,24 @@
   --radius:    16px;
 
   /* ── Per-track colors (Setup + 7 exercises) ── */
-  --c0: #0057B8;  /* Setup */
-  --c1: #7c3aed;  /* Ex 1 */
-  --c2: #0057B8;  /* Ex 2 */
-  --c3: #1a7a4a;  /* Ex 3 */
-  --c4: #c2790a;  /* Ex 4 */
-  --c5: #c2120a;  /* Ex 5 */
-  --c6: #0078a0;  /* Ex 6 */
-  --c7: #8b5cf6;  /* Ex 7 */
+  --c0: #0057B8;  /* Setup  — IBM Blue      */
+  --c1: #0e7490;  /* Ex 1   — Teal          */
+  --c2: #1a7a4a;  /* Ex 2   — Green         */
+  --c3: #c2790a;  /* Ex 3   — Amber         */
+  --c4: #c2120a;  /* Ex 4   — Red           */
+  --c5: #7c3aed;  /* Ex 5   — Indigo        */
+  --c6: #be185d;  /* Ex 6   — Pink          */
+  --c7: #c2550a;  /* Ex 7   — Orange        */
 
   /* ── Per-track glow ── */
   --glow-0: rgba(0,87,184,0.18);       --glow-0-shadow: rgba(0,87,184,0.12);
-  --glow-1: rgba(124,58,237,0.18);     --glow-1-shadow: rgba(124,58,237,0.12);
-  --glow-2: rgba(0,87,184,0.18);       --glow-2-shadow: rgba(0,87,184,0.12);
-  --glow-3: rgba(26,122,74,0.18);      --glow-3-shadow: rgba(26,122,74,0.12);
-  --glow-4: rgba(194,121,10,0.18);     --glow-4-shadow: rgba(194,121,10,0.12);
-  --glow-5: rgba(194,18,10,0.18);      --glow-5-shadow: rgba(194,18,10,0.12);
-  --glow-6: rgba(0,120,160,0.18);      --glow-6-shadow: rgba(0,120,160,0.12);
-  --glow-7: rgba(139,92,246,0.18);     --glow-7-shadow: rgba(139,92,246,0.12);
+  --glow-1: rgba(14,116,144,0.18);     --glow-1-shadow: rgba(14,116,144,0.12);
+  --glow-2: rgba(26,122,74,0.18);      --glow-2-shadow: rgba(26,122,74,0.12);
+  --glow-3: rgba(194,121,10,0.18);     --glow-3-shadow: rgba(194,121,10,0.12);
+  --glow-4: rgba(194,18,10,0.18);      --glow-4-shadow: rgba(194,18,10,0.12);
+  --glow-5: rgba(124,58,237,0.18);     --glow-5-shadow: rgba(124,58,237,0.12);
+  --glow-6: rgba(190,24,93,0.18);      --glow-6-shadow: rgba(190,24,93,0.12);
+  --glow-7: rgba(194,85,10,0.18);      --glow-7-shadow: rgba(194,85,10,0.12);
 
   /* ── Surface & glass ── */
   --surface-glass: rgba(28,31,38,0.72);
@@ -331,13 +331,13 @@ pre, code, kbd, samp {
 }
 .bubble-card.open .card-icon { transform: scale(1.1); }
 .track-0 .card-icon { background: rgba(0,87,184,0.18);    box-shadow: inset 0 0 0 1px rgba(0,87,184,0.25);    }
-.track-1 .card-icon { background: rgba(124,58,237,0.18);  box-shadow: inset 0 0 0 1px rgba(124,58,237,0.25);  }
-.track-2 .card-icon { background: rgba(0,87,184,0.18);    box-shadow: inset 0 0 0 1px rgba(0,87,184,0.25);    }
-.track-3 .card-icon { background: rgba(26,122,74,0.16);   box-shadow: inset 0 0 0 1px rgba(26,122,74,0.22);   }
-.track-4 .card-icon { background: rgba(194,121,10,0.18);  box-shadow: inset 0 0 0 1px rgba(194,121,10,0.25);  }
-.track-5 .card-icon { background: rgba(194,18,10,0.18);   box-shadow: inset 0 0 0 1px rgba(194,18,10,0.25);   }
-.track-6 .card-icon { background: rgba(0,120,160,0.18);   box-shadow: inset 0 0 0 1px rgba(0,120,160,0.25);   }
-.track-7 .card-icon { background: rgba(139,92,246,0.18);  box-shadow: inset 0 0 0 1px rgba(139,92,246,0.25);  }
+.track-1 .card-icon { background: rgba(14,116,144,0.18);  box-shadow: inset 0 0 0 1px rgba(14,116,144,0.25);  }
+.track-2 .card-icon { background: rgba(26,122,74,0.16);   box-shadow: inset 0 0 0 1px rgba(26,122,74,0.22);   }
+.track-3 .card-icon { background: rgba(194,121,10,0.18);  box-shadow: inset 0 0 0 1px rgba(194,121,10,0.25);  }
+.track-4 .card-icon { background: rgba(194,18,10,0.18);   box-shadow: inset 0 0 0 1px rgba(194,18,10,0.25);   }
+.track-5 .card-icon { background: rgba(124,58,237,0.18);  box-shadow: inset 0 0 0 1px rgba(124,58,237,0.25);  }
+.track-6 .card-icon { background: rgba(190,24,93,0.18);   box-shadow: inset 0 0 0 1px rgba(190,24,93,0.25);   }
+.track-7 .card-icon { background: rgba(180,83,9,0.18);    box-shadow: inset 0 0 0 1px rgba(180,83,9,0.25);    }
 .card-icon svg { width: 30px; height: 30px; display: block; }
 
 .card-text { flex: 1; min-width: 0; }
@@ -368,13 +368,13 @@ pre, code, kbd, samp {
   letter-spacing: 0.02em; line-height: 1.6;
 }
 .track-0 .card-tag { border-color: rgba(0,87,184,0.40);    color: #7db3f5; background: rgba(0,87,184,0.10);    }
-.track-1 .card-tag { border-color: rgba(124,58,237,0.40);  color: #b49dfa; background: rgba(124,58,237,0.10);  }
-.track-2 .card-tag { border-color: rgba(0,87,184,0.40);    color: #7db3f5; background: rgba(0,87,184,0.10);    }
-.track-3 .card-tag { border-color: rgba(26,122,74,0.40);   color: #5ec98a; background: rgba(26,122,74,0.10);   }
-.track-4 .card-tag { border-color: rgba(194,121,10,0.40);  color: #f5b84a; background: rgba(194,121,10,0.10);  }
-.track-5 .card-tag { border-color: rgba(194,18,10,0.40);   color: #f87171; background: rgba(194,18,10,0.10);   }
-.track-6 .card-tag { border-color: rgba(0,120,160,0.40);   color: #67d2ef; background: rgba(0,120,160,0.10);   }
-.track-7 .card-tag { border-color: rgba(139,92,246,0.40);  color: #c4b5fd; background: rgba(139,92,246,0.10);  }
+.track-1 .card-tag { border-color: rgba(14,116,144,0.40);  color: #67d2ef; background: rgba(14,116,144,0.10);  }
+.track-2 .card-tag { border-color: rgba(26,122,74,0.40);   color: #5ec98a; background: rgba(26,122,74,0.10);   }
+.track-3 .card-tag { border-color: rgba(194,121,10,0.40);  color: #f5b84a; background: rgba(194,121,10,0.10);  }
+.track-4 .card-tag { border-color: rgba(194,18,10,0.40);   color: #f87171; background: rgba(194,18,10,0.10);   }
+.track-5 .card-tag { border-color: rgba(124,58,237,0.40);  color: #b49dfa; background: rgba(124,58,237,0.10);  }
+.track-6 .card-tag { border-color: rgba(190,24,93,0.40);   color: #f472b6; background: rgba(190,24,93,0.10);   }
+.track-7 .card-tag { border-color: rgba(180,83,9,0.40);    color: #fbbf24; background: rgba(180,83,9,0.10);    }
 
 .card-chevron {
   width: 40px; height: 40px; flex-shrink: 0;
@@ -557,7 +557,7 @@ pre, code, kbd, samp {
 
 /* Step screenshot */
 .step-screenshot {
-  margin-top: 10px; border: 1px solid #2e3a55;
+  margin-top: 10px; margin-bottom: 10px; border: 1px solid #2e3a55;
   border-radius: 8px; overflow: hidden; max-width: 520px;
 }
 .step-screenshot img { display: block; width: 100%; height: auto; }

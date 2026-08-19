@@ -144,7 +144,7 @@
     if (cfg.boxFolderUrl) {
       var boxContainer = document.getElementById('box-folder-link-container');
       if (boxContainer) {
-        boxContainer.innerHTML = ' You can find your credentials and <code>ssh_private_key.pem</code> in the <a href="' + cfg.boxFolderUrl + '" target="_blank" rel="noopener" style="color:var(--ibm-blue);font-weight:600">Box folder↗</a>.';
+        boxContainer.innerHTML = '<a href="' + cfg.boxFolderUrl + '" target="_blank" rel="noopener" style="color:var(--ibm-blue);font-weight:600">this Box folder↗</a>';
       }
     }
 
@@ -304,7 +304,7 @@
     });
 
     // Replace in step descriptions and info boxes (text nodes only — skip code/pre)
-    root.querySelectorAll('.step-desc, .uc-desc, .info-box, .warn-box, .detail-intro, .data-table td').forEach(function (el) {
+    root.querySelectorAll('.step-desc, .uc-desc, .info-box, .warn-box, .detail-intro, .data-table td, .step-screenshot-caption').forEach(function (el) {
       replaceTextNodes(el, num, nn, libNum, port);
     });
   }

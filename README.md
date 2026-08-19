@@ -1,7 +1,9 @@
 # FLIGHT400 Application — IBM i Modernization Lab Guide
 
-> **Estimated time:** 2–3 hours  
-> **Prerequisites:** IBM Bob IDE installed, internet access, IBM i TechZone LPAR (see below), and the Premium Package for i 
+> **🎓 Running a Bobathon?** Use the GitHub Pages–hosted version of this guide instead of this README — it provides a polished, event-specific experience for participants. See the [GitHub Pages Instructor Guide](instructor-setup/Github-Pages-Instructor-Guide.md) for how to set that up.
+
+> **Estimated time:** 2–3 hours
+> **Prerequisites:** IBM Bob IDE installed, internet access, IBM i TechZone LPAR (see below), and the Premium Package for i
 
 ![alt text](pics/flight400.png)
  

@@ -23,7 +23,9 @@
  *
  * attendeeTable Array of attendee rows rendered into the Setup card assignment
  *               table, replacing the generic 1–50 table.
- *               Each row: { student: number, library: string, devPort: number, reactUrl: string }
+ *               Each row: { student: number, attendeeName?: string, library: string, devPort: number, reactUrl: string }
+ *               attendeeName is optional — when any row includes it, an "Attendee Name" column
+ *               is automatically injected into the table header and each row.
  *               Pattern: library = 'FLGHT4' + zero-padded(student),
  *                        devPort = 3000 + student,
  *                        reactUrl = 'http://localhost:' + devPort
@@ -69,12 +71,12 @@ window.FLIGHT400_CONFIG = {
    * See instructor/INSTRUCTOR-GUIDE.md for the full 1–50 pattern.
    */
   attendeeTable: [
-    { student: 1,  library: 'FLGHT401', devPort: 3001, reactUrl: 'http://localhost:3001' },
-    { student: 2,  library: 'FLGHT402', devPort: 3002, reactUrl: 'http://localhost:3002' },
-    { student: 3,  library: 'FLGHT403', devPort: 3003, reactUrl: 'http://localhost:3003' },
-    { student: 4,  library: 'FLGHT404', devPort: 3004, reactUrl: 'http://localhost:3004' },
-    { student: 5,  library: 'FLGHT405', devPort: 3005, reactUrl: 'http://localhost:3005' }
-    // Add more rows here...
+    { student: 1, attendeeName: 'Attendee One',   library: 'FLGHT401', devPort: 3001, reactUrl: 'http://localhost:3001' },
+    { student: 2, attendeeName: 'Attendee Two',   library: 'FLGHT402', devPort: 3002, reactUrl: 'http://localhost:3002' },
+    { student: 3, attendeeName: 'Attendee Three', library: 'FLGHT403', devPort: 3003, reactUrl: 'http://localhost:3003' },
+    { student: 4, attendeeName: 'Attendee Four',  library: 'FLGHT404', devPort: 3004, reactUrl: 'http://localhost:3004' },
+    { student: 5, attendeeName: 'Attendee Five',  library: 'FLGHT405', devPort: 3005, reactUrl: 'http://localhost:3005' }
+    // Add more rows here... Remove attendeeName fields to hide the name column entirely.
   ]
 
 };

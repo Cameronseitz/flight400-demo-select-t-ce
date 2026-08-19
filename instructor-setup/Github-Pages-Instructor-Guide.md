@@ -1,7 +1,7 @@
-# FLIGHT400 Lab — Instructor Guide
+# FLIGHT400 Lab — GitHub Pages Instructor Guide
 
 > This file is committed to the repository but is **never served by GitHub Pages**.
-> GitHub Pages only publishes the `docs/` folder. Everything in `instructor/` is
+> GitHub Pages only publishes the `docs/` folder. Everything in `instructor-setup/` is
 > visible only to people with repo access — not reachable from any public URL.
 
 ---
@@ -9,37 +9,41 @@
 ## 1. Repo Layout
 
 ```
-docs/                    ← GitHub Pages root (everything here is public)
-  index.html             ← Generic landing page (no company branding)
-  css/styles.css         ← Shared styles — used by all event subfolders
-  js/app.js              ← Shared JS — used by all event subfolders
-  tracks/                ← Shared exercise partials — used by all event subfolders
+docs/                       ← GitHub Pages root (everything here is public)
+  index.html                ← Generic landing page (no company branding)
+  css/styles.css            ← Shared styles — used by all event subfolders
+  js/app.js                 ← Shared JS — used by all event subfolders
+  tracks/                   ← Shared exercise partials — used by all event subfolders
     setup.html
     track-1.html … track-7.html
-  img/                   ← Shared images
-  _template/             ← Copy this for each new event
-    index.html           ← DO NOT EDIT — identical copy for every event
-    js/config.js         ← The only file you fill in per event
-  acme/                  ← Example filled-in event (Acme Corp TechDay 2026)
+  img/                      ← Shared images
+
+  _template/                ← ⚠️ NEVER EDIT — copy this for each new event
+    index.html              ← DO NOT EDIT — identical copy for every event
+    js/config.js            ← DO NOT EDIT — this is the template you copy, not fill in
+
+  first-acceptance/         ← Example filled-in event (First Acceptance Bobathon 2026)
     index.html
     js/config.js
 
-instructor/              ← THIS FOLDER — repo only, never public
-  INSTRUCTOR-GUIDE.md
+instructor-setup/           ← THIS FOLDER — repo only, never public
+  Github-Pages-Instructor-Guide.md
 ```
 
-**Key rule:** GitHub Pages publishes everything inside `docs/`. The `instructor/` folder at the repo root is private to collaborators.
+**Key rule:** GitHub Pages publishes everything inside `docs/`. The `instructor-setup/` folder at the repo root is private to collaborators.
+
+> ⚠️ **NEVER modify `docs/_template/` directly.** It is the master template. Always copy it to a new folder for your event and edit the copy. If you edit `_template/` itself you will corrupt the starting point for all future events.
 
 ---
 
 ## 2. How It Works
 
-Each company subfolder (e.g. `docs/acme/`) contains only **two files**:
+Each company subfolder (e.g. `docs/first-acceptance/`) contains only **two files**:
 
 | File | What it does |
 |---|---|
-| `index.html` | Identical copy of `docs/_template/index.html` — loads shared CSS, JS, and tracks from `../` |
-| `js/config.js` | The only file you edit — company name, event date, colors, agenda, attendee table |
+| `index.html` | Identical copy of `docs/_template/index.html` — loads shared CSS, JS, and tracks from `../` — **never edit this** |
+| `js/config.js` | The **only file you edit** — company name, event date, colors, agenda, attendee table, Box folder URL |
 
 All CSS, JS, track partials, and images live in `docs/` and are shared across every event subfolder via relative `../` paths. Updating a track exercise in `docs/tracks/` automatically updates every company event page.
 
@@ -60,41 +64,51 @@ https://<org>.github.io/<repo>/
 
 The URLs for each event are then:
 ```
-https://<org>.github.io/<repo>/           ← generic (no company branding)
-https://<org>.github.io/<repo>/acme/      ← Acme Corp example
-https://<org>.github.io/<repo>/contoso/   ← Contoso event (when you add it)
+https://<org>.github.io/<repo>/                    ← generic (no company branding)
+https://<org>.github.io/<repo>/first-acceptance/   ← First Acceptance example
+https://<org>.github.io/<repo>/contoso/            ← Contoso event (when you add it)
 ```
 
-You give attendees the company-specific URL. The `_template/` and `instructor/` paths exist in the repo but are not meaningful pages to share.
+You give attendees the company-specific URL. The `_template/` and `instructor-setup/` paths exist in the repo but are not meaningful pages to share.
 
 ---
 
 ## 4. Adding a New Company Event
 
-### Step 1 — Copy the template
+### Step 1 — Copy the template (never edit _template directly)
 
 ```bash
 cp -r docs/_template docs/contoso
 ```
 
-### Step 2 — Edit `docs/contoso/js/config.js`
+> ⚠️ Always copy — **never edit `docs/_template/` itself**. The template must stay clean so future events start from a known-good baseline.
 
-This is the **only file you touch**. Fill in every field:
+### Step 2 — Edit `docs/contoso/js/config.js` only
+
+This is the **only file you touch in the new folder**. Do not edit `index.html`. Fill in every field:
 
 ```js
 window.FLIGHT400_CONFIG = {
+
   companyName:  'Contoso',
   eventName:    'Contoso Dev Day 2026',
   eventDate:    'Thursday, November 5, 2026',
+
   primaryColor: '#0078D4',   // Contoso blue — optional
   accentColor:  '#FFB900',   // Contoso gold — optional
+
+  // URL to the Box folder containing IBM i credentials & ssh_private_key.pem.
+  // Shown as a link in Setup step 5. Set to null to hide.
+  boxFolderUrl: 'https://ibm.ent.box.com/folder/YOUR_FOLDER_ID',
+
   agendaItems: [
     { time: '10:00 – 10:15', title: 'Welcome', bullets: ['...'] },
     // add more sessions...
   ],
+
   attendeeTable: [
-    { student: 1,  library: 'FLGHT401', devPort: 3001, reactUrl: 'http://localhost:3001' },
-    { student: 2,  library: 'FLGHT402', devPort: 3002, reactUrl: 'http://localhost:3002' },
+    { student: 1, attendeeName: 'Alice Smith',  library: 'FLGHT401', devPort: 3001, reactUrl: 'http://localhost:3001' },
+    { student: 2, attendeeName: 'Bob Jones',    library: 'FLGHT402', devPort: 3002, reactUrl: 'http://localhost:3002' },
     // add all attendees...
   ]
 };
@@ -120,28 +134,49 @@ https://<org>.github.io/<repo>/contoso/
 
 ## 5. Filling in the Attendee Table
 
-The `attendeeTable` array replaces the generic 1–50 table in the Setup card. Add one row per attendee. The pattern is always:
+The `attendeeTable` array populates the assignment table on the Setup card. Add one row per attendee.
 
-| Field | Pattern |
+### Field reference
+
+| Field | Required | Description |
+|---|---|---|
+| `student` | ✅ | Sequential row number: 1, 2, 3… |
+| `library` | ✅ | IBM i library assigned to this attendee — e.g. `'FLGHT401'` |
+| `devPort` | ✅ | Dev server port — e.g. `3001` |
+| `reactUrl` | ✅ | Full URL for the React app — typically `'http://localhost:' + devPort` |
+| `attendeeName` | optional | Attendee's display name — when **any** row includes this field, a **Name** column is automatically added to the table header and all rows. Omit from every row to hide the column entirely. |
+
+### Library and port numbering
+
+The library name and port are not required to follow a strict sequential pattern — assign whatever your IBM i environment actually has provisioned. The typical convention is:
+
+| Field | Typical Pattern |
 |---|---|
-| `student` | Sequential number: 1, 2, 3… |
-| `library` | `'FLGHT4'` + zero-padded number: `FLGHT401`, `FLGHT402`… `FLGHT410`, `FLGHT411`… |
-| `devPort` | `3000` + student number: 3001, 3002… |
+| `library` | `'FLGHT4'` + zero-padded number matching the IBM i setup — e.g. `FLGHT401`, `FLGHT402`… `FLGHT410`, `FLGHT411`… |
+| `devPort` | Matches the library suffix: `3001`, `3002`… |
 | `reactUrl` | `'http://localhost:'` + devPort |
 
-Full example for 10 attendees:
+> ⚠️ Always confirm the actual library names and ports from your IBM i administrator or TechZone provisioning details before filling in the table. Do not guess or assume they start at `01`.
+
+### Example for 5 attendees with names
+
 ```js
 attendeeTable: [
-  { student: 1,  library: 'FLGHT401', devPort: 3001, reactUrl: 'http://localhost:3001' },
-  { student: 2,  library: 'FLGHT402', devPort: 3002, reactUrl: 'http://localhost:3002' },
-  { student: 3,  library: 'FLGHT403', devPort: 3003, reactUrl: 'http://localhost:3003' },
-  { student: 4,  library: 'FLGHT404', devPort: 3004, reactUrl: 'http://localhost:3004' },
-  { student: 5,  library: 'FLGHT405', devPort: 3005, reactUrl: 'http://localhost:3005' },
-  { student: 6,  library: 'FLGHT406', devPort: 3006, reactUrl: 'http://localhost:3006' },
-  { student: 7,  library: 'FLGHT407', devPort: 3007, reactUrl: 'http://localhost:3007' },
-  { student: 8,  library: 'FLGHT408', devPort: 3008, reactUrl: 'http://localhost:3008' },
-  { student: 9,  library: 'FLGHT409', devPort: 3009, reactUrl: 'http://localhost:3009' },
-  { student: 10, library: 'FLGHT410', devPort: 3010, reactUrl: 'http://localhost:3010' }
+  { student: 1, attendeeName: 'Alice Smith',   library: 'FLGHT401', devPort: 3001, reactUrl: 'http://localhost:3001' },
+  { student: 2, attendeeName: 'Bob Jones',     library: 'FLGHT402', devPort: 3002, reactUrl: 'http://localhost:3002' },
+  { student: 3, attendeeName: 'Carol White',   library: 'FLGHT403', devPort: 3003, reactUrl: 'http://localhost:3003' },
+  { student: 4, attendeeName: 'Dan Brown',     library: 'FLGHT404', devPort: 3004, reactUrl: 'http://localhost:3004' },
+  { student: 5, attendeeName: 'Eve Martinez',  library: 'FLGHT405', devPort: 3005, reactUrl: 'http://localhost:3005' }
+]
+```
+
+### Example without names (hides the Name column)
+
+```js
+attendeeTable: [
+  { student: 1, library: 'FLGHT401', devPort: 3001, reactUrl: 'http://localhost:3001' },
+  { student: 2, library: 'FLGHT402', devPort: 3002, reactUrl: 'http://localhost:3002' },
+  { student: 3, library: 'FLGHT403', devPort: 3003, reactUrl: 'http://localhost:3003' }
 ]
 ```
 
@@ -149,9 +184,27 @@ attendeeTable: [
 
 ## 6. Updating Lab Content
 
-All exercise content lives in `docs/tracks/`. Every event subfolder picks up changes automatically — no copying required.
+All exercise content lives in `docs/tracks/` and is loaded at **runtime** by every event page via `fetch()`. This means:
 
-To update an exercise, edit `docs/tracks/track-N.html`, commit, and push. All company pages update immediately on next GitHub Pages deploy.
+- ✅ A fix or improvement to a track automatically benefits all events.
+- ❌ An accidental edit or deletion of a track file **immediately breaks that track for every company event simultaneously.**
+
+### Rules for editing shared tracks
+
+> ⚠️ **`docs/tracks/` is shared infrastructure.** Treat it like production code — every change affects all live event pages the moment it deploys.
+
+Before editing any file in `docs/tracks/`:
+1. **Coordinate** — confirm no Bobathon is actively running.
+2. **Test locally** — open any event page (`docs/first-acceptance/`) in a browser before pushing.
+3. **Never delete** a track file — if a track is being retired, leave the file in place and hide it via config instead.
+
+To update an exercise, edit `docs/tracks/track-N.html`, commit, and push. GitHub Pages redeploys in 1–2 minutes and all event pages pick up the change.
+
+> ⚠️ Do **not** copy track files into event subfolders. They are intentionally loaded from the shared `docs/tracks/` path via `fetch()` in `app.js`. Copying them would cause that event to diverge from future updates.
+
+### What if two Bobathons need different track content at the same time?
+
+That is not currently supported by this architecture. If two events need to diverge from each other, the simplest mitigation is to **run them off separate branches**, each deployed to GitHub Pages from their own branch. Coordinate with the team before attempting this.
 
 ---
 
@@ -160,24 +213,25 @@ To update an exercise, edit `docs/tracks/track-N.html`, commit, and push. All co
 | URL | Visible to attendees? |
 |---|---|
 | `…/<repo>/` | ✅ Generic landing page |
-| `…/<repo>/acme/` | ✅ Acme event page |
-| `…/<repo>/_template/` | ⚠️ Reachable URL but shows a blank config (no company data) |
-| `instructor/INSTRUCTOR-GUIDE.md` | ❌ Not inside `docs/` — never served |
+| `…/<repo>/first-acceptance/` | ✅ First Acceptance event page |
+| `…/<repo>/_template/` | ⚠️ Reachable URL but shows placeholder config (no real company data) |
+| `instructor-setup/Github-Pages-Instructor-Guide.md` | ❌ Not inside `docs/` — never served |
 
-> ✅ Each company's attendee table is only in that company's `config.js`. Attendees at Acme cannot see Contoso's table and vice versa — as long as you don't share the wrong URL.
+> ✅ Each company's attendee table is only in that company's `config.js`. Attendees at one event cannot see another event's table — as long as you don't share the wrong URL.
 
 ---
 
 ## 8. Per-Event Checklist
 
-- [ ] `cp -r docs/_template docs/<eventslug>`
-- [ ] Edit `docs/<eventslug>/js/config.js`:
+- [ ] `cp -r docs/_template docs/<eventslug>` — **copy, never edit `_template/` itself**
+- [ ] Edit `docs/<eventslug>/js/config.js` only — do not touch `index.html`:
   - [ ] `companyName`
   - [ ] `eventName`
   - [ ] `eventDate`
   - [ ] `primaryColor` / `accentColor` *(optional)*
-  - [ ] `agendaItems[]` *(remove array to hide Agenda button)*
-  - [ ] `attendeeTable[]` — one row per attendee
+  - [ ] `boxFolderUrl` — Box folder with IBM i credentials & key *(set to `null` to hide)*
+  - [ ] `agendaItems[]` *(remove array or set to `[]` to hide Agenda button)*
+  - [ ] `attendeeTable[]` — one row per attendee; confirm library names & ports from IBM i admin
 - [ ] Commit and push
 - [ ] Verify site at `https://<org>.github.io/<repo>/<eventslug>/`
 - [ ] Share URL with attendees — do NOT share this guide

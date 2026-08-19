@@ -1,18 +1,18 @@
 <div class="bubble-card track-1" id="card-1">
   <div class="card-summary">
-    <div class="card-icon" aria-label="React warm-up">
+    <div class="card-icon" aria-label="Architecture documentation">
       <svg viewBox="0 0 24 24" fill="none" stroke="var(--c1)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <circle cx="12" cy="12" r="2"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke-dasharray="4 2"/>
+        <rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/>
       </svg>
     </div>
     <div class="card-text">
-      <div class="card-label">Exercise 1 · Optional</div>
-      <div class="card-title">Generate a React Carbon App from a Green Screen</div>
-      <div class="card-desc">Use Bob in IBM i Developer mode to analyze the FLIGHT400 5250 screen and generate a modern React web application styled with IBM Carbon, running directly on IBM i PASE.</div>
+      <div class="card-label">Exercise 1</div>
+      <div class="card-title">Code Explanation &amp; Architecture Documentation</div>
+      <div class="card-desc">Use Bob to automatically generate an architecture overview with Mermaid diagrams, then switch to Database mode to produce an Entity Relationship Diagram of the FLIGHT400 database.</div>
       <div class="card-meta">
         <span class="card-tag">~30 min</span>
-        <span class="card-tag">Optional</span>
         <span class="card-tag">IBM i Developer mode</span>
+        <span class="card-tag">IBM i Database mode</span>
       </div>
     </div>
     <div class="card-chevron" aria-hidden="true">
@@ -22,32 +22,38 @@
 
   <div class="card-detail">
     <div class="card-detail-inner">
-      <div class="detail-intro">Use Bob to analyze the FLIGHT400 <em>Create Order</em> 5250 screen and generate a full React 18 + Vite app styled with IBM Carbon, running natively in IBM i PASE. This is an optional warm-up — it takes about 30 minutes.</div>
+      <div class="detail-intro">Generate a living architecture document and ERD from the legacy FLIGHT400 codebase — no manual reverse-engineering required.</div>
 
       <div class="use-cases">
 
         <div class="use-case">
           <div class="use-case-header">
             <div class="uc-num">1</div>
-            <div class="uc-title">Create a Helper Skill (Sharpen Your Skill)</div>
+            <div class="uc-title">1a — Browse the Application in the Object Browser</div>
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
           <div class="uc-body"><div class="uc-body-inner">
-            <p class="uc-desc">Before generating the React app, give Bob extra context about running React + Vite on IBM i PASE by creating a small helper Skill.</p>
+            <p class="uc-desc">Explore the FLIGHT400 library structure before generating documentation.</p>
             <div class="mode-steps">
               <div class="mode-step">
                 <div class="step-num">1</div>
                 <div class="step-body">
-                  <div class="step-title">Open a new task in Agent mode</div>
-                  <div class="step-desc">In Agent mode, click the <strong>+</strong> button (top right) and select <strong>Local Workspace</strong> as the task context.</div>
+                  <div class="step-title">Expand your library in the Object Browser</div>
+                  <div class="step-desc">In the IBM i sidebar, expand <strong>User Library List</strong> and <strong>Object Browser</strong>. Add a filter for<code>FLGHT4nn</code> in the object browser if not already done so, and set the filter to <code>*ALL</code> so you see all object types: <code>*PGM</code> (RPG and CL programs), <code>*FILE</code> (display and database files), <code>*MENU</code> (application menus).</div>
                 </div>
               </div>
               <div class="mode-step">
                 <div class="step-num">2</div>
                 <div class="step-body">
-                  <div class="step-title">Paste the SAMPLE-SKILL.md content and create the skill</div>
-                  <div class="step-desc">Open <a href="https://github.com/Cameronseitz/flight400-demo-select-t-ce/blob/main/SAMPLE-SKILL.md" target="_blank" rel="noopener"><code>SAMPLE-SKILL.md</code></a> from your workspace, copy its entire content, paste it into the Bob chat, then append this instruction and send:</div>
-                  <div class="step-prompt"><pre>Create a skill from the pasted text.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+                  <div class="step-title">Browse source members and preview a display file</div>
+                  <div class="step-desc">Expand <strong>Source Files</strong> and open a few programs from <code>QRPGSRC</code>. Then navigate to <code>QDDSSRCD</code> and open <code>FRS001DF</code>. Click <strong>Preview All</strong> on the first line to see the green-screen layout rendered visually. Try <code>FRS021DF</code> as well — this is the Flight Maintenance screen used in Exercise 3.</div>
+                </div>
+              </div>
+              <div class="mode-step">
+                <div class="step-num">3</div>
+                <div class="step-body">
+                  <div class="step-title">Check how old the programs are</div>
+                  <div class="step-desc">In the Object Browser, click on the program <code>FRS000.pgm</code> — that is the flight reservation logon. You'll see in the <strong>Detail</strong> that this program was compiled in 1997, over 30 years ago!</div>
                 </div>
               </div>
             </div>
@@ -57,66 +63,68 @@
         <div class="use-case">
           <div class="use-case-header">
             <div class="uc-num">2</div>
-            <div class="uc-title">Generate the React App</div>
+            <div class="uc-title">1b — Generate an Architecture Explanation with Bob</div>
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
           <div class="uc-body"><div class="uc-body-inner">
-            <p class="uc-desc">Switch to <strong>IBM i Developer</strong> mode, then click the <strong>+</strong> button and select your <strong>FLGHT4nn</strong> library list as the context. Drag or paste the FLIGHT400 screenshot below into the Bob chat prompt, then replace <code>4nn</code> and <code>30nn</code> with your assigned numbers and send.</p>
-            <div class="step-screenshot">
-              <img src="img/flight400.png" alt="FLIGHT400 5250 Create Order screen — paste this screenshot into the Bob prompt"/>
-              <div class="step-screenshot-caption">Paste or drag this screenshot of the FLIGHT400 Create Order screen into the Bob prompt</div>
-            </div>
-            <div class="step-prompt"><pre>Given this screenshot of the 5250 flight order screen from the Application Flight4nn in @FLGHT4nn, Build a single-page React 18 + Vite 4 app on IBM i (PASE) using @carbon/react ^1.x with the g100 dark theme that modernises the IBM i 5250 screen shown in the attached screenshot. Create the app in the IFS at $HOME/flight4nn-frontend-apps/screen-name/. Use the g100 dark theme. All fields should have a list of values to select from. The dev server must run in the background using nohup … &amp; and write output to /tmp/vite-dev.log. Pin the Vite dev server to port 30nn if available.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
-            <div class="step-screenshot">
-              <img src="img/Flight-react-agentic.png" alt="Example of the React Carbon app generated from a 5250 screen"/>
-              <div class="step-screenshot-caption">Example result — React Carbon app modernising a 5250 screen</div>
-            </div>
+            <p class="uc-desc">Switch to <strong>IBM i Developer</strong> mode. Click the <strong>+ (Scope) button</strong> and select <strong>(QSYS) Library List</strong> as the context scope. Make sure <code>FLGHT4nn</code> is in the library list. Replace <code>nn</code> with your library number in the prompt below.</p>
+            <div class="step-prompt"><pre>Generate a comprehensive architecture overview of the FLIGHT4nn application in QSYS in Markdown format. Include a high-level description, the main program flows, key programs and their roles, a Mermaid architecture diagram, and a summary of the database tables used.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <p class="uc-desc" style="margin-top:1rem">Bob will analyze the programs, source members, and database files and return a structured Markdown document. Review the output — notice how it identifies the menu-driven architecture, the core transaction programs, and the underlying database schema.</p>
+            <div class="info-box">Copy the output to a new file <code>FLIGHT4nn-Architecture.md</code> in your workspace for reference.</div>
           </div></div>
         </div>
 
         <div class="use-case">
           <div class="use-case-header">
             <div class="uc-num">3</div>
-            <div class="uc-title">Start the App and Open It in Your Browser</div>
+            <div class="uc-title">1c — Generate an Entity Relationship Diagram</div>
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
           <div class="uc-body"><div class="uc-body-inner">
-            <p class="uc-desc">After Bob generates the files, ask Bob to start the dev server for you:</p>
-            <div class="step-prompt"><pre>Please start the dev server for the app you just created.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
-            <p class="uc-desc" style="margin-top:1rem">Then open <code>http://localhost:30nn</code> in your browser — replacing <code>30nn</code> with your Dev Port from the Setup table.</p>
-            <div class="info-box">💡 <strong>Nothing showing in your browser?</strong> Make sure you have completed Step 2 of Environment Setup (the SSH tunnel) and that it includes your port number. Note that the port number and the look &amp; feel of the generated app may differ from any examples shown.</div>
+            <p class="uc-desc">Switch to <strong>IBM i Database</strong> mode using the mode selector. Type the slash command below so <code>/erd</code> is highlighted in the Bob chat. Replace <code>4nn</code> with your number.</p>
+            <div class="step-prompt"><pre>/erd FLGHT4nn</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <div class="info-box">Bob will introspect the physical files (FLIGHTS, ORDERS, CUSTOMERS, AGENTS, etc.) and generate a Mermaid ERD. Key relationships: ORDERS links to FLIGHTS, CUSTOMERS, and AGENTS; FLIGHTS references FRCITY and TOCITY. Copy the ERD to your architecture document.</div>
           </div></div>
         </div>
 
-        <!-- Wrap-Up accordion -->
         <div class="use-case">
           <div class="use-case-header">
-            <div class="uc-num">🎉</div>
-            <div class="uc-title">Wrap-Up &amp; Lessons Learned</div>
+            <div class="uc-num">4</div>
+            <div class="uc-title">1d — (Optional) Generate a Draw.io Architecture Diagram</div>
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
           <div class="uc-body"><div class="uc-body-inner">
-            <p class="uc-desc">In addition to the sample Skill created in step 1, a set of unique Skills shipped with the <strong>IBM Bob Premium Package for i</strong> powered this exercise:</p>
-            <table class="data-table" style="font-size:0.83rem">
-              <thead>
-                <tr><th>Tool / Skill</th><th>Role</th></tr>
-              </thead>
-              <tbody>
-                <tr><td><code>dds-primer-basics</code> skill</td><td>Parses <code>FRS001DF.DSPF</code> — screen layout, field names, subfile windows</td></tr>
-                <tr><td><code>rpg-primer-basics</code> skill</td><td>Reads <code>FRS001.RPG</code> — extracts pricing logic and field definitions</td></tr>
-                <tr><td>IFS write tools</td><td>Creates project files directly in <code>$HOME/flight4nn-react/</code> on IBM i</td></tr>
-                <tr><td>IBM i PASE</td><td>Runs <code>npm install</code>, <code>npm run build</code>, <code>npm start</code> natively on IBM i</td></tr>
-              </tbody>
-            </table>
-            <div style="margin-top:1rem">
-              <p class="uc-desc">Once you finish playing around with the React app, ask Bob to stop it:</p>
-              <div class="step-prompt" style="margin-bottom:0.75rem"><pre>Stop the web service for FLGHT4nn on port 30nn</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
-              <div class="info-box">⚠️ <strong>This app runs with sample data only.</strong> The natural next step is to add a REST / Web Services layer connecting the React front end to the real IBM i business logic and Db2 for i database.</div>
+            <p class="uc-desc"><strong>Prerequisite:</strong> Install the <strong>Draw.io Integration</strong> extension (<code>Cmd+Shift+X</code> → search "Draw.io Integration" → Install). Then in IBM i Developer mode with Library List scope, replace <code>4nn</code> with your number:</p>
+            <div class="step-prompt"><pre>Analyze the FLIGHT4nn application from the library list and generate a draw.io architecture diagram showing the main programs, menus, and database files. Save the file as `FLGHT4nn-architecture.drawio` in `$HOME/docs/` on IBM i.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <div class="step-screenshot">
+              <img src="img/drawIo.png" alt="Draw.io architecture diagram generated by Bob"/>
+              <div class="step-screenshot-caption">Example Draw.io architecture diagram — rendered directly in Bob IDE</div>
             </div>
           </div></div>
         </div>
 
-      </div><!-- end use-cases -->
+        <div class="use-case">
+          <div class="use-case-header">
+            <div class="uc-num">5</div>
+            <div class="uc-title">1e — (Optional) Business Rules Extraction</div>
+            <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
+          </div>
+          <div class="uc-body"><div class="uc-body-inner">
+            <p class="uc-desc">Drill down on a specific member using the Business Rules Extraction workflow. Click the <strong>workflow icon</strong> at the top of the Bob panel, choose to run the workflow in your library list, and select <strong>Business Rules Extraction</strong>.</p>
+            <div class="step-screenshot">
+              <img src="img/workflows-icon.png" alt="Workflows icon in Bob IDE"/>
+              <div class="step-screenshot-caption">Click the workflows icon to launch a workflow</div>
+            </div>
+            <div class="info-box">When prompted, use: <strong>Library:</strong> FLGHT4nn · <strong>Source File:</strong> QRPGLESRC · <strong>Member:</strong> FRS401.RPGLE. At the end, specify an output path unique to your library number, e.g. <code>/home/ITZUSER/flght4nn/docs/business-rules/FRS401-report.md</code></div>
+            <p class="uc-desc" style="margin-top:0.75rem">Watch Bob create a guided workflow to get the necessary data and generate a complete report describing a business function. Bob will use subagents to create a document outlining business rules, decision logic, Mermaid diagrams, process flows, and more. Documentation is written in business-friendly language, not technical jargon.</p>
+            <div class="step-screenshot">
+              <img src="img/IFS-location.png" alt="IFS output path dialog after Business Rules Extraction workflow"/>
+              <div class="step-screenshot-caption">Enter a path unique to your library number when prompted for the output location</div>
+            </div>
+          </div></div>
+        </div>
+
+      </div>
     </div>
   </div>
 </div>

@@ -262,12 +262,30 @@
   var rows = (window.FLIGHT400_CONFIG || {}).attendeeTable;
   if (!rows || !rows.length) return;
 
+  var hasNames = rows.some(function (r) { return r.attendeeName; });
+
   function patchTable() {
-    var tbody = document.querySelector('#attendee-table tbody');
+    var table = document.querySelector('#attendee-table');
+    if (!table) { requestAnimationFrame(patchTable); return; }
+
+    // Inject Attendee Name column header when names are present
+    if (hasNames) {
+      var thead = table.querySelector('thead tr');
+      if (thead && !thead.querySelector('.col-name')) {
+        var th = document.createElement('th');
+        th.className = 'col-name';
+        th.textContent = 'Attendee Name';
+        thead.insertBefore(th, thead.children[1]);
+      }
+    }
+
+    var tbody = table.querySelector('tbody');
     if (!tbody) { requestAnimationFrame(patchTable); return; }
     tbody.innerHTML = rows.map(function (r) {
+      var nameCell = hasNames ? '<td>' + (r.attendeeName || '') + '</td>' : '';
       return '<tr>' +
         '<td style="text-align:center">' + r.student + '</td>' +
+        nameCell +
         '<td><code>' + r.library + '</code></td>' +
         '<td style="text-align:center">' + r.devPort + '</td>' +
         '<td><code>' + r.reactUrl + '</code></td>' +

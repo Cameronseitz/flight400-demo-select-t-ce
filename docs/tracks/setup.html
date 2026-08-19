@@ -57,6 +57,22 @@
                   <div class="step-desc">In the Bob chat window, click <strong>Log in to Bob</strong>. When asked to allow Bob to sign in, click <strong>Allow</strong>. Bob will then ask if you want to open a link — click <strong>Open</strong>. This opens your browser to complete the sign-in.</div>
                 </div>
               </div>
+              <div class="mode-step">
+                <div class="step-num">4</div>
+                <div class="step-body">
+                  <div class="step-title">Verify you're on the correct team</div>
+                  <div class="step-desc">Click the <strong>gear icon</strong> above the Bob chat window. If the chat window isn't open, click the Bob icon to the right of the center search bar to open it first.</div>
+                  <div class="step-screenshot">
+                    <img src="img/settings-pt1.png" alt="Bob settings panel showing the gear icon and General settings"/>
+                    <div class="step-screenshot-caption">Open Bob settings with the gear icon above the chat window</div>
+                  </div>
+                  <div class="step-desc">Under <strong>General</strong> settings, you'll see a team selector. Make sure it shows a team with <strong>Bobathon</strong> in the name. If not, click it and select the Bobathon account from the list.</div>
+                  <div class="step-screenshot">
+                    <img src="img/change-team.png" alt="Bob team selector showing Bobathon account option"/>
+                    <div class="step-screenshot-caption">Select the Bobathon team from the team selector</div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div></div>
         </div>
@@ -198,7 +214,7 @@
                 <div class="step-num">2</div>
                 <div class="step-body">
                   <div class="step-title">Add a new connection</div>
-                  <div class="step-desc">Click <strong>New Connection</strong> and enter the host IP, user profile, and <code>ssh_private_key</code> provided in your TechZone reservation folder. <strong>Do not use the password here — use only the <code>ssh_private_key</code>.</strong><span id="box-folder-link-container"></span></div>
+                  <div class="step-desc">Click <strong>New Connection</strong> and enter the host IP, user profile, and <code>ssh_private_key</code> provided in <span id="box-folder-link-container">the Box folder↗</span>. <strong>Do not use the password here — use only the <code>ssh_private_key</code>.</strong></div>
                   <div class="step-screenshot">
                     <img src="img/i-connection.png" alt="IBM i connection dialog in Bob IDE"/>
                     <div class="step-screenshot-caption">IBM i connection panel</div>
@@ -208,13 +224,48 @@
               <div class="mode-step">
                 <div class="step-num">3</div>
                 <div class="step-body">
-                  <div class="step-title">Browse your assigned library in the Object Browser</div>
-                  <div class="step-desc">In the Code for IBM i Object Browser, navigate to your <code>FLGHT4nn</code> library (replace <code>nn</code> with your number). Then add your library to the user library list.</div>
+                  <div class="step-title">Add your assigned library to the User Library List</div>
+                  <div class="step-desc">In the Code for IBM i extension (arrow in the picture below), navigate to the <strong>User Library List</strong> section and click the <strong>+</strong> icon. An input field will pop up at the top of the screen — type <code>FLGHT4nn</code> (replace <code>nn</code> with your assigned number) and press <strong>Enter</strong>. You'll then see your library added to the list.</div>
+                  <div class="step-screenshot" style="max-width:380px">
+                    <img src="img/add-library.png" alt="User Library List section in the Code for IBM i extension"/>
+                    <div class="step-screenshot-caption">Navigate to User Library List and click the + icon</div>
+                  </div>
                   <div class="step-screenshot">
-                    <img src="img/add-library.png" alt="Adding library to library list in Code for IBM i"/>
-                    <div class="step-screenshot-caption">Add FLGHT4nn to your library list</div>
+                    <img src="img/add-library-name.png" alt="Input field prompting for library name"/>
+                    <div class="step-screenshot-caption">Type FLGHT4nn and press Enter to add your library</div>
                   </div>
                   <div class="info-box">✅ If you have a 5250 terminal, you can also add the library with: <code>ADDLIBLE FLGHT4nn</code> and launch the app with: <code>GO FLGHT4nn/FRSMAIN</code></div>
+                </div>
+              </div>
+
+              <div class="mode-step">
+                <div class="step-num">4</div>
+                <div class="step-body">
+                  <div class="step-title">Add your assigned library to the Object Browser</div>
+                  <div class="step-desc">While still in the Code for IBM i extension, go to the <strong>Object Browser</strong> section and click the funnel icon or the <strong>Create new filter</strong> button.</div>
+                  <div class="step-screenshot">
+                    <img src="img/add-object-filter.png" alt="Object Browser section showing the funnel/Create new filter button"/>
+                    <div class="step-screenshot-caption">Object Browser — click the funnel icon or Create new filter</div>
+                  </div>
+                  <div class="step-desc">Name your filter (e.g. your assigned number). In <strong>Libraries</strong>, enter your assigned library <code>FLGHT4nn</code>. For <strong>Object types</strong>, keep the default or change it to <strong>*ALL</strong> to see all object types: <code>*PGM</code> (RPG and CL programs), <code>*FILE</code> (display and database files), <code>*MENU</code> (application menus).</div>
+                  <div class="step-screenshot">
+                    <img src="img/object-filter-fields.png" alt="Object Browser filter fields showing library and object type inputs"/>
+                    <div class="step-screenshot-caption">Enter FLGHT4nn as the library and choose your object types</div>
+                  </div>
+                  <div class="step-desc">Scroll down and click <strong>Save Settings</strong>. Your named filter will now appear in the Object Browser, and you can navigate and expand the members inside your library.</div>
+                </div>
+              </div>
+
+              <div class="mode-step">
+                <div class="step-num">5</div>
+                <div class="step-body">
+                  <div class="step-title">Set the workspace to Library List</div>
+                  <div class="step-desc">Throughout the labs you'll see references to setting the scope or workspace to <strong>QSYS</strong> or your <strong>Library List</strong>. This is because Bob can work on local files on your laptop <em>and</em> on the IBM i you just connected to — all the labs focus on the IBM i.</div>
+                  <div class="step-desc">Click the <strong>+</strong> icon above the Bob chat window. When the options appear in the center of the screen, make sure your library is listed under <strong>New Task in Library List</strong> and select that option.</div>
+                  <div class="step-screenshot">
+                    <img src="img/set-workspace.png" alt="Bob scope picker showing New Task in Library List option"/>
+                    <div class="step-screenshot-caption">Select "New Task in Library List" — confirm your FLGHT4nn library is listed</div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -225,7 +276,7 @@
         <div class="use-case">
           <div class="use-case-header">
             <div class="uc-num">5</div>
-            <div class="uc-title">Connect to IBM i — Credentials &amp; SSH Tunnel</div>
+            <div class="uc-title">SSH Tunnel - For Green Screen and Exercise 7</div>
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
           <div class="uc-body"><div class="uc-body-inner">
@@ -250,6 +301,22 @@
  </div>
                   <div class="step-prompt"><pre>sudo ssh -L 50000:localhost:23 -L 2001:localhost:2001 -L 449:localhost:449 -L 8470:localhost:8470 -L 8471:localhost:8471 -L 8472:localhost:8472 -L 2007:localhost:2007 -L 8473:localhost:8473 -L 8474:localhost:8474 -L 8475:localhost:8475 -L 8476:localhost:8476 -L 2003:localhost:2003 -L 2002:localhost:2002 -L 2006:localhost:2006 -L 2300:localhost:2300 -L 2323:localhost:2323 -L 2005:localhost:2005 -L 8076:localhost:8076 -L 3001:localhost:3001 -L 3002:localhost:3002 -L 3003:localhost:3003 -L 3004:localhost:3004 -L 3005:localhost:3005 -L 3006:localhost:3006 -L 3007:localhost:3007 -L 3008:localhost:3008 -L 3009:localhost:3009 -L 3010:localhost:3010 -L 3011:localhost:3011 -L 3012:localhost:3012 -L 3013:localhost:3013 -L 3014:localhost:3014 -L 3015:localhost:3015 -L 3016:localhost:3016 -L 3017:localhost:3017 -L 3018:localhost:3018 -L 3019:localhost:3019 -L 3020:localhost:3020 -L 3021:localhost:3021 -L 3022:localhost:3022 -L 3023:localhost:3023 -L 3024:localhost:3024 -L 3025:localhost:3025 -L 3026:localhost:3026 -L 3027:localhost:3027 -L 3028:localhost:3028 -L 3029:localhost:3029 -L 3030:localhost:3030 -L 3031:localhost:3031 -L 3032:localhost:3032 -L 3033:localhost:3033 -L 3034:localhost:3034 -L 3035:localhost:3035 -L 3036:localhost:3036 -L 3037:localhost:3037 -L 3038:localhost:3038 -L 3039:localhost:3039 -L 3040:localhost:3040 -L 3041:localhost:3041 -L 3042:localhost:3042 -L 3043:localhost:3043 -L 3044:localhost:3044 -L 3045:localhost:3045 -L 3046:localhost:3046 -L 3047:localhost:3047 -L 3048:localhost:3048 -L 3049:localhost:3049 -L 3050:localhost:3050 -o ExitOnForwardFailure=yes -o ServerAliveInterval=15 -o ServerAliveCountMax=3 &lt;myuser&gt;@&lt;myIPaddress&gt; -i ssh_private_key.pem</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
                   <div class="info-box">💡 <strong>No IBM ID yet?</strong> Create one for free at <a href="https://www.ibm.com/account" target="_blank" rel="noopener" style="color:var(--ibm-blue)">ibm.com/account</a>. For 5250 or database access, install <a href="https://www.ibm.com/support/pages/ibm-i-access-client-solutions" target="_blank" rel="noopener" style="color:var(--ibm-blue)">IBM i Access Client Solutions</a>.</div>
+                </div>
+              </div>
+              <div class="mode-step">
+                <div class="step-num">3</div>
+                <div class="step-body">
+                  <div class="step-title">Connect IBM i Access Client Solutions for 5250 <span class="card-tag" style="font-size:0.7rem;vertical-align:middle;margin-left:6px">Optional</span></div>
+                  <div class="step-desc">Only needed if you want to view the green screen. Install <a href="https://www.ibm.com/support/pages/ibm-i-access-client-solutions" target="_blank" rel="noopener" style="color:var(--ibm-blue)">IBM i Access Client Solutions</a>, then make sure the SSH tunnel from step 2 is running.</div>
+                  <div class="step-desc">Open the 5250 Emulator. Set IP Address to <code>127.0.0.1</code> and port to <code>50000</code>. If it tries port 23, override it in Communication → Configure → Destination Port: <code>50000</code>. Log in with your username and password.</div>
+                  <div class="step-desc">Add your library and open the Flight Maintenance screen:</div>
+                  <div class="step-prompt"><pre>ADDLIBLE FLGHT4nn</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+                  <div class="step-prompt" style="margin-top:8px"><pre>CALL FLGHT4nn/FRS021</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+                  <div class="step-screenshot">
+                    <img src="img/ACS-green-screen.png" alt="Flight Maintenance screen in 5250 emulator"/>
+                    <div class="step-screenshot-caption">Flight Maintenance screen in the 5250 emulator</div>
+                  </div>
+                  <div class="warn-box">⚠️ When finished, exit the 5250 screen by pressing <strong>F3</strong>.</div>
                 </div>
               </div>
             </div>

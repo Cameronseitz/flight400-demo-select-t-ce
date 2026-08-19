@@ -1,18 +1,18 @@
 <div class="bubble-card track-7" id="card-7">
   <div class="card-summary">
-    <div class="card-icon" aria-label="RPGUnit testing">
+    <div class="card-icon" aria-label="React warm-up">
       <svg viewBox="0 0 24 24" fill="none" stroke="var(--c7)" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/>
+        <circle cx="12" cy="12" r="2"/><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z" stroke-dasharray="4 2"/>
       </svg>
     </div>
     <div class="card-text">
       <div class="card-label">Exercise 7</div>
-      <div class="card-title">RPGUnit Test Planning &amp; Implementation</div>
-      <div class="card-desc">Use Bob's guided RPGUnit workflows to build a structured test plan for an IBM i program, then implement and run the test suites — without writing test boilerplate by hand.</div>
+      <div class="card-title">Generate a React Carbon App from a Green Screen</div>
+      <div class="card-desc">Use Bob in IBM i Developer mode to analyze the FLIGHT400 5250 screen and generate a modern React web application styled with IBM Carbon, running directly on IBM i PASE.</div>
       <div class="card-meta">
-        <span class="card-tag">~20 min</span>
+        <span class="card-tag">~30 min</span>
+        <span class="card-tag">Optional</span>
         <span class="card-tag">IBM i Developer mode</span>
-        <span class="card-tag">RPGUnit workflows</span>
       </div>
     </div>
     <div class="card-chevron" aria-hidden="true">
@@ -22,42 +22,32 @@
 
   <div class="card-detail">
     <div class="card-detail-inner">
-      <div class="detail-intro">Two workflows work together in sequence:
-        <ul style="margin-top:8px;padding-left:18px;font-size:0.85rem;color:var(--muted);line-height:1.7">
-          <li><strong style="color:var(--text)">RPGUnit Test Plan Creation</strong> — analyzes exported procedures, generates Templates, Modules, Test Suites, and Test Utilities documents.</li>
-          <li><strong style="color:var(--text)">RPGUnit Test Suite Implementation</strong> — reads those documents, writes RPGUnit source members, runs the suites, and iterates until tests pass.</li>
-        </ul>
-      </div>
+      <div class="detail-intro">Use Bob to analyze the FLIGHT400 <em>Create Order</em> 5250 screen and generate a full React 18 + Vite app styled with IBM Carbon, running natively in IBM i PASE. This is an optional warm-up — it takes about 30 minutes.</div>
 
       <div class="use-cases">
 
         <div class="use-case">
           <div class="use-case-header">
             <div class="uc-num">1</div>
-            <div class="uc-title">Prerequisites — Install RPGUnit</div>
+            <div class="uc-title">Create a Helper Skill (Sharpen Your Skill)</div>
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
           <div class="uc-body"><div class="uc-body-inner">
+            <p class="uc-desc">Before generating the React app, give Bob extra context about running React + Vite on IBM i PASE by creating a small helper Skill.</p>
             <div class="mode-steps">
               <div class="mode-step">
                 <div class="step-num">1</div>
                 <div class="step-body">
-                  <div class="step-title">Verify the IBM i Testing Extension</div>
-                  <div class="step-desc">The <strong>IBM i Testing</strong> extension is included in the <strong>IBM Bob Premium Package for i</strong> installed during Setup. Open the Extensions panel (<code>Cmd+Shift+X</code> / <code>Ctrl+Shift+X</code>), search for <strong>"IBM i Testing"</strong>, and confirm it shows as <em>Installed</em>. If it is not installed, click <strong>Install</strong> now.</div>
+                  <div class="step-title">Open a new task in Agent mode</div>
+                  <div class="step-desc">In Agent mode, click the <strong>+</strong> button (top right) and select <strong>Local Workspace</strong> as the task context.</div>
                 </div>
               </div>
               <div class="mode-step">
                 <div class="step-num">2</div>
                 <div class="step-body">
-                  <div class="step-title">Install RPGUnit to IBM i</div>
-                  <div class="step-desc">Connect to your IBM i. Open Code for IBM i connection settings (gear icon, bottom of screen). Navigate to the <strong>Components</strong> tab → <strong>Add Component</strong> → select <strong>RPGUnit</strong> → <strong>Install</strong>.</div>
-                </div>
-              </div>
-              <div class="mode-step">
-                <div class="step-num">3</div>
-                <div class="step-body">
-                  <div class="step-title">Update your library list</div>
-                  <div class="step-desc">Make sure your library list includes: <code>FLGHT4nn</code>, <code>RPGUNIT</code>, <code>QDEVTOOLS</code>.</div>
+                  <div class="step-title">Paste the SAMPLE-SKILL.md content and create the skill</div>
+                  <div class="step-desc">Open <a href="https://github.com/Cameronseitz/flight400-demo-select-t-ce/blob/main/SAMPLE-SKILL.md" target="_blank" rel="noopener"><code>SAMPLE-SKILL.md</code></a> from your workspace, copy its entire content, paste it into the Bob chat, then append this instruction and send:</div>
+                  <div class="step-prompt"><pre>Create a skill from the pasted text.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
                 </div>
               </div>
             </div>
@@ -67,109 +57,66 @@
         <div class="use-case">
           <div class="use-case-header">
             <div class="uc-num">2</div>
-            <div class="uc-title">7a — Create the CUSTCHK Source Member</div>
+            <div class="uc-title">Generate the React App</div>
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
           <div class="uc-body"><div class="uc-body-inner">
-            <p class="uc-desc">Create a clean, standalone SQLRPGLE module — the ideal target for RPGUnit. In the Object Browser, find the <code>QRPGLESRC</code> folder in your <code>FLGHT4nn</code> library. Right-click → <strong>New Member</strong>.</p>
+            <p class="uc-desc">Switch to <strong>IBM i Developer</strong> mode, then click the <strong>+</strong> button and select your <strong>FLGHT4nn</strong> library list as the context. Drag or paste the FLIGHT400 screenshot below into the Bob chat prompt, then replace <code>4nn</code> and <code>30nn</code> with your assigned numbers and send.</p>
             <div class="step-screenshot">
-              <img src="img/add-member.png" alt="New member dialog in Code for IBM i"/>
-              <div class="step-screenshot-caption">Right-click QRPGLESRC → New Member</div>
+              <img src="img/flight400.png" alt="FLIGHT400 5250 Create Order screen — paste this screenshot into the Bob prompt"/>
+              <div class="step-screenshot-caption">Paste or drag this screenshot of the FLIGHT400 Create Order screen into the Bob prompt</div>
             </div>
-            <p class="uc-desc" style="margin-top:10px">Enter the name <strong><code>CUSTCHK.SQLRPGLE</code></strong> and confirm. Paste the following source into the new member and save with <strong>Ctrl/Cmd + S</strong>:</p>
-            <div class="step-prompt"><pre>**free
-ctl-opt nomain;
-
-dcl-proc checkCustomerExists export;
-  dcl-pi *n ind;
-    custId packed(9:0) const;
-  end-pi;
-
-  dcl-s rowCount int(10);
-
-  exec sql
-    select count(*)
-      into :rowCount
-      from CUSTOMRZ
-      where CUSTNO = :custId;
-
-  return (SQLCODE = 0 and rowCount > 0);
-end-proc;</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <div class="step-prompt"><pre>Given this screenshot of the 5250 flight order screen from the Application Flight4nn in @FLGHT4nn, Build a single-page React 18 + Vite 4 app on IBM i (PASE) using @carbon/react ^1.x with the g100 dark theme that modernises the IBM i 5250 screen shown in the attached screenshot. Create the app in the IFS at $HOME/flight4nn-frontend-apps/screen-name/. Use the g100 dark theme. All fields should have a list of values to select from. The dev server must run in the background using nohup … &amp; and write output to /tmp/vite-dev.log. Pin the Vite dev server to port 30nn if available.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <div class="step-screenshot">
+              <img src="img/Flight-react-agentic.png" alt="Example of the React Carbon app generated from a 5250 screen"/>
+              <div class="step-screenshot-caption">Example result — React Carbon app modernising a 5250 screen</div>
+            </div>
           </div></div>
         </div>
 
         <div class="use-case">
           <div class="use-case-header">
             <div class="uc-num">3</div>
-            <div class="uc-title">7b — Run the RPGUnit Test Plan Creation Workflow</div>
+            <div class="uc-title">Start the App and Open It in Your Browser</div>
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
           <div class="uc-body"><div class="uc-body-inner">
-            <p class="uc-desc">Click the <strong>workflow icon</strong> at the top of the Bob panel and choose <strong>RPGUnit Test Plan Creation</strong> in your library list.</p>
-            <div class="step-screenshot">
-              <img src="img/workflows-icon.png" alt="Workflows icon"/>
-              <div class="step-screenshot-caption">Workflows icon at the top of the Bob panel</div>
-            </div>
-            <div class="mode-steps">
-              <div class="mode-step">
-                <div class="step-num">1</div>
-                <div class="step-body"><div class="step-desc">Click <strong>Get Started</strong> and select your library <code>FLGHT4nn</code>.</div></div>
-              </div>
-              <div class="mode-step">
-                <div class="step-num">2</div>
-                <div class="step-body"><div class="step-desc">When prompted for the IFS project directory, enter a path unique to your library number, e.g. <code>/home/&lt;user&gt;/flght4nn</code>.</div></div>
-              </div>
-              <div class="mode-step">
-                <div class="step-num">3</div>
-                <div class="step-body"><div class="step-desc">If this is your first time, tell Bob to <strong>create a new test plan</strong> when asked. Select the <strong>default recommended path</strong> for the goal. Let Bob locate testable files automatically — it should find <code>CUSTCHK.SQLRPGLE</code> as the only suitable candidate. Select the exported procedure and proceed. Choose to <strong>validate the environment</strong>.</div></div>
-              </div>
-              <div class="mode-step">
-                <div class="step-num">4</div>
-                <div class="step-body"><div class="step-desc">If prompted to install <strong>RPGUnit</strong>, click <strong>Install</strong> and add it to your library list when asked. Do the same for <strong>QDEVTOOLS</strong> if prompted.</div></div>
-              </div>
-            </div>
-            <div class="info-box">💡 If Bob asks to run the RPGUnit Test Plan Creation workflow again at any point, select <strong>No thanks</strong>.</div>
-            <div class="info-box" style="margin-top:8px">Bob will write the test plan documents and store them in the IFS directory you specified. At the bottom of the chat panel, review the files it created — these Markdown documents will be used in 7c.</div>
+            <p class="uc-desc">After Bob generates the files, ask Bob to start the dev server for you:</p>
+            <div class="step-prompt"><pre>Please start the dev server for the app you just created.</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+            <p class="uc-desc" style="margin-top:1rem">Then open <code>http://localhost:30nn</code> in your browser — replacing <code>30nn</code> with your Dev Port from the Setup table.</p>
+            <div class="info-box">💡 <strong>Nothing showing in your browser?</strong> Make sure you have completed Step 2 of Environment Setup (the SSH tunnel) and that it includes your port number. Note that the port number and the look &amp; feel of the generated app may differ from any examples shown.</div>
           </div></div>
         </div>
 
+        <!-- Wrap-Up accordion -->
         <div class="use-case">
           <div class="use-case-header">
-            <div class="uc-num">4</div>
-            <div class="uc-title">7c — Run the RPGUnit Test Suite Implementation Workflow</div>
+            <div class="uc-num">🎉</div>
+            <div class="uc-title">Wrap-Up &amp; Lessons Learned</div>
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
           <div class="uc-body"><div class="uc-body-inner">
-            <div class="mode-steps">
-              <div class="mode-step">
-                <div class="step-num">1</div>
-                <div class="step-body"><div class="step-desc">Click the <strong>workflow icon</strong> at the top of the Bob panel and choose <strong>RPGUnit Test Suite Implementation</strong> in your library list. Click <strong>Proceed</strong> (the test plan from 7b is already ready).</div></div>
-              </div>
-              <div class="mode-step">
-                <div class="step-num">2</div>
-                <div class="step-body"><div class="step-desc">Select your library <code>FLGHT4nn</code>.</div></div>
-              </div>
-              <div class="mode-step">
-                <div class="step-num">3</div>
-                <div class="step-body"><div class="step-desc">Enter the same IFS project directory used in 7b. Confirm the path to the test suites — Bob should pre-fill the correct default.</div></div>
-              </div>
-              <div class="mode-step">
-                <div class="step-num">4</div>
-                <div class="step-body">
-                  <div class="step-desc">Choose to <strong>validate the environment</strong>. If Bob prompts to download RPGUnit again, click <strong>Install</strong>, then <strong>Cancel</strong> on the follow-up popup that asks to delete the existing version. Bob will generate the test source members, run the suites, and iterate until the new tests pass or Bob discovers an error in the source code.</div>
-                  <div class="step-screenshot">
-                    <img src="img/tests-pass.png" alt="Tests passing in the IBM i Testing panel"/>
-                    <div class="step-screenshot-caption">Test results appear in the Test Results tab at the bottom of the screen</div>
-                  </div>
-                </div>
-              </div>
+            <p class="uc-desc">In addition to the sample Skill created in step 1, a set of unique Skills shipped with the <strong>IBM Bob Premium Package for i</strong> powered this exercise:</p>
+            <table class="data-table" style="font-size:0.83rem">
+              <thead>
+                <tr><th>Tool / Skill</th><th>Role</th></tr>
+              </thead>
+              <tbody>
+                <tr><td><code>dds-primer-basics</code> skill</td><td>Parses <code>FRS001DF.DSPF</code> — screen layout, field names, subfile windows</td></tr>
+                <tr><td><code>rpg-primer-basics</code> skill</td><td>Reads <code>FRS001.RPG</code> — extracts pricing logic and field definitions</td></tr>
+                <tr><td>IFS write tools</td><td>Creates project files directly in <code>$HOME/flight4nn-react/</code> on IBM i</td></tr>
+                <tr><td>IBM i PASE</td><td>Runs <code>npm install</code>, <code>npm run build</code>, <code>npm start</code> natively on IBM i</td></tr>
+              </tbody>
+            </table>
+            <div style="margin-top:1rem">
+              <p class="uc-desc">Once you finish playing around with the React app, ask Bob to stop it:</p>
+              <div class="step-prompt" style="margin-bottom:0.75rem"><pre>Stop the web service for FLGHT4nn on port 30nn</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
+              <div class="info-box">⚠️ <strong>This app runs with sample data only.</strong> The natural next step is to add a REST / Web Services layer connecting the React front end to the real IBM i business logic and Db2 for i database.</div>
             </div>
-            <div class="info-box">💡 If any tests fail, ask Bob to explain the failure and help fix it.</div>
-            <div class="info-box" style="margin-top:8px">✅ <strong>You've used Bob's guided workflows to go from untested legacy RPG to a structured, executed RPGUnit test suite</strong> — without writing test boilerplate by hand.</div>
           </div></div>
         </div>
 
-      </div>
+      </div><!-- end use-cases -->
     </div>
   </div>
 </div>
