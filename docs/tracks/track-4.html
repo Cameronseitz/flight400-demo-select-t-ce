@@ -44,11 +44,11 @@
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
           <div class="uc-body"><div class="uc-body-inner">
-            <p class="uc-desc">Type <code>/review</code> first so it is highlighted in the Bob chat, then paste the query below. Replace <strong>all four</strong> occurrences of <code>FLGHT4nn</code> with your library number.</p>
+            <p class="uc-desc">Type <code>/review_SQL</code> first so it is highlighted in the Bob chat, then paste the query below. Replace <strong>all four</strong> occurrences of <code>FLGHT4nn</code> with your library number.</p>
             <div class="step-screenshot">
-              <img src="img/slash-review-1.jpeg" alt="Typing /review in Bob chat"/>
-              <img src="img/slash-review-2.jpeg" alt="/review command highlighted in Bob chat" style="margin-top:4px"/>
-              <div class="step-screenshot-caption">Type /review first so Bob recognizes the slash command</div>
+              <img src="img/slash-review-1.jpeg" alt="Typing /review_SQL in Bob chat"/>
+              <img src="img/slash-review-2.jpeg" alt="/review_SQL command highlighted in Bob chat" style="margin-top:4px"/>
+              <div class="step-screenshot-caption">Type /review_SQL first so Bob recognizes the slash command</div>
             </div>
             <div class="step-prompt"><pre>SELECT
     f.FLIGH00001                                    AS FLIGHT_NUMBER,
@@ -83,7 +83,7 @@ ORDER BY
     o.DEPAR00001,
     f.FLIGH00001
 FETCH FIRST 100 ROWS ONLY;</pre><button class="copy-btn" aria-label="Copy">Copy</button></div>
-            <div class="info-box">💡 <strong>Intentional issue to spot:</strong> <code>o.DEPAR00001</code> appears in the <code>ORDER BY</code> but not in the <code>GROUP BY</code> clause — logically incorrect on strict SQL engines. Bob's <code>/review</code> should flag this along with any other issues.</div>
+            <div class="info-box">💡 <strong>Intentional issue to spot:</strong> <code>o.DEPAR00001</code> appears in the <code>ORDER BY</code> but not in the <code>GROUP BY</code> clause — logically incorrect on strict SQL engines. Bob's <code>/review_SQL</code> should flag this along with any other issues.</div>
             <p class="uc-desc">Bob may inspect the connected IBM i catalog to verify names and data types. Exact results may vary, but expect findings such as:</p>
             <ul class="findings-list">
               <li class="finding-error">❌ <code>ORDER BY o.DEPAR00001</code> uses a non-grouped, non-aggregated column and may cause SQL0122. Bob may replace it with <code>MIN(o.DEPAR00001)</code>.</li>
