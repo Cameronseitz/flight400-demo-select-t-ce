@@ -176,8 +176,8 @@
   // Hero badge
   var badge = document.getElementById('hero-badge');
   if (badge) {
-    badge.insertAdjacentText('beforeend',
-      esc(cfg.companyName || 'IBM Bob') + (cfg.eventName ? ' \u00b7 ' + esc(cfg.eventName) : ''));
+    badge.insertAdjacentHTML('beforeend',
+      esc(cfg.companyName || 'IBM Bob') + (cfg.eventName ? ' &middot; ' + esc(cfg.eventName) : ''));
   }
 
   // Hero title
