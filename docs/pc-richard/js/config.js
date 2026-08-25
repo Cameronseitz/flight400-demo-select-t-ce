@@ -56,7 +56,7 @@ window.FLIGHT400_CONFIG = {
 
   // ← REPLACE with the Box folder URL containing credentials & ssh_private_key.pem
   // Set to null to hide the link entirely.
-  boxFolderUrl: null,
+  boxFolderUrl: 'https://ibm.box.com/s/ig4y95nev8fg9n4lkel5i3lz8h2lyvht',
 
   /**
    * Agenda sessions — remove this array entirely to hide the Agenda button.
