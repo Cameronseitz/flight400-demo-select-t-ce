@@ -40,7 +40,7 @@ To complete this lab, you need access to an IBM i environment. You can provision
 - Click **Connect**. 
 
 #### 4 — Deploy the files to the IFS
-- In the Bob IDE **Explorer**, right-click **`setup_flight400_lab.sh`** and choose **Deploy Selected Files**. Note the target IFS path shown in the output panel (e.g. `/home/YOURUSER/builds/ibmi-lab`).
+- In the Bob IDE **Explorer**, right-click **`setup_flight400_lab.sh`** and choose **Deploy Selected Files**. You might have to first set the deployment target on the iseries to something like `/home/YOURUSER/builds/ibmi-lab`. Note the target IFS path shown in the output panel (e.g. `/home/YOURUSER/builds/ibmi-lab`).
 - Right-click **`FLGHT400.FILE`** and choose **Deploy Selected Files** to upload it to the same IFS directory.
   ☕ This may take a minute or two — perfect time for a coffee break!
 
