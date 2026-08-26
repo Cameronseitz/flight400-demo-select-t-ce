@@ -8,7 +8,7 @@
     <div class="card-text">
       <div class="card-label">Exercise 1</div>
       <div class="card-title">Code Explanation &amp; Architecture Documentation</div>
-      <div class="card-desc">Use Bob to automatically generate an architecture overview with Mermaid diagrams, then switch to Database mode to produce an Entity Relationship Diagram of the FLIGHT400 database.</div>
+      <div class="card-desc">Use Bob to automatically generate an architecture overview with Mermaid diagrams, then switch to Database mode to produce an Entity Relationship Diagram of the FLGHT4nn database.</div>
       <div class="card-meta">
         <span class="card-tag">~30 min</span>
         <span class="card-tag">IBM i Developer mode</span>
@@ -22,7 +22,7 @@
 
   <div class="card-detail">
     <div class="card-detail-inner">
-      <div class="detail-intro">Generate a living architecture document and ERD from the legacy FLIGHT400 codebase — no manual reverse-engineering required.</div>
+      <div class="detail-intro">Generate a living architecture document and ERD from the legacy FLGHT4nn codebase — no manual reverse-engineering required.</div>
 
       <div class="use-cases">
 
@@ -33,13 +33,14 @@
             <div class="uc-arrow" aria-hidden="true"><svg viewBox="0 0 14 14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4l5 5 5-5"/></svg></div>
           </div>
           <div class="uc-body"><div class="uc-body-inner">
-            <p class="uc-desc">Explore the FLIGHT400 library structure before generating documentation.</p>
+            <p class="uc-desc">Explore the FLGHT4nn library structure before generating documentation.</p>
             <div class="mode-steps">
               <div class="mode-step">
                 <div class="step-num">1</div>
                 <div class="step-body">
                   <div class="step-title">Expand your library in the Object Browser</div>
-                  <div class="step-desc">In the IBM i sidebar, expand <strong>User Library List</strong> and <strong>Object Browser</strong>. Add a filter for<code>FLGHT4nn</code> in the object browser if not already done so, and set the filter to <code>*ALL</code> so you see all object types: <code>*PGM</code> (RPG and CL programs), <code>*FILE</code> (display and database files), <code>*MENU</code> (application menus).</div>
+                  <div class="step-desc">In the IBM i sidebar, expand <strong>User Library List</strong> and <strong>Object Browser</strong>. Add a filter for <code>FLGHT4nn</code> in the object browser if not already done so, and set the filter to <code>*ALL</code> so you see all object types: <code>*PGM</code> (RPG and CL programs), <code>*FILE</code> (display and database files), <code>*MENU</code> (application menus).</div>
+                  <div class="warn-box">⚠️ <strong>Use <code>*ALL</code>, not <code>*</code></strong> — the wildcard <code>*</code> does not work for filtering object types in the Object Browser. You must type <code>*ALL</code> exactly.</div>
                 </div>
               </div>
               <div class="mode-step">
