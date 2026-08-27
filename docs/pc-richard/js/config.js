@@ -65,37 +65,36 @@ window.FLIGHT400_CONFIG = {
     {
       time:    '1:00 PM – 1:10 PM EST',
       title:   'Welcome & Agenda',
-      bullets: ['Welcome and event objectives', 'Agenda overview']
+      bullets: ['Welcome and introductions', 'Event objectives', 'Agenda overview']
     },
     {
       time:    '1:10 PM – 1:30 PM EST',
-      title:   'Setup & Getting Started — Connecting to IBM i',
-      bullets: ['Connect Bob IDE to IBM i', 'Install Premium Package for i', 'Confirm your library and environment']
+      title:   'Setup & Getting Started: Connecting to IBM i',
+      bullets: ['Connect Bob IDE to IBM i', 'Ensure all pre-requisites complete', 'Verify library access and environment setup']
     },
     {
       time:    '1:30 PM – 3:00 PM EST',
-      title:   'How to Get the Most Out of Bob',
+      title:   'Getting the Most Out of Bob',
       bullets: [
-        'How to use custom rules working in library list',
-        'Workflows: modernization fixed to free',
-        'Workflows: automate test creation',
-        'Plan mode before longer workflows',
-        'Walkthrough: how to add a new field'
+        'Hands on learning and exercises',
+        'Using custom rules with your library list',
+        'How to use the workflows included with the premium package',
+        'Plan-driven development to tackle larger changes'
       ]
     },
     {
-      time:    '3:00 PM – 5:00 PM EST',
-      title:   'Hackathon Portion',
+      time:    '3:00 PM – 4:40 PM EST',
+      title:   'Hackathon',
       bullets: [
-        'PC Richard attendees connect to their live IBM i',
-        'IBM team present for guidance and Q&A',
-        'Show and tell'
+        'Connect Bob to your live IBM i environment',
+        'IBM team available for guidance and Q&A',
+        'Show-and-tell session if time permits'
       ]
     },
     {
-      time:    '5:00 PM – 5:20 PM EST',
+      time:    '4:40 PM – 5:00 PM EST',
       title:   'Wrap-Up & Next Steps',
-      bullets: ['Key takeaways', 'Resources and next steps', 'Open Q&A']
+      bullets: ['Key takeaways', 'Helpful resources', 'Recommended next steps', 'Open Q&A and feedback session']
     }
   ],
 
