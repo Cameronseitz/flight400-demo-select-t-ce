@@ -49,7 +49,7 @@ window.FLIGHT400_CONFIG = {
 
   companyName:  'P.C. Richard & Son',
   eventName:    'FLIGHT400 Lab',
-  eventDate:    'Your Event Date',     // ← REPLACE e.g. "Tuesday, September 9, 2026"
+  eventDate:    'Wednesday, September 2',     // ← REPLACE e.g. "Tuesday, September 9, 2026"
 
   primaryColor: '#0F62FE',             // ← optional brand color override
   accentColor:  '#F0AB00',             // ← optional accent color override
