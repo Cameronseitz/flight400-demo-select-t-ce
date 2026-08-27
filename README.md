@@ -303,24 +303,39 @@ The completed field will use the following names:
 
 ---
 
-### 3a — Load the Standing Rules into Bob
+### 3a — Create a Custom Rule for Bob
 
-Start by giving Bob the ground rules for the whole exercise. Paste this once at the very beginning — Bob keeps it in context across every later step, so the prompts that follow can stay short.
+Custom rules allow you to add personalized or organization-specific instructions to Bob's context window. Rather than pasting standing rules into chat every session, you can bake them permanently into the **IBM i Developer** mode so Bob always follows them. Follow these steps to add the rules through the UI.
 
-```
-Before we start: these rules apply to every step of this exercise. Acknowledge them, then wait for my next instruction.
-- Make insert-only changes using apply_diff with surrounding context; do not use insert_content.
-- When inserting, anchor the diff on the line ABOVE the insertion point and do not include trailing structural lines (DDS key "K ..." or record-format "R ..." lines) in the replacement — leave those lines untouched.
-- When adding a fixed-form entry that mirrors an existing one (RPG I-spec, O-spec, or DDS field), copy the model line's EXACT column positions and change only the field name and value. Re-pad so numbers stay right-justified in their original columns and the data-type letter stays in its column. If the new field name is a different length than the model, adjust the padding so every downstream column is unchanged. Never eyeball the spacing.
-- Preserve exact DDS column positions for field-definition entries (name, length, type). Keyword continuation lines like COLHDG only need to start after position 44 — do not fixate on their exact alignment.
-- Preserve the existing OPM RPG fixed-column style.
-- Do not add ALWNULL, do not use SQL ALTER TABLE, do not change the field to 5P 1.
-- COLHDG belongs only in the physical file, never in the display file.
-- Always show the diff and wait for my approval before saving; never compile until I say so.
-- Only these four objects may change: FLIGHTS, FLIGHTSZ, FRS021DF, FRS021. Any other affected program is follow-up work only.
-```
+1. Click the **settings icon** at the top right of the Bob panel.
 
-> ✅ Bob should acknowledge all the standing rules and then wait. Proceed once it confirms it's ready for your next instruction.
+   ![Settings icon at the top right of the Bob panel](docs/img/custom-mode-1.png)
+
+2. Click **Modes** on the left sidebar, then select **IBM i Developer**.
+
+   ![Modes settings panel with IBM i Developer selected](docs/img/custom-mode-2.png)
+
+3. Click the **pencil (edit) icon** in the top right to open the mode editor.
+
+   ![IBM i Developer mode detail page with pencil edit icon highlighted](docs/img/custom-mode-3.png)
+
+4. Scroll down to the **Custom Instructions** section and add the following prompt beneath the Interaction Guidelines. Then click **Save**.
+
+   ```
+   ## When a user asks to plan or implement code changes
+   - Make insert-only changes using apply_diff with surrounding context; do not use insert_content.
+   - When inserting, anchor the diff on the line ABOVE the insertion point and do not include trailing structural lines (DDS key "K ..." or record-format "R ..." lines) in the replacement - leave those lines untouched.
+   - When adding a fixed-form entry that mirrors an existing one (RPG I-spec, O-spec, or DDS field), copy the model line's EXACT column positions and change only the field name and value. Re-pad so numbers stay right-justified in their original columns and the data-type letter stays in its column. If the new field name is a different length than the model, adjust the padding so every downstream column is unchanged. Never eyeball the spacing.
+   - Preserve exact DDS column positions for field-definition entries (name, length, type). Keyword continuation lines like COLHDG only need to start after position 44 - do not fixate on their exact alignment.
+   - Preserve the existing OPM RPG fixed-column style.
+   - Do not add ALWNULL, do not use SQL ALTER TABLE, do not change the field to 5P 1.
+   - COLHDG belongs only in the physical file, never in the display file.
+   - Always show the diff and wait for my approval before saving; never compile until I say so.
+   ```
+
+   ![Edit IBM i Developer mode dialog showing custom instructions and Save button](docs/img/custom-mode-4.png)
+
+> ✅ Bob will now apply these rules automatically whenever **IBM i Developer** mode is used — no need to paste them at the start of each session.
 
 ---
 
@@ -372,7 +387,7 @@ The plan must cover and bake in these constraints:
 - FLGHT4nn/QRPGSRC(FRS021): increase the FLIGHTSZ record length from 233 to 236 for the 3-byte packed field; add FHRS to the input spec at positions 234-236 — note FHRS is packed (4P 0, 3 bytes), so use the P data-type in column 43 of the I-spec, unlike the neighboring FMILES which is binary (B); after every successful CHAIN that loads an existing flight, explicitly move FHRS to SFLHRS; move SFLHRS to FHRS on add/update; include FHRS in the ADDFLT and UPDFLT output specs — mirror the exact column alignment of the neighboring FMILES O-spec entry so the end position stays right-justified; validate consistently with existing numeric screen fields.
 - Build order at the end: CHGPF FLIGHTS, CRTLF FLIGHTSZ, CRTDSPF FRS021DF, CRTRPGPGM FRS021.
 
-Flag any other programs that use FLIGHTS or FLIGHTSZ as follow-up work only — do not include them in the plan's changes.
+Only these four objects may change: FLIGHTS, FLIGHTSZ, FRS021DF, FRS021. Any other affected program is follow-up work only. Flag any other programs that use FLIGHTS or FLIGHTSZ as follow-up work only — do not include them in the plan's changes.
 ```
 
 Bob should return a numbered plan mapping the existing Mileage path to the new field:
