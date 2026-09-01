@@ -126,7 +126,11 @@ window.FLIGHT400_CONFIG = {
     { student: 22, attendeeName: 'Steve Wolk',         library: 'FLGHT422', devPort: 3022, reactUrl: 'http://localhost:3022' },
     { student: 23, attendeeName: 'Mike Zaringhalam',   library: 'FLGHT423', devPort: 3023, reactUrl: 'http://localhost:3023' },
     { student: 24, attendeeName: 'Chuck Paolillo',     library: 'FLGHT424', devPort: 3024, reactUrl: 'http://localhost:3024' },
-    { student: 25, attendeeName: 'Alan Hamm',          library: 'FLGHT425', devPort: 3025, reactUrl: 'http://localhost:3025' }
+    { student: 25, attendeeName: 'Alan Hamm',          library: 'FLGHT425', devPort: 3025, reactUrl: 'http://localhost:3025' },
+    { student: 26, attendeeName: 'Sylvia Joseph',      library: 'FLGHT426', devPort: 3026, reactUrl: 'http://localhost:3026' },
+    { student: 27, attendeeName: 'Cameron Seitz',      library: 'FLGHT427', devPort: 3027, reactUrl: 'http://localhost:3027' },
+    { student: 28, attendeeName: 'Helen Yao',          library: 'FLGHT428', devPort: 3028, reactUrl: 'http://localhost:3028' },
+    { student: 29, attendeeName: 'Dylan Zucker',       library: 'FLGHT429', devPort: 3029, reactUrl: 'http://localhost:3029' }
   ],
 
   // tracks: ['setup', 'track-1', 'track-3', 'track-4']
