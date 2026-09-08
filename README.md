@@ -129,6 +129,7 @@ Your instructor will assign you a library number. Each participant has their own
    > ✅ If you have a 5250 terminal, you can also run: `ADDLIBLE FLGHT4nn`
 
 4. **Add your assigned library to the Object Browser** — Go to the **Object Browser** section and click the funnel icon or **Create new filter**. Name your filter, set **Libraries** to `FLGHT4nn`, and set **Object types** to `*ALL` to see all types: `*PGM` (RPG and CL programs), `*FILE` (display and database files), `*MENU` (application menus). Click **Save Settings**.
+> **📝 Note:** Replace `nn` in `FLGHT4nn` with your team number (e.g. `FLGHT401`, `FLGHT402`…). If you are working alone on the system, use `FLGHT400`.
 
    ![Object Browser filter](docs/img/add-object-filter.png)
    ![Object Browser filter fields](docs/img/object-filter-fields.png)
