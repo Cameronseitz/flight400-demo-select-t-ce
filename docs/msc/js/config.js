@@ -113,7 +113,8 @@ window.FLIGHT400_CONFIG = {
   /**
    * Attendee assignment table — MSC, Sept 16
    * Rows 1–20: MSC attendees (in order provided)
-   * Rows 21–25: CE team (alphabetical)
+   * Rows 21–26: CE team (alphabetical)
+   * Rows 27–30: SPARE
    */
   attendeeTable: [
     { student:  1, attendeeName: 'Venkatraman Suresh',    library: 'FLGHT401', devPort: 3001, reactUrl: 'http://localhost:3001' },
@@ -140,7 +141,12 @@ window.FLIGHT400_CONFIG = {
     { student: 22, attendeeName: 'Cameron Seitz',         library: 'FLGHT422', devPort: 3022, reactUrl: 'http://localhost:3022' },
     { student: 23, attendeeName: 'Dylan Zucker',          library: 'FLGHT423', devPort: 3023, reactUrl: 'http://localhost:3023' },
     { student: 24, attendeeName: 'Helen Yao',             library: 'FLGHT424', devPort: 3024, reactUrl: 'http://localhost:3024' },
-    { student: 25, attendeeName: 'Rishika Soni',          library: 'FLGHT425', devPort: 3025, reactUrl: 'http://localhost:3025' }
+    { student: 25, attendeeName: 'Rishika Soni',          library: 'FLGHT425', devPort: 3025, reactUrl: 'http://localhost:3025' },
+    { student: 26, attendeeName: 'David Fago',            library: 'FLGHT426', devPort: 3026, reactUrl: 'http://localhost:3026' },
+    { student: 27, attendeeName: 'SPARE',                 library: 'FLGHT427', devPort: 3027, reactUrl: 'http://localhost:3027' },
+    { student: 28, attendeeName: 'SPARE',                 library: 'FLGHT428', devPort: 3028, reactUrl: 'http://localhost:3028' },
+    { student: 29, attendeeName: 'SPARE',                 library: 'FLGHT429', devPort: 3029, reactUrl: 'http://localhost:3029' },
+    { student: 30, attendeeName: 'SPARE',                 library: 'FLGHT430', devPort: 3030, reactUrl: 'http://localhost:3030' }
   ],
 
   // tracks: ['setup', 'track-1', 'track-3', 'track-4']
