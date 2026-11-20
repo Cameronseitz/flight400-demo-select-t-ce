@@ -2,6 +2,8 @@
 
 > **🎓 Running a Bobathon?** Use the GitHub Pages–hosted version of this guide instead of this README — it provides a polished, event-specific experience for participants. See the [GitHub Pages Instructor Guide](instructor-setup/Github-Pages-Instructor-Guide.md) for how to set that up.
 
+> 🌐 **[Open the Lab Website](https://bmarolleau.github.io/flight400-demo/)** — interactive, copy-ready lab instructions with step-by-step exercises.
+
 > **Estimated time:** 2–3 hours
 > **Prerequisites:** IBM Bob IDE installed, internet access, IBM i TechZone LPAR (see below), and the Premium Package for i
 
@@ -29,8 +31,8 @@ Check your inbox for the **"You've been invited to join your team"** email, then
 
 4. **Verify you're on the correct team** — Click the **gear icon** above the Bob chat window. Under **General** settings, you'll see a team selector. Make sure it shows a team with **Bobathon** in the name. If not, click it and select the Bobathon account from the list.
 
-![Bob settings panel](docs/img/settings-pt1.png)
-![Bob team selector](docs/img/change-team.png)
+<img src="docs/img/settings-pt1.png" alt="Bob settings panel" width="600"/>
+<img src="docs/img/change-team.png" alt="Bob team selector" width="500"/>
 
 ---
 
@@ -119,24 +121,24 @@ Your instructor will assign you a library number. Each participant has their own
 
 2. **Add a new connection** — Click **New Connection** and enter the host IP, user profile, and `ssh_private_key` provided by your instructor. **Do not use the password here — use only the `ssh_private_key`.**
 
-   ![IBM i connection dialog](docs/img/i-connection.png)
+   <img src="docs/img/i-connection.png" alt="IBM i connection dialog" width="480"/>
 
 3. **Add your assigned library to the User Library List** — In the Code for IBM i extension, navigate to the **User Library List** section and click the **+** icon. Type `FLGHT4nn` (replace `nn` with your assigned number) and press **Enter**.
 
-   ![User Library List](docs/img/add-library.png)
-   ![Add library name input](docs/img/add-library-name.png)
+   <img src="docs/img/add-library.png" alt="User Library List" width="240"/>
+   <img src="docs/img/add-library-name.png" alt="Add library name input" width="500"/>
 
    > ✅ If you have a 5250 terminal, you can also run: `ADDLIBLE FLGHT4nn`
 
 4. **Add your assigned library to the Object Browser** — Go to the **Object Browser** section and click the funnel icon or **Create new filter**. Name your filter, set **Libraries** to `FLGHT4nn`, and set **Object types** to `*ALL` to see all types: `*PGM` (RPG and CL programs), `*FILE` (display and database files), `*MENU` (application menus). Click **Save Settings**.
 > **📝 Note:** Replace `nn` in `FLGHT4nn` with your team number (e.g. `FLGHT401`, `FLGHT402`…). If you are working alone on the system, use `FLGHT400`.
 
-   ![Object Browser filter](docs/img/add-object-filter.png)
-   ![Object Browser filter fields](docs/img/object-filter-fields.png)
+   <img src="docs/img/add-object-filter.png" alt="Object Browser filter" width="450"/>
+   <img src="docs/img/object-filter-fields.png" alt="Object Browser filter fields" width="480"/>
 
 5. **Set the workspace to Library List** — Click the **+** icon above the Bob chat window. When the options appear, make sure your library is listed under **New Task in Library List** and select that option.
 
-   ![Bob scope picker](docs/img/set-workspace.png)
+   <img src="docs/img/set-workspace.png" alt="Bob scope picker" width="580"/>
 
 ---
 
@@ -152,7 +154,7 @@ chmod 600 ssh_private_key.pem
 
 2. **Open the SSH tunnel** — Run the command below on your laptop. Replace `<myuser>@<myIPaddress>` with the values from your TechZone reservation. On macOS/Linux you may need `sudo ssh`. On Windows, remove `sudo` and run as Administrator.
 
-   ![Lab network diagram](docs/img/bob-lab-network.png)
+   <img src="docs/img/bob-lab-network.png" alt="Lab network diagram" width="700"/>
 
 ```bash
 sudo ssh -L 50000:localhost:23 -L 2001:localhost:2001 -L 449:localhost:449 -L 8470:localhost:8470 -L 8471:localhost:8471 -L 8472:localhost:8472 -L 2007:localhost:2007 -L 8473:localhost:8473 -L 8474:localhost:8474 -L 8475:localhost:8475 -L 8476:localhost:8476 -L 2003:localhost:2003 -L 2002:localhost:2002 -L 2006:localhost:2006 -L 2300:localhost:2300 -L 2323:localhost:2323 -L 2005:localhost:2005 -L 8076:localhost:8076 -L 3001:localhost:3001 -L 3002:localhost:3002 -L 3003:localhost:3003 -L 3004:localhost:3004 -L 3005:localhost:3005 -L 3006:localhost:3006 -L 3007:localhost:3007 -L 3008:localhost:3008 -L 3009:localhost:3009 -L 3010:localhost:3010 -L 3011:localhost:3011 -L 3012:localhost:3012 -L 3013:localhost:3013 -L 3014:localhost:3014 -L 3015:localhost:3015 -L 3016:localhost:3016 -L 3017:localhost:3017 -L 3018:localhost:3018 -L 3019:localhost:3019 -L 3020:localhost:3020 -L 3021:localhost:3021 -L 3022:localhost:3022 -L 3023:localhost:3023 -L 3024:localhost:3024 -L 3025:localhost:3025 -L 3026:localhost:3026 -L 3027:localhost:3027 -L 3028:localhost:3028 -L 3029:localhost:3029 -L 3030:localhost:3030 -L 3031:localhost:3031 -L 3032:localhost:3032 -L 3033:localhost:3033 -L 3034:localhost:3034 -L 3035:localhost:3035 -L 3036:localhost:3036 -L 3037:localhost:3037 -L 3038:localhost:3038 -L 3039:localhost:3039 -L 3040:localhost:3040 -L 3041:localhost:3041 -L 3042:localhost:3042 -L 3043:localhost:3043 -L 3044:localhost:3044 -L 3045:localhost:3045 -L 3046:localhost:3046 -L 3047:localhost:3047 -L 3048:localhost:3048 -L 3049:localhost:3049 -L 3050:localhost:3050 -o ExitOnForwardFailure=yes -o ServerAliveInterval=15 -o ServerAliveCountMax=3 <myuser>@<myIPaddress> -i ssh_private_key.pem
@@ -169,7 +171,7 @@ ADDLIBLE FLGHT4nn
 CALL FLGHT4nn/FRS021
 ```
 
-   ![Flight Maintenance in 5250](docs/img/ACS-green-screen.png)
+   <img src="docs/img/ACS-green-screen.png" alt="Flight Maintenance in 5250" width="600"/>
 
    > ⚠️ When finished, exit the 5250 screen by pressing **F3**.
 
@@ -177,7 +179,16 @@ CALL FLGHT4nn/FRS021
 
 ## Exercise 1 — Code Explanation & Architecture Documentation
 
-**Goal:** Use Bob's IBM i Developer mode to automatically generate an architecture overview with diagrams, then switch to Database mode to produce an Entity Relationship Diagram. This exercise takes about 30 minutes to complete.
+**Goal:** Use Bob's Understand Dashboard to map the application's programs, files, and dependencies — then generate a written architecture overview and an Entity Relationship Diagram. This exercise takes about 40 minutes to complete.
+
+> 📦 **IBM Bob Premium Package for i (PPi) — two features that change how you work with large codebases:**
+>
+> - **`/init`** — scans your library once and writes a persistent `AGENTS` context file. Every subsequent Bob session reads it automatically, so Bob always knows your source layout, compile conventions, and project-specific gotchas without re-reading source each time.
+> - **Understand** — builds a persistent, scanned dependency graph of your entire application. Instead of feeding source members to the AI, Bob queries the pre-built metadata: object inventory, inbound/outbound dependencies, signals, and usage statistics are answered instantly from the scan.
+>
+> Together, these two features make IBM i modernisation tasks **more accurate and dramatically cheaper in Bob Coins** — Bob reasons from structured metadata rather than consuming tokens re-reading hundreds of source members on every question. Less token usage, deterministic dependency data, and shared metadata across your whole team: this is what PPi is designed for.
+
+---
 
 ### 1a — Browse the Application in the Object Browser
 
@@ -190,7 +201,109 @@ CALL FLGHT4nn/FRS021
 
 5. In the Object Browser, click `FRS000.pgm` — the flight reservation logon. Check its **Detail**: it was compiled in 1997, over 30 years ago!
 
-### 1b — Generate an Architecture Explanation with Bob
+---
+
+### 1b — Initialize Bob's Context with `/init`
+
+> **New feature of IBM Bob Premium Package for i** — `/init` works in QSYS (library list), IFS, and local workspace modes.
+
+An **AGENTS.md** file gives Bob persistent, project-specific context about your codebase — source file layout, compile conventions, naming patterns, and critical gotchas. Instead of rediscovering your project from scratch each session, Bob reads this file first and immediately knows how your library is structured, which source files contain what, and what to watch out for. This makes every subsequent Bob session faster and more accurate.
+
+#### Set your current library first
+
+Before running `/init` in QSYS mode, a **current library** must be set:
+
+1. In the **Code for IBM i** sidebar, expand **User Library List**.
+2. Right-click `FLGHT4nn` and select **Set as Current Library**.
+
+> ⚠️ Without a current library set, `/init` will prompt you to set one and stop. IBM-supplied system libraries (`QGPL`, `QTEMP`) cannot be used.
+
+#### Run `/init`
+
+1. In the Bob chat panel, confirm you are in **IBM i Developer** mode with scope set to **Library List (QSYS)**.
+2. Type `/init` in the chat and press **Enter**.
+
+Bob will scan your library — measuring source files, member types, service programs, IWS web services, naming conventions, and database objects — then:
+- Create a `QBOBSRC` source physical file in `FLGHT4nn` (if it does not exist)
+- Write an `AGENTS` member at `FLGHT4nn/QBOBSRC/AGENTS` in Markdown format
+
+#### Explore the result
+
+Open the **Object Browser**, expand `FLGHT4nn` → `QBOBSRC`, and click **agents.md** to view the generated member. It contains IBM i–specific facts discovered directly from your source, for example:
+
+- Which source file holds IWS REST service programs (`EVFTEMPF01`) and why they must be compiled with `CRTSQLRPGI` instead of `CRTBNDRPG`
+- The `*Z` logical files (`AGENTSZ`, `FLIGHTSZ`, etc.) exist only for legacy Query/400 — do not use them as access paths in new code
+- Function key hex constants (`F03=X'33'`, `ENTER=X'F1'`) are declared per-program with no shared copybook
+- Display file `FRS411DF` must be compiled with `DEFER(*NO)` — a non-default parameter
+
+> 💡 **IFS and local workspace:** `/init` works the same way in IFS task mode (writes an `AGENTS.md` stream file) and in local workspace mode (writes a local `AGENTS.md` file). The content is always tailored to the workspace type Bob detects.
+
+> ✅ From this point on, every new Bob session in this library automatically reads `FLGHT4nn/QBOBSRC/AGENTS` and starts with full context about your application — no repeated setup required.
+
+---
+
+### 1c — Understand, Application Map & Dependency Analysis
+
+> **New feature of IBM Bob Premium Package for i.** The **Understand Dashboard** is included in the Premium Package — confirm it is active under Extensions before starting.
+
+The **Understand Dashboard** scans your IBM i library and builds a live dependency graph of every program, file, service program, menu, and command — without you reading a single line of source. Use it to answer "what is this application made of?" and "what breaks if I change X?" before touching any code.
+
+> 💡 **Metadata Database & Multi-Developer Sharing:** Understand is configured with a metadata database (library) to store the scanned application metadata. In a team environment, this metadata library can be shared across multiple developers so everyone benefits from a single scan, assuming each developer has the necessary authority to access the 'understand' library (ex: BOBLIB). For these labs on a shared IBM i, each lab practitioner can also create and use their own metadata library (e.g., `BOBLIBnn`, replacing `nn` with your assigned number), though in practice it could be shared.
+
+#### Open the Understand Dashboard
+
+1. In the Bob Activity Bar, click the **Understand** icon (the graph/network icon in the IBM i section), or run the command **"Get Started with Understand"** from the Bob command palette (`Cmd/Ctrl+Shift+P`). If not already done, Install the Understand Component on IBM i, specifying the 'understand' library and other necessary information. 
+
+<img src="docs/img/understand1.png" alt="Get Started with Understand command palette" width="480"/>
+ 
+
+2. If no application exists yet, click **New Application**, name it `FLGHT4nn` (replace `nn` with your number), add your application library `FLGHT4nn` (the library that contains the compiled objects, not the source) and metadata library `BOBLIBnn`, then click **Scan**. The scan takes about 30–60 seconds.
+
+> 💡 If an application named `FLGHT4nn` already exists and shows **SCANNED**, skip directly to the next step.
+
+
+<img src="docs/img/understand2.png" alt="New Application dialog in Understand Dashboard" width="560"/>
+
+#### Explore the Application Inventory
+
+Once the scan completes, the dashboard shows a summary of every object in the application. Review the inventory and answer these questions — the numbers are shown directly on the dashboard:
+
+| Question | Where to look |
+|---|---|
+| How many programs are there? | Objects panel — `PGM` row |
+| How many are OPM (legacy RPG/CL) vs ILE? | Objects panel — OPM/ILE column |
+| How many physical files (tables)? | Objects panel — `FILE / PF` row |
+| Are there any service programs? | Objects panel — `SRVPGM` row |
+| Is there any dynamic SQL? | Insight panel — Dynamic SQL risks |
+
+> 💡 **What you should find for FLGHT4nn:** ~42 programs (39 OPM, 3 ILE), 15 physical files, 6 ILE service programs (the REST API layer), and 0 dynamic SQL objects. These numbers confirm this is a classic OPM RPG application with a modern REST layer added on top.
+
+
+<img src="docs/img/understand3.png" alt="Understand Dashboard application inventory" width="600"/>
+
+#### Identify the Most Referenced Objects
+
+In the **Insights** tab, explore the **Most referenced objects** list. It shows which objects have the most inbound dependencies — these are your highest change-risk objects. Note which types of objects appear at the top and what that tells you about where the application's core data dependencies lie.
+
+<img src="docs/img/understand4.png" alt="Most referenced objects in Understand Insights tab" width="600"/>
+
+> ✅ **Summary of what Understand tells you in under 5 minutes:** Map the programs, files and dependencies in your IBM i applications. Find the most referenced objects, reveal dependencies, and review dynamic SQL, triggers and foreign keys.
+
+#### Ask Bob more about the application
+
+Switch to **IBM i Developer** mode, set the scope to your library list, and ask:
+
+> *"What are the high-level functional areas of FLGHT4nn?"*
+
+Bob activates the **understand-app-overview** skill and uses the Understand scan data to return an application overview — functional areas, key programs, and architecture diagrams — without reading individual source members.
+
+> 💡 **Tip:** The **Understand** component and **Documentation** (IBM i Documentation RAG-based tool) can be leveraged across all other steps and exercises (such as Documentation, Refactoring, and Testing). Make sure to enable both **Documentation** and **Understand** in the **Permissions** menu for each Bob Task (chat) to fully leverage these capabilities.
+
+<img src="pics/enable-permissions.png" alt="Enable Documentation and Understand permissions in Bob chat" width="560"/>
+
+---
+
+### 1d — Generate an Architecture Explanation with Bob
 
 1. Switch to **IBM i Developer** mode. Click the **+ (Scope) button** and select **(QSYS) Library List** as the context scope. Make sure `FLGHT4nn` is in the library list.
 2. Replace `nn` with your library number and type:
@@ -201,7 +314,9 @@ CALL FLGHT4nn/FRS021
 
    > 💡 Copy the output to a new file `FLGHT4nn-Architecture.md` in your workspace for reference.
 
-### 1c — Generate an Entity Relationship Diagram
+---
+
+### 1e — Generate an Entity Relationship Diagram
 
 1. Switch to **IBM i Database** mode using the mode selector. Type the slash command so `/erd` is highlighted in the Bob chat. Replace `4nn` with your number:
 
@@ -209,9 +324,11 @@ CALL FLGHT4nn/FRS021
 
 2. Bob will introspect the physical files (`FLIGHTS`, `ORDERS`, `CUSTOMERS`, `AGENTS`, etc.) and generate a Mermaid ERD. Key relationships: `ORDERS` links to `FLIGHTS`, `CUSTOMERS`, and `AGENTS`; `FLIGHTS` references `FRCITY` and `TOCITY`. Copy the ERD to your architecture document.
 
-> ✅ You now have a living architecture document generated entirely from the legacy codebase — no manual reverse-engineering required!
+> ✅ You now have a living architecture document and data model generated entirely from the legacy codebase — no manual reverse-engineering required!
 
-### 1d — *(Optional)* Generate a Draw.io Architecture Diagram
+---
+
+### 1f — *(Optional)* Generate a Draw.io Architecture Diagram
 
 > **Prerequisite:** Install the **Draw.io Integration** extension (`Cmd+Shift+X` → search *"Draw.io Integration"* → Install).
 
@@ -223,7 +340,9 @@ In the **IFS Browser**, navigate to `$HOME/docs/` and click the `.drawio` file t
 
 ![Draw.io diagram](docs/img/drawIo.png)
 
-### 1e — *(Optional)* Business Rules Extraction
+---
+
+### 1g — *(Optional)* Business Rules Extraction
 
 Drill down on a specific member using the Business Rules Extraction workflow. Click the **workflow icon** at the top of the Bob panel, choose to run the workflow in your library list, and select **Business Rules Extraction**.
 
@@ -310,15 +429,15 @@ Custom rules allow you to add personalized or organization-specific instructions
 
 1. Click the **settings icon** at the top right of the Bob panel.
 
-   ![Settings icon at the top right of the Bob panel](docs/img/custom-mode-1.png)
+   <img src="docs/img/custom-mode-1.png" alt="Settings icon at the top right of the Bob panel" width="580"/>
 
 2. Click **Modes** on the left sidebar, then select **IBM i Developer**.
 
-   ![Modes settings panel with IBM i Developer selected](docs/img/custom-mode-2.png)
+   <img src="docs/img/custom-mode-2.png" alt="Modes settings panel with IBM i Developer selected" width="580"/>
 
 3. Click the **pencil (edit) icon** in the top right to open the mode editor.
 
-   ![IBM i Developer mode detail page with pencil edit icon highlighted](docs/img/custom-mode-3.png)
+   <img src="docs/img/custom-mode-3.png" alt="IBM i Developer mode detail page with pencil edit icon highlighted" width="580"/>
 
 4. Scroll down to the **Custom Instructions** section and add the following prompt beneath the Interaction Guidelines. Then click **Save**.
 
@@ -334,7 +453,7 @@ Custom rules allow you to add personalized or organization-specific instructions
    - Always show the diff and wait for my approval before saving; never compile until I say so.
    ```
 
-   ![Edit IBM i Developer mode dialog showing custom instructions and Save button](docs/img/custom-mode-4.png)
+   <img src="docs/img/custom-mode-4.png" alt="Edit IBM i Developer mode dialog showing custom instructions and Save button" width="580"/>
 
 > ✅ Bob will now apply these rules automatically whenever **IBM i Developer** mode is used — no need to paste them at the start of each session.
 
@@ -355,7 +474,7 @@ ADDLIBLE FLGHT4nn
 CALL FLGHT4nn/FRS021
 ```
 
-![Flight Maintenance screen](docs/img/ACS-green-screen.png)
+<img src="docs/img/ACS-green-screen.png" alt="Flight Maintenance screen" width="600"/>
 
 > ⚠️ Exit the 5250 screen with **F3** before continuing.
 
@@ -491,7 +610,7 @@ Bob should confirm the complete path end-to-end:
 
 Repeat step **3b** (and optionally the 5250 view) — you should now see the new **Flight Hours** field on the flight schedule screen! 🎉
 
-![New field on screen](docs/img/newfield.png)
+<img src="docs/img/newfield.png" alt="New field on screen" width="600"/>
 
 > ✅ **Exercise 3 complete** — Total Flight Hours now flows end-to-end: `FLIGHTS.FLHRS` → `FLIGHTSZ.FHRS` → `FRS021` → `FRS021DF.SFLHRS`.
 
@@ -513,8 +632,8 @@ Type `/review` first so it is highlighted in the Bob chat, then paste the query 
 
 **Note:** Make sure to type `/review` first to ensure Bob recognizes the command.
 
-![review slash 1](docs/img/slash-review-1.jpeg)
-![review slash 2](docs/img/slash-review-2.jpeg)
+<img src="docs/img/slash-review-1.jpeg" alt="review slash 1" width="480"/>
+<img src="docs/img/slash-review-2.jpeg" alt="review slash 2" width="480"/>
 
 ```sql
 SELECT
@@ -672,20 +791,20 @@ These two workflows work together in sequence:
 
 2. **Install RPGUnit to IBM i** — Connect to your IBM i. Right-click your connection in the IBM i panel and open its settings. Navigate to the **Components** tab → **Add Component** → select **RPGUnit** → **Install**.
 
-   ![Connection settings gear icon](docs/img/components-1.png)
-   ![Components tab](docs/img/components-2.png)
-   ![Add Component](docs/img/components-3.png)
-   ![RPGUnit installation](docs/img/components-4.png)
+   <img src="docs/img/components-1.png" alt="Connection settings gear icon" width="500"/>
+   <img src="docs/img/components-2.png" alt="Components tab" width="500"/>
+   <img src="docs/img/components-3.png" alt="Add Component" width="500"/>
+   <img src="docs/img/components-4.png" alt="RPGUnit installation" width="500"/>
 
 3. **Update your library list** — Add `RPGUNIT` and `QDEVTOOLS` to your User Library List the same way you added your own library during Setup. Your list should include `FLGHT4nn`, `RPGUNIT`, and `QDEVTOOLS`.
 
-   ![Library list with testing libraries](docs/img/testing-libraries.png)
+   <img src="docs/img/testing-libraries.png" alt="Library list with testing libraries" width="480"/>
 
 ### 6a — Create the CUSTCHK Source Member
 
 In the Object Browser, find the `QRPGLESRC` folder in your `FLGHT4nn` library. Right-click → **New Member**.
 
-![New member dialog](docs/img/add-member.png)
+<img src="docs/img/add-member.png" alt="New member dialog" width="320"/>
 
 Enter the name **`CUSTCHK.SQLRPGLE`** and confirm. Paste the following source into the new member and save with **Ctrl/Cmd + S**:
 
@@ -759,7 +878,7 @@ Before generating the React app, give Bob extra context about running React + Vi
 
 Switch to **IBM i Developer** mode, then click the **+** button and select your **FLGHT4nn** library list as the context. Drag or paste the [FLIGHT400 screenshot](docs/img/flight400.png) into the Bob chat prompt, then replace `4nn` and `30nn` with your assigned numbers and send:
 
-> *"Given this screenshot of the 5250 flight order screen from the Application Flight4nn in @FLGHT4nn, Build a single-page React 18 + Vite 4 app on IBM i (PASE) using @carbon/react ^1.x with the g100 dark theme that modernises the IBM i 5250 screen shown in the attached screenshot. Create the app in the IFS at $HOME/flight4nn-frontend-apps/screen-name/. Use the g100 dark theme. All fields should have a list of values to select from. The dev server must run in the background using nohup … & and write output to /tmp/vite-dev.log. Pin the Vite dev server to port 30nn if available."*
+> *"Given this screenshot of the 5250 flight order screen from the Application Flight4nn in @FLGHT4nn, Build a single-page React 18 + Vite 4 app on IBM i (PASE) using @carbon/react ^1.x with the g100 dark theme that modernises the IBM i 5250 screen shown in the attached screenshot. Create the app in the IFS at $HOME/flight4nn-frontend-apps/screen-name/. Use the g100 dark theme. All fields should have a list of values to select from. The dev server must run in the background using nohup ... & and write output to /tmp/vite-dev.log. Pin the Vite dev server to port 30nn if available."*
 
 ### Step 3 — Start the App and Open It in Your Browser
 
@@ -797,7 +916,7 @@ Congratulations! In this lab you:
 | Exercise | What You Did |
 |---|---|
 | **Setup** | Installed Bob, connected to IBM i, and found your assigned library |
-| **Exercise 1** | Generated architecture docs and an ERD with Bob |
+| **Exercise 1** | Initialized Bob context with `/init`, mapped the application with the Understand Dashboard, generated architecture docs and an ERD with Bob |
 | **Exercise 2** | Explained and modernized OPM RPG `FRS409` to free-format ILE RPG |
 | **Exercise 3** | Added a new field end-to-end through DDS and RPG with Bob's help |
 | **Exercise 4** | Reviewed and optimized a SQL query using Bob's database tools |

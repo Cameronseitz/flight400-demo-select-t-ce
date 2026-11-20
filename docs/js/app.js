@@ -1,5 +1,25 @@
 (function () {
 
+  // ── THEME TOGGLE ──────────────────────────────────────────────────────────
+  var html = document.documentElement;
+  var savedTheme = 'dark';
+  try {
+    savedTheme = localStorage.getItem('flight400-theme') || 'dark';
+  } catch (e) {}
+  html.setAttribute('data-theme', savedTheme);
+
+  var themeBtn = document.getElementById('theme-toggle-btn');
+  if (themeBtn) {
+    themeBtn.addEventListener('click', function () {
+      var current = html.getAttribute('data-theme') || 'dark';
+      var next = current === 'light' ? 'dark' : 'light';
+      html.setAttribute('data-theme', next);
+      try {
+        localStorage.setItem('flight400-theme', next);
+      } catch (e) {}
+    });
+  }
+
   // ── STARFIELD ──────────────────────────────────────────────────────────────
   var c = document.getElementById('stars-canvas');
   var ctx = c.getContext('2d');
@@ -24,13 +44,15 @@
   }
   function drawStars() {
     ctx.clearRect(0, 0, W, H);
+    var isLight = document.documentElement.getAttribute('data-theme') === 'light';
+    var starColor = isLight ? '60,80,160,' : '180,200,255,';
     for (var i = 0; i < stars.length; i++) {
       var s = stars[i];
       s.a = Math.max(0.08, Math.min(1, s.a + s.da));
       if (s.a <= 0.08 || s.a >= 1) s.da *= -1;
       ctx.beginPath();
       ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(180,200,255,' + s.a + ')';
+      ctx.fillStyle = 'rgba(' + starColor + s.a + ')';
       ctx.fill();
     }
     requestAnimationFrame(drawStars);
